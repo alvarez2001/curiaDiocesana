@@ -1,0 +1,32 @@
+<a [routerLink]="['/administrador/usuarios/crear-usuario']" routerLinkActive="is-active" class="panel-block ">
+  <span class="panel-icon">
+    <i class="fas fa-user-plus"></i>
+  </span>
+  Crear cuenta
+</a>
+<a class="panel-block" [routerLink]="['/administrador/usuarios/listar-inactivos']" routerLinkActive="is-active">
+  <span class="panel-icon">
+    <i class="fas fa-users"></i>
+  </span>
+  Listar cuentas <small>( Inactivas )</small>
+</a>
+<a class="panel-block"  [routerLink]="['/administrador/usuarios/listar-activos']" routerLinkActive="is-active">
+  <span class="panel-icon">
+    <i class="far fa-list-alt"></i>
+  </span>
+  Listar cuentas <small>( Activas )</small>
+</a>
+
+<a class="panel-block"  [routerLink]="['/administrador/usuarios/agregar-permisos']" routerLinkActive="is-active">
+  <span class="panel-icon">
+    <i class="fas fa-plus-circle"></i>
+  </span>
+  Agregar permisos
+</a>
+
+<a class="panel-block"  [routerLink]="['/administrador/usuarios/eliminar-permisos']" routerLinkActive="is-active">
+  <span class="panel-icon">
+    <i class="fas fa-minus-circle"></i>
+  </span>
+  Eliminar permisos
+</a>

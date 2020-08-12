@@ -1,0 +1,72 @@
+<nav class="navbar " [ngClass]="{'is-info': path === 'administrador', 'is-primary':path !== 'administrador'}" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item is-uppercase" [routerLink]="['/']">
+      <h1>Diócesis de carúpano</h1>
+    </a>
+
+    <a
+      role="button"
+      class="navbar-burger burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarBasicExample"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+
+      <ng-container *ngIf="path === 'administrador'; else itemNavbarSolicitante">
+        <a class="navbar-item">
+          Inicio
+        </a>
+        <a class="navbar-item">
+          Usuarios
+        </a>
+      </ng-container>
+
+      <ng-template #itemNavbarSolicitante>
+        <a class="navbar-item">
+          Solicitante
+        </a>
+      </ng-template>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+
+        <!-- <figure class="navbar-item image is-flex-desktop  is-hidden-touch">
+          <img
+            src="https://bulma.io/images/placeholders/256x256.png"
+            class="is-rounded "
+          />
+        </figure> -->
+        <a href="#" class="navbar-link ">
+          José miguel alvarez suarez
+        </a>
+
+        <div class="navbar-dropdown is-right">
+          <a href="#" class="navbar-item is-active">
+            Cambiar contraseña
+          </a>
+          <hr class="navbar-divider" />
+          <a href="#" class="navbar-item">
+            configuracion de la cuenta
+          </a>
+          <a href="#" class="navbar-item">
+            cerrar sesión
+          </a>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+

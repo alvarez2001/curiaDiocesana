@@ -1,0 +1,39 @@
+<div class="columns is-multiline">
+  <div class="column is-12">
+    <h2 class=" title has-text-centered is-uppercase">
+      {{tituloPrincipal}}
+    </h2>
+  </div>
+
+  <div class="column is-12">
+    <div class="table-container">
+      <table
+        class="table has-text-centered  is-striped is-narrow is-hoverable is-fullwidth"
+      >
+        <thead class="has-background-info">
+          <tr>
+            <th class="has-text-white">Apellidos y Nombres</th>
+
+            <th class="has-text-white">Cédula</th>
+            <th class="has-text-white">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Alvarez Suarez, Jose miguel</td>
+
+            <td>V28251308</td>
+            <td class="buttons mb-0 is-centered" >
+                <button class="button mb-0 is-info" (click)="mostrarInfo('asd')">Info</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+
+

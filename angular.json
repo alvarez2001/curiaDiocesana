@@ -28,6 +28,9 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/animate.css/animate.css",
+              "node_modules/bulma/bulma.sass",
               "src/styles.scss"
             ],
             "scripts": []
@@ -92,6 +95,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "curiaDiocesana"
+    }
+  },
+  "defaultProject": "curiaDiocesana",
+  "cli": {
+    "analytics": "06efd441-13e0-489b-a6e4-621779bc9536"
+  }
 }

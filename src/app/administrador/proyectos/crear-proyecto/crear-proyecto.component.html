@@ -1,0 +1,150 @@
+<form method="POST" class="">
+
+  <div class="columns is-multiline">
+
+    <div class="column is-12">
+      <h2 class="has-text-centered title is-uppercase">Registrar proyecto</h2>
+    </div>
+
+    <div class="field mb-0 pb-0 column is-12">
+      <label class="label">Nombre</label>
+      <div class="control  has-icons-left">
+        <input
+          class="input is-info"
+          autocomplete="off"
+          type="text"
+          placeholder="Introduce el nombre del proyecto"
+        />
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-file-signature"></i>
+        </span>
+      </div>
+      <!-- <p class="help is-success">This username is available</p> -->
+    </div>
+
+    <div class="field column mb-0 pb-0 is-6-tablet">
+      <label class="label">Código</label>
+      <div class="control has-icons-left">
+        <input
+          class="input is-info"
+          type="text"
+          placeholder="Introduce el código del proyecto"
+          autocomplete="off"
+        />
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-code"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field column mb-0 pb-0 is-6-tablet">
+      <label class="label">Alias</label>
+      <div class="control has-icons-left">
+        <input
+          class="input is-info"
+          type="text"
+          placeholder="Introduce el Alias del proyecto"
+          autocomplete="off"
+        />
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-file-alt"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field column mb-0 pb-0 is-6-tablet">
+      <label class="label">Monto aprobado</label>
+      <div class="control has-icons-left">
+        <input
+          appSeparadorMiles
+          class="input is-info"
+          type="text"
+          placeholder="Introduce el monto aprobado"
+          autocomplete="off"
+        />
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-dollar-sign"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field column mb-0 pb-0 is-6-tablet">
+      <label class="label">Porcentaje de comisión</label>
+      <div class="control has-icons-left">
+        <div class="select is-fullwidth is-info">
+          <select name="country">
+            <option value="">Seleccione el % de comisión</option>
+            <option value="0">0%</option>
+            <option value="0.10">10%</option>
+
+          </select>
+
+        </div>
+
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-dollar-sign"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field column mb-0 pb-0 is-6-tablet">
+      <label class="label">Monto disponible</label>
+      <div class="control has-icons-left">
+        <input
+          class="input is-info"
+          type="number"
+          disabled
+          placeholder="Introduce el monto disponible"
+          autocomplete="off"
+        />
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-dollar-sign"></i>
+        </span>
+
+      </div>
+    </div>
+
+    <div class="field column mb-0 pb-0 is-6-tablet">
+      <label class="label">Comisión</label>
+      <div class="control has-icons-left">
+        <input
+          disabled
+          class="input is-info"
+          type="number"
+          placeholder="Introduce la Comisión"
+          autocomplete="off"
+        />
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-dollar-sign"></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="field column mb-0 pb-0">
+      <label class="label">Usuario con acceso al proyecto</label>
+      <div class="control has-icons-left">
+        <div class="select is-fullwidth is-info">
+          <select name="country">
+            <option selected disabled value="">Seleccione el usuario con acceso al proyecto</option>
+            <option value="miguek">Jose miguel</option>
+          </select>
+        </div>
+
+        <span class="icon is-small is-left has-text-link-dark">
+          <i class="fas fa-id-card"></i>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="field has-text-centered is-family-monospace">
+    <p class="control py-2">
+      <button class="button is-info is-uppercase" type="button">
+        Registrar proyecto
+      </button>
+    </p>
+
+
+  </div>
+</form>
