@@ -1,27 +1,37 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogRegService } from 'src/app/services/login/log-reg.service';
+import { Store,select } from "@ngrx/store";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar-administrador',
   templateUrl: './navbar-administrador.component.html',
-  styles: [
+  providers:[
+    LogRegService
   ]
 })
 export class NavbarAdministradorComponent implements OnInit, AfterViewInit {
 
 
   public path: string;
-
-  constructor(private router:Router,private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute,private loginSvc:LogRegService) {
+  }
 
   ngOnInit(): void {
     this.path = this.route.snapshot.routeConfig.path;
+    this.nameUser()
   }
 
   ngAfterViewInit(){
      this.activarNavbar();
   }
 
+  nameUser(){
+    const user = this.loginSvc.getDetailUser();
+
+    return `${user.apellidos}, ${user.nombres}`;
+  }
 
 
   private activarNavbar(){

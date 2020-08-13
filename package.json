@@ -27,8 +27,10 @@
     "@ngrx/store-devtools": "^9.2.0",
     "animate.css": "^4.1.0",
     "bulma": "^0.9.0",
+    "bulma-extensions": "^6.2.7",
     "jquery": "^3.5.1",
     "rxjs": "~6.5.5",
+    "sweetalert2": "^9.17.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

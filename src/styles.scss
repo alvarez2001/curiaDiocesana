@@ -1,9 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import '../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css';
 
 @import './assets/css/all.css';
 
-
+.pageloader{
+  background-color: rgba(0, 0, 0, 0.771) ;
+}
 
 .is-image-200px{
   width: 200px;
@@ -17,6 +19,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 .box-transparent{
   background-color: rgba(255, 255, 255, 0.5);
@@ -61,4 +64,9 @@ select select::placeholder, .textarea::placeholder, .input::placeholder {
 }
 .cdk-overlay-dark-backdrop{
   background-color: rgba(0,0,0,0.8);
+}
+.swal2-success-circular-line-right,
+.swal2-success-fix,
+.swal2-success-circular-line-left{
+  background: transparent!important;
 }

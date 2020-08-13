@@ -1,51 +1,86 @@
-<form method="POST" class="animate__animated animate__fadeInLeft">
+<form method="POST" [formGroup]="formLogin" class="animate__animated animate__fadeInLeft" (ngSubmit)="loginUser()">
+  <h2 class="subtitle has-text-centered">Iniciar sesión</h2>
   <div class="field">
     <label class="label">Usuario</label>
     <div class="control has-icons-left">
       <input
-        class="input is-info"
+        class="input"
+        [ngClass]="{
+          'is-danger': formLogin.get('usuario')?.errors,
+          'is-success': formLogin.get('usuario')?.errors === null
+        }"
         autocomplete="off"
         type="text"
         placeholder="Introduce tu usuario"
+        formControlName="usuario"
       />
-      <span class="icon is-small is-left has-text-link-dark">
+      <span class="icon is-small is-left"
+      [ngClass]="{
+        'has-text-danger': formLogin.get('usuario')?.errors,
+        'has-text-link-dark': formLogin.get('usuario')?.errors === null
+      }">
         <i class="fas fa-user"></i>
       </span>
     </div>
-    <!-- <p class="help is-success">This username is available</p> -->
+    <p
+    class="help"
+    [ngClass]="{
+      'is-danger': formLogin.get('usuario')?.errors,
+      'is-dark': formLogin.get('usuario')?.errors === null
+    }"
+  >
+    {{ mostrarErrores("usuario") }}
+  </p>
   </div>
 
   <div class="field">
     <label class="label">Contraseña</label>
     <div class="control has-icons-left">
       <input
-        class="input is-info"
+        class="input"
+        [ngClass]="{
+          'is-danger': formLogin.get('password')?.errors,
+          'is-success': formLogin.get('password')?.errors === null
+        }"
         type="password"
         placeholder="Introduce tu contraseña"
         autocomplete="off"
+        formControlName="password"
       />
-      <span class="icon is-small is-left has-text-link-dark">
+      <span class="icon is-small is-left"
+      [ngClass]="{
+        'has-text-danger': formLogin.get('password')?.errors,
+        'has-text-link-dark': formLogin.get('password')?.errors === null
+      }">
         <i class="fas fa-key"></i>
       </span>
     </div>
-    <!-- <p class="help is-danger">This email is invalid</p> -->
+    <p
+    class="help"
+    [ngClass]="{
+      'is-danger': formLogin.get('password')?.errors,
+      'is-dark': formLogin.get('password')?.errors === null
+    }"
+  >
+    {{ mostrarErrores("password") }}
+  </p>
   </div>
 
   <div class="field has-text-centered is-family-monospace">
     <p class="control py-2">
-      <button [routerLink]="['administrador']" class="button is-info is-uppercase" type="button">
+      <button class="button is-info is-uppercase" type="submit" [disabled]="formLogin.invalid || (pantallaCarga$ | async)">
         Iniciar sesión
       </button>
     </p>
 
     <p class="is-size-6">
-      <a [routerLink]="['registro']" rou class="has-text-dark"
+      <a [routerLink]="['/registro']" rou class="has-text-dark"
         >¿ No tienes cuenta ? REGISTRATE YA</a
       >
     </p>
 
     <p class="is-size-6">
-      <a [routerLink]="['recuperar']"  class="has-text-dark"
+      <a [routerLink]="['/recuperar']"  class="has-text-dark"
         >¿ Has olvidado tu contraseña ?</a
       >
     </p>

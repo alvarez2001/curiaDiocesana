@@ -1,41 +1,95 @@
-<form method="POST" class="animate__animated animate__fadeInLeft">
+<form
+  method="POST"
+  class="animate__animated animate__fadeInLeft"
+  [formGroup]="formRegister"
+  (ngSubmit)="RegisterUser()"
+>
+
+<h2 class="subtitle has-text-centered">Crear cuenta solicitante</h2>
+
   <div class="columns is-multiline">
     <div class="field mb-0 pb-0 column is-6-tablet">
       <label class="label">Nombres</label>
       <div class="control has-icons-left">
         <input
-          class="input is-info"
+          class="input"
+          [ngClass]="{
+            'is-danger': formRegister.get('nombres')?.errors,
+            'is-success': formRegister.get('nombres')?.errors === null
+          }"
           autocomplete="off"
           type="text"
           placeholder="Introduce tus nombres"
+          formControlName="nombres"
         />
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('nombres')?.errors,
+            'has-text-link-dark': formRegister.get('nombres')?.errors === null
+          }"
+        >
           <i class="fas fa-user"></i>
         </span>
       </div>
-      <!-- <p class="help is-success">This username is available</p> -->
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('nombres')?.errors,
+          'is-dark': formRegister.get('nombres')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("nombres") }}
+      </p>
     </div>
 
     <div class="field column mb-0 pb-0 is-6-tablet">
       <label class="label">Apellidos</label>
       <div class="control has-icons-left">
         <input
-          class="input is-info"
+          class="input"
+          [ngClass]="{
+            'is-danger': formRegister.get('apellidos')?.errors,
+            'is-success': formRegister.get('apellidos')?.errors === null
+          }"
           type="text"
           placeholder="Introduce tus apellidos"
           autocomplete="off"
+          formControlName="apellidos"
         />
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('apellidos')?.errors,
+            'has-text-link-dark': formRegister.get('apellidos')?.errors === null
+          }"
+        >
           <i class="fas fa-user"></i>
         </span>
       </div>
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('apellidos')?.errors,
+          'is-dark': formRegister.get('apellidos')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("apellidos") }}
+      </p>
     </div>
 
     <div class="field column mb-0 pb-0 is-6-tablet">
       <label class="label">Nacionalidad</label>
       <div class="control has-icons-left">
-        <div class="select is-fullwidth is-info">
-          <select name="country">
+        <div
+          class="select is-fullwidth"
+          [ngClass]="{
+            'is-danger': formRegister.get('nacionalidad')?.errors,
+            'is-success': formRegister.get('nacionalidad')?.errors === null
+          }"
+        >
+          <select formControlName="nacionalidad">
+            <option disabled value="">Seleccione la nacionalidad</option>
             <option value="V">Venezolano ( V )</option>
             <option value="P">Pasaporte ( P )</option>
             <option value="E">Extranjero ( E )</option>
@@ -43,84 +97,186 @@
           </select>
         </div>
 
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('nacionalidad')?.errors,
+            'has-text-link-dark':
+              formRegister.get('nacionalidad')?.errors === null
+          }"
+        >
           <i class="fas fa-passport"></i>
         </span>
       </div>
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('nacionalidad')?.errors,
+          'is-dark': formRegister.get('nacionalidad')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("nacionalidad") }}
+      </p>
     </div>
 
     <div class="field column mb-0 pb-0">
       <label class="label">Cédula</label>
       <div class="control has-icons-left">
         <input
-          class="input is-info"
-          type="number"
-          placeholder="Introduce tu cedula"
+          class="input"
+          [ngClass]="{
+            'is-danger': formRegister.get('cedula')?.errors,
+            'is-success': formRegister.get('cedula')?.errors === null
+          }"
+          type="text"
+          placeholder="Introduce tu cédula"
           autocomplete="off"
+          min="0"
+          formControlName="cedula"
         />
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('cedula')?.errors,
+            'has-text-link-dark': formRegister.get('cedula')?.errors === null
+          }"
+        >
           <i class="fas fa-id-card"></i>
         </span>
       </div>
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('cedula')?.errors,
+          'is-dark': formRegister.get('cedula')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("cedula", "caracteres numericos") }}
+      </p>
     </div>
 
     <div class="field column is-12 mb-0 pb-0">
       <label class="label">Email</label>
       <div class="control has-icons-left">
         <input
-          class="input is-info"
+          class="input"
+          [ngClass]="{
+            'is-danger': formRegister.get('email')?.errors,
+            'is-success': formRegister.get('email')?.errors === null
+          }"
           type="email"
           placeholder="Introduce tu Email"
           autocomplete="off"
+          formControlName="email"
         />
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('email')?.errors,
+            'has-text-link-dark': formRegister.get('email')?.errors === null
+          }"
+        >
           <i class="fas fa-at"></i>
         </span>
       </div>
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('email')?.errors,
+          'is-dark': formRegister.get('email')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("email", "un email valido") }}
+      </p>
     </div>
 
     <div class="field column mb-0 pb-0">
       <label class="label">Usuario</label>
       <div class="control has-icons-left">
         <input
-          class="input is-info"
+          class="input"
+          [ngClass]="{
+            'is-danger': formRegister.get('usuario')?.errors,
+            'is-success': formRegister.get('usuario')?.errors === null
+          }"
           type="text"
           placeholder="Introduce tu usuario"
           autocomplete="off"
+          formControlName="usuario"
         />
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('usuario')?.errors,
+            'has-text-link-dark': formRegister.get('usuario')?.errors === null
+          }"
+        >
           <i class="fas fa-user"></i>
         </span>
       </div>
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('usuario')?.errors,
+          'is-dark': formRegister.get('usuario')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("usuario") }}
+      </p>
     </div>
 
     <div class="field column mb-0 pb-0">
       <label class="label">Contraseña</label>
       <div class="control has-icons-left">
         <input
-          class="input is-info"
-          type="text"
+          class="input"
+          [ngClass]="{
+            'is-danger': formRegister.get('password')?.errors,
+            'is-success': formRegister.get('password')?.errors === null
+          }"
+          type="password"
           placeholder="Introduce tu contraseña"
           autocomplete="off"
+          formControlName="password"
         />
-        <span class="icon is-small is-left has-text-link-dark">
+        <span
+          class="icon is-small is-left"
+          [ngClass]="{
+            'has-text-danger': formRegister.get('password')?.errors,
+            'has-text-link-dark': formRegister.get('password')?.errors === null
+          }"
+        >
           <i class="fas fa-key"></i>
         </span>
       </div>
+      <p
+        class="help"
+        [ngClass]="{
+          'is-danger': formRegister.get('password')?.errors,
+          'is-dark': formRegister.get('password')?.errors === null
+        }"
+      >
+        {{ mostrarErrores("password") }}
+      </p>
     </div>
   </div>
 
   <div class="field has-text-centered is-family-monospace">
     <p class="control py-2">
-      <button class="button is-info is-uppercase" type="button">
+      <button
+        [disabled]="formRegister.invalid || (pantallaCarga$ | async)"
+        class="button is-info is-uppercase"
+        type="submit"
+      >
         Registrarse
       </button>
     </p>
 
     <p class="is-size-6">
-      <a [routerLink]="['']" rou class="has-text-dark"
+      <a  [routerLink]="['/']" class="has-text-dark"
         >¿Ya tienes cuenta? INGRESA YA</a
       >
     </p>
   </div>
 </form>
+

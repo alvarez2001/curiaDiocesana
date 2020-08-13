@@ -1,1 +1,4 @@
 <router-outlet></router-outlet>
+<div class="pageloader" [ngClass]="{
+  'is-active':pantallaCarga$ | async
+}"><span class="title">Cargando...</span></div>
