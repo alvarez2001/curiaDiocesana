@@ -1,6 +1,6 @@
-import { createReducer, on, State } from "@ngrx/store";
+import { createReducer, on, State, Action } from "@ngrx/store";
 import * as actions from '../actions/login.actions';
-import { HttpErrorResponse } from '@angular/common/http';
+import { BasicDataReducers } from '../administrador/usuarios/models/usersInactive.models';
 
 const _registerUser = createReducer({},
   on(actions.loadRegister,(state,userData) => userData),
@@ -64,3 +64,40 @@ const _recoveryPassword = createReducer({},
     export function detailUser(state,action){
       return _detailUser(state,action)
     }
+
+const initialStateLogout:BasicDataReducers = {
+  failedData:null,
+  loading:false,
+  success:3
+};
+
+const _LogoutUser = createReducer(
+  initialStateLogout,
+  on(actions.LoadLogoutUser, (state) => {
+    return {
+      ...state,
+      loading:true,
+      failedData:null,
+      success:3
+    }
+  }),
+  on(actions.SuccessLogoutUser, (state, {successData}) => {
+    return {
+      ...state,
+      loading:false,
+      success:1
+
+    }
+  }),
+  on(actions.FailedLogoutUser,(state, {failedData}) => {
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  })
+)
+
+export function LogoutUser(state:BasicDataReducers,action:Action){
+  return _LogoutUser(state,action)
+}

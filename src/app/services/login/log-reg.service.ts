@@ -4,6 +4,7 @@ import { Global } from "../Global";
 import { Observable } from 'rxjs';
 import { userDataInterface } from "../../models/user.model";
 import { SharedService } from '../shared/shared.service';
+import { UserModel } from 'src/app/administrador/usuarios/models/usersInactive.models';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,14 @@ export class LogRegService {
 
 
    detailDataUser():Observable<any>{
-     const headers = new HttpHeaders().set('Authorization', this.getToken())
-    return this.http.get(`${this.url}informacion/usuario/activo`,{headers})
+    return this.http.get(`${this.url}informacion/usuario/activo`)
    }
+
+
+   logoutUser():Observable<{message:string}>{
+    return this.http.get<{message:string}>(`${this.url}logout`)
+   }
+
 
 
    cleanSessionStorage(){
@@ -41,28 +47,31 @@ export class LogRegService {
 
    setDetailUser(data){
     this.redirigirUsuario(data.tipo)
-    const basicData = {
-      nombres:data.nombres,
-      apellidos:data.apellidos,
-      nacionalidad:data.nacionalidad,
-      cedula:data.cedula,
-      status:data.status
-    }
-    this.setDetailUserStorage(basicData)
+
+    this.setDetailUserStorage(data)
    }
 
-   private setDetailUserStorage(basicData){
+   setDetailUserStorage(basicData){
     sessionStorage.setItem('detailUser', JSON.stringify(basicData))
    }
 
-   getDetailUser(){
+   getDetailUser():UserModel {
      return JSON.parse(sessionStorage.getItem('detailUser'))
    }
 
 
    setSessionStorage(data){
+     this.setPermisos(data.permisos)
      this.setStorageToken(data);
      this.setTipoUsuario(data.tipo_usuario)
+   }
+
+   setPermisos(permisos){
+     sessionStorage.setItem('permisos',JSON.stringify(permisos))
+   }
+
+   getPermisos():string[] {
+     return JSON.parse(sessionStorage.getItem('permisos'))
    }
 
    private setTipoUsuario(data){
@@ -83,6 +92,11 @@ export class LogRegService {
    }
 
    /* 0 => solicitante, 1 => administrador */
+   /* 0 => inactivo, 1 => activo */
+
+   devolverTipoUsuario(tipo:number){
+    return (tipo === 0) ? 'Solicitante' : 'Administrador'
+   }
 
    redirigirUsuario(tipo:number){
     switch (tipo) {

@@ -25,3 +25,8 @@ export const failedLoginUser = createAction('[Inicio-Sesion Component] failed',p
 export const loadDetailUser = createAction('[Inicio-sesion Component] detailUser load')
 export const successDetailUser = createAction('[Inicio-sesion Component] detailUser success',props<{successData}>())
 export const failedDetailUser = createAction('[Inicio-sesion Component] detailUser failed',props<{failedData}>())
+
+
+export const LoadLogoutUser = createAction('[LOGOUT-USER] LOAD LOGOUT');
+export const SuccessLogoutUser = createAction('[LOGOUT-USER] SUCCESS LOGOUT', props<{successData:string}>())
+export const FailedLogoutUser = createAction('[LOGOUT-USER] FAILED LOGOUT', props<{failedData:HttpErrorResponse}>())

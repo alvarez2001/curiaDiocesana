@@ -1,0 +1,113 @@
+<div class="container">
+  <h1 class="title has-text-centered is-uppercase pt-3"> Mis datos </h1>
+
+
+  <ng-container *ngIf="(detailUser$ | async) as detail">
+
+
+    <h3 class="mb-0 mt-4 has-text-centered" *ngIf="detail.success === 3"> Cargando datos... </h3>
+
+    <div *ngIf="detail.success === 2" class="has-text-centered">
+      <button class="button is-danger " (click)="cargarInfo()">Cargar nuevamente la información</button>
+    </div>
+
+  <div *ngIf="detail.success === 1">
+
+    <h2 class="subtitle mb-0 mt-4">La ultima actualización fue {{fechaHaceCuandoFueUltima(detail?.successData?.updated_at)}}</h2>
+
+    <div class="columns is-multiline margin-auto" >
+      <div class="column is-12 is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Nombres</label>
+          <div class="control has-icons-left">
+            <input class="input is-info" readonly type="text" placeholder="Text input" [value]="detail.successData.nombres">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="column is-12 is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Apellidos</label>
+          <div class="control has-icons-left">
+            <input class="input is-info" readonly type="text" placeholder="Text input" [value]="detail.successData.apellidos">
+            <span class="icon is-small is-left">
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="column is-12 is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Cédula</label>
+          <div class="control has-icons-left">
+            <input class="input is-info" readonly type="text" placeholder="Text input" [value]="detail.successData.cedula">
+            <span class="icon is-small is-left">
+              <i class="fas fa-passport"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="column is-12 is-8-tablet is-8-desktop">
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control has-icons-left">
+            <input class="input is-info" readonly type="text" placeholder="Text input" [value]="detail.successData.email">
+            <span class="icon is-small is-left">
+              <i class="fas fa-at"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-12 is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Fecha de creación</label>
+          <div class="control has-icons-left">
+            <input class="input is-info" readonly type="text" placeholder="Text input" [value]="fechaFormatNow(detail.successData.created_at)">
+            <span class="icon is-small is-left">
+              <i class="fas fa-calendar-alt"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="column is-12 ">
+
+        <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <a class="button is-info" [routerLink]="['modificar-datos']">
+              Modificar datos
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-primary" [routerLink]="['modificar-clave']">
+              Cambiar contraseña
+            </a>
+          </p>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+  </ng-container>
+
+
+</div>

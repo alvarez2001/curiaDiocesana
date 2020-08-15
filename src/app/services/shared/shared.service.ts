@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { ValidationErrors, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2'
@@ -67,13 +67,18 @@ export class SharedService {
 
     const conexionFallida = `<ul><li>Revise su internet</li></ul>`;
 
-    switch (data.status) {
-      case 0:
-        return this.alertError(conexionFallida, 'Conexión fallida con el servidor');
-      case 406:
-        return this.alertStatusErrorDefault(data,'Error encontrado')
-      default:
-        return this.alertStatusErrorDefault(data);;
+    if(data?.status){
+      switch (data.status) {
+        case 0:
+          return this.alertError(conexionFallida, 'Conexión fallida con el servidor');
+        case 406:
+          return this.alertStatusErrorDefault(data,'Error encontrado');
+
+        case 403:
+          return this.alertStatusErrorDefault(data,'Permiso denegado')
+        default:
+          return this.alertStatusErrorDefault(data);;
+      }
     }
   }
   /* 3uurvjzdhDDQrX */
@@ -119,6 +124,19 @@ export class SharedService {
     return ul;
   }
 
+
+
+  enabled(form:FormGroup){
+    for (const key in form.value) {
+      form.controls[key].enable()
+    }
+  }
+
+  disabled(form:FormGroup){
+    for (const key in form.value) {
+      form.controls[key].disable()
+    }
+  }
 
 
 }

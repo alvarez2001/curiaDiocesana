@@ -7,6 +7,7 @@ import { registerFailed,registerSuccess,SuccessRecoveryPassword,FailedRecoveryPa
 import { of } from 'rxjs';
 import { Store } from "@ngrx/store";
 import { SharedService } from '../services/shared/shared.service';
+import * as actions from "../actions/login.actions";
 
 @Injectable()
 export class LoginEffects {
@@ -149,6 +150,41 @@ export class LoginEffects {
         map(val => loadOff())
       )
     })
+  ))
+
+
+  /* LOGOUT USER */
+
+  LoadLogoutUser = createEffect(()=>
+  this.action$.pipe(
+    ofType(actions.LoadLogoutUser),
+    tap(()=> loadOn()),
+    mergeMap(()=>this.loginSvc.logoutUser().pipe(
+      map((val) => actions.SuccessLogoutUser({successData:val.message})),
+      catchError((error )=> of(actions.FailedLogoutUser(error)))
+    ))
+  ))
+
+  SuccessLogoutUser = createEffect(()=>
+  this.action$.pipe(
+    ofType(actions.SuccessLogoutUser),
+    mergeMap(({successData})=> {
+      return of(this.sharedSvc.mostrarAlertSuccess(successData)).pipe(
+        map( val => {
+          this.sharedSvc.redirigirDondeQuiera('/')
+          this.loginSvc.cleanSessionStorage()
+          return loadOff();
+        })
+      )
+    })
+  ))
+
+  FailedLogoutUser = createEffect(()=>
+  this.action$.pipe(
+    ofType(actions.FailedLogoutUser),
+    mergeMap(({failedData})=> of(this.sharedSvc.mostrarAlertError(failedData)).pipe(
+      map(val => loadOff())
+    ))
   ))
 
   constructor(private store:Store<{pantallaCarga:boolean}>,private action$:Actions, private loginSvc:LogRegService,private sharedSvc:SharedService){}

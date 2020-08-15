@@ -1,39 +1,119 @@
 <div class="columns is-multiline">
   <div class="column is-12">
-    <h2 class=" title has-text-centered is-uppercase">
-      {{tituloPrincipal}}
+    <h2 class="title has-text-centered is-uppercase">
+      {{ tituloPrincipal }}
     </h2>
   </div>
 
+  <div class="column is-12 " *ngIf="(usersList$ | async) as usersList">
+
+    <div class="field has-addons is-pulled-right">
+      <div class="control">
+        <div class="select">
+          <select #SelectBusqueda>
+            <option value="1">Buscar página</option>
+            <option *ngFor="let pageSelect of selectPage(usersList.LastPage)" [value]="pageSelect">{{pageSelect}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="control">
+        <button type="button" class="button is-info" (click)="buscarPagina(SelectBusqueda.value, usersList.Path)">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
   <div class="column is-12">
+
     <div class="table-container">
       <table
-        class="table has-text-centered  is-striped is-narrow is-hoverable is-fullwidth"
+        class="table has-text-centered is-striped is-hoverable is-fullwidth"
       >
         <thead class="has-background-info">
-          <tr>
-            <th class="has-text-white">Apellidos y Nombres</th>
-
+          <tr class="py-3">
+            <th class="has-text-white minw-250">Apellidos y Nombres</th>
+            <th class="has-text-white">Rol</th>
             <th class="has-text-white">Cédula</th>
             <th class="has-text-white">Acciones</th>
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            <td>Alvarez Suarez, Jose miguel</td>
-
-            <td>V28251308</td>
-            <td class="buttons mb-0 is-centered" >
-                <button class="button mb-0 is-info" (click)="mostrarInfo('asd')">Info</button>
+        <tbody *ngIf="usersList$ | async as listUsers">
+          <tr *ngIf="listUsers.success === 3">
+            <td colspan="3">Cargando datos...</td>
+          </tr>
+          <tr *ngIf="listUsers.success === 2" >
+            <td colspan="3"> <button class="is-danger button" (click)="chargeList()">Presione para cargar nuevamente la data</button></td>
+          </tr>
+          <tr *ngIf="listUsers.success === 1 && listUsers.ListUsers.length === 0">
+            <td colspan="3">No hay datos en este momento</td>
+          </tr>
+          <tr *ngFor="let user of listUsers.ListUsers">
+            <td>{{ nombreCompleto(user) | titlecase }}</td>
+            <td>{{ tipoUsuario(user.tipo) }}</td>
+            <td>{{ user.nacionalidad }}{{ user.cedula }}</td>
+            <td class="mb-0 is-centered py-3">
+              <button
+                class="button mb-0"
+                type="button"
+                (click)="mostrarInfo(user)"
+              >
+                <i class="fas fa-search-plus"></i>
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
+    <div class="column is-12" *ngIf="usersList$ | async as listPaginate">
+      <nav
+        class="pagination"
+        role="navigation"
+        *ngIf="listPaginate.success === 1"
+      >
+        <button
+          class="pagination-previous"
+          [disabled]="listPaginate.CurrentPage === 1"
+          (click)="paginate(listPaginate.Path, listPaginate.CurrentPage - 1)"
+        >
+          Anterior
+        </button>
+        <button
+          class="pagination-next"
+          [disabled]="listPaginate.CurrentPage === listPaginate.LastPage"
+          (click)="paginate(listPaginate.Path, listPaginate.CurrentPage + 1)"
+        >
+          Siguiente
+        </button>
+        <ul class="pagination-list">
+          <li *ngIf="listPaginate.CurrentPage !== 1">
+            <a class="pagination-link" (click)="paginate(listPaginate.Path, 1)"> 1 </a>
+          </li>
+          <li *ngIf="listPaginate.CurrentPage !== 1">
+            <span class="pagination-ellipsis">&hellip;</span>
+          </li>
+          <li *ngIf="listPaginate.CurrentPage >  1">
+            <a class="pagination-link" (click)="paginate(listPaginate.Path, listPaginate.CurrentPage - 1)">{{ listPaginate.CurrentPage - 1 }}</a>
+          </li>
+          <li>
+            <a class="pagination-link is-current" (click)="paginate(listPaginate.Path, listPaginate.CurrentPage)">{{
+              listPaginate.CurrentPage
+            }}</a>
+          </li>
+          <li *ngIf="listPaginate.CurrentPage < listPaginate.LastPage ">
+            <a class="pagination-link" (click)="paginate(listPaginate.Path, listPaginate.CurrentPage + 1)">{{ listPaginate.CurrentPage + 1 }}</a>
+          </li>
+          <li *ngIf="listPaginate.CurrentPage < listPaginate.LastPage">
+            <span class="pagination-ellipsis">&hellip;</span>
+          </li>
+          <li *ngIf="listPaginate.CurrentPage < listPaginate.LastPage">
+            <a class="pagination-link" (click)="paginate(listPaginate.Path, listPaginate.LastPage)">{{ listPaginate.LastPage }}</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
-
-
-

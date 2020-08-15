@@ -1,6 +1,6 @@
-<nav class="navbar " [ngClass]="{'is-info': path === 'administrador', 'is-primary':path !== 'administrador'}" role="navigation" aria-label="main navigation">
+<nav class="navbar  is-fixed-top" [ngClass]="{'is-info': path === 'administrador', 'is-primary':path !== 'administrador'}" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item is-uppercase" [routerLink]="['/']">
+    <a class="navbar-item is-uppercase" [routerLink]="rutaEnvio">
       <h1>Diócesis de carúpano</h1>
     </a>
 
@@ -19,12 +19,13 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
+      <a class="navbar-item" [routerLink]="rutaEnvio">
+        Inicio
+      </a>
 
       <ng-container *ngIf="path === 'administrador'; else itemNavbarSolicitante">
-        <a class="navbar-item">
-          Inicio
-        </a>
-        <a class="navbar-item">
+
+        <a class="navbar-item" routerLink="/administrador/usuarios">
           Usuarios
         </a>
       </ng-container>
@@ -43,19 +44,26 @@
             class="is-rounded "
           />
         </figure> -->
-        <a href="#" class="navbar-link ">
+        <a [routerLink]="['modificar-cuenta']" class="navbar-link ">
           {{nameUser() | titlecase}}
         </a>
 
+
+        <!-- is-active -->
         <div class="navbar-dropdown is-right">
-          <a href="#" class="navbar-item is-active">
-            Cambiar contraseña
+          <a [routerLink]="['modificar-cuenta']" class="navbar-item">
+            Mi cuenta
+          </a>
+
+          <a [routerLink]="['modificar-cuenta/modificar-clave']" class="navbar-item">
+            Cambiar mi contraseña
+          </a>
+
+          <a [routerLink]="['modificar-cuenta/modificar-datos']" class="navbar-item">
+            Modificar mis datos
           </a>
           <hr class="navbar-divider" />
-          <a href="#" class="navbar-item">
-            configuracion de la cuenta
-          </a>
-          <a href="#" class="navbar-item">
+          <a (click)="logoutUser()" class="navbar-item">
             cerrar sesión
           </a>
 

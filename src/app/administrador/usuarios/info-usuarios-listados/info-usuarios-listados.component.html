@@ -1,11 +1,94 @@
+<div class="modal animate__animated" [ngClass]="{'is-active animate__fadeInDown': active}" >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card ">
+
+
 <header class="modal-card-head">
   <p class="modal-card-title"> Detalle del usuario </p>
   <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
 </header>
 <section class="modal-card-body">
-  <!-- Content ... -->
+
+
+  <div class="columns is-multiline " [formGroup]="formMuestra">
+    <div class="column is-12">
+      <div class="field">
+        <label class="label">Apellidos y Nombres</label>
+        <div class="control">
+          <input class="input" readonly formControlName="nombreCompleto"  type="text" placeholder="Apellidos y Nombres">
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-12 is-6-tablet is-6-desktop">
+      <div class="field">
+        <label class="label">Cédula</label>
+        <div class="control">
+          <input class="input" readonly formControlName="cedula"  type="text" placeholder="Cédula">
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-12 is-6-tablet is-6-desktop">
+      <div class="field">
+        <label class="label">Status</label>
+        <div class="control">
+          <input class="input" readonly formControlName="status"  type="text" placeholder="status">
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-12 ">
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" readonly formControlName="email"  type="text" placeholder="Email">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="column is-12 is-4-tablet is-4-desktop">
+      <div class="field">
+        <label class="label">Fecha creación</label>
+        <div class="control">
+          <input class="input" readonly formControlName="fechaCreacion"  type="text" placeholder="status">
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-12 is-4-tablet is-4-desktop">
+      <div class="field">
+        <label class="label">Tipo de usuario</label>
+        <div class="control">
+          <input class="input" readonly formControlName="tipoUsuario"  type="text" placeholder="Tipo">
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-12 is-4-tablet is-4-desktop">
+      <div class="field">
+        <label class="label">Usuario</label>
+        <div class="control">
+          <input class="input" readonly formControlName="usuario"  type="text" placeholder="Tipo">
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
 </section>
-<footer class="modal-card-foot">
-  <button class="button is-success">Guardar cambios</button>
-  <button class="button" (click)="cerrarDialog()">Cerrar</button>
+<footer class="modal-card-foot" *ngIf="(statusUserState | async) as statusAsync">
+  <ng-container *ngIf="data.status === 0">
+    <button class="button is-warning" [disabled]="statusAsync.loading || statusAsync.success !== 3" [ngClass]="{'is-loading': statusAsync.loading}"  (click)="activarUsuario()">Activar usuario</button>
+  </ng-container>
+  <ng-container  *ngIf="data.status === 1 ">
+    <button class="button is-warning" [disabled]="statusAsync.loading || statusAsync.success !== 3" [ngClass]="{'is-loading': statusAsync.loading}"  (click)="desactivarUsuario()">Desactivar usuario</button>
+  </ng-container>
+
+  <button class="button is-danger" (click)="cerrarDialog()">Cerrar</button>
 </footer>
+
+  </div>
+</div>

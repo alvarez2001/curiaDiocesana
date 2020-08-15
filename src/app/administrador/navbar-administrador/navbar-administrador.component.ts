@@ -1,26 +1,42 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogRegService } from 'src/app/services/login/log-reg.service';
 import { Store,select } from "@ngrx/store";
 import { Observable } from 'rxjs';
+import { UsersService } from 'src/app/services/usersAdmin/users.service';
 
 @Component({
   selector: 'app-navbar-administrador',
   templateUrl: './navbar-administrador.component.html',
   providers:[
-    LogRegService
+    LogRegService,
+    UsersService
   ]
 })
-export class NavbarAdministradorComponent implements OnInit, AfterViewInit {
+export class NavbarAdministradorComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
 
   public path: string;
-  constructor(private route:ActivatedRoute,private loginSvc:LogRegService) {
+  public rutaEnvio:string[];
+
+  constructor(private route:ActivatedRoute,private loginSvc:LogRegService, private usersSvc:UsersService) {
   }
 
   ngOnInit(): void {
     this.path = this.route.snapshot.routeConfig.path;
-    this.nameUser()
+    this.nameUser();
+    (this.path === 'administrador') ? this.rutaEnvio = ['/administrador'] : this.rutaEnvio = ['/solicitante'];
+
+
+    const body = document.body.classList.add('has-navbar-fixed-top');
+  }
+
+  ngOnDestroy(){
+    const body = document.body.classList.remove('has-navbar-fixed-top');
+  }
+
+  ngOnChanges(){
+    this.nameUser();
   }
 
   ngAfterViewInit(){
@@ -33,6 +49,10 @@ export class NavbarAdministradorComponent implements OnInit, AfterViewInit {
     return `${user.apellidos}, ${user.nombres}`;
   }
 
+
+  logoutUser(){
+    this.usersSvc.DistpatchLogoutUser();
+  }
 
   private activarNavbar(){
      // Get all "navbar-burger" elements

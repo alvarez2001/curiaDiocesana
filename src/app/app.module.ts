@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 
 import { TemplateComponent } from "./login/template/template.component";
@@ -16,8 +16,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { pantallaCarga } from "./reducers/app-reducers";
-import { registerUser, recoveryPassword, loginUser, detailUser } from "./reducers/login.reducers";
+import { registerUser, recoveryPassword, loginUser, detailUser, LogoutUser } from "./reducers/login.reducers";
 import { LoginEffects } from './effects/login.effects';
+import { PrincipalInterceptor } from "./services/interceptores/principal.interceptor";
 
 
 const ngrxImport = [
@@ -26,7 +27,8 @@ const ngrxImport = [
     registerUserSolicitante:registerUser,
     recoveryPassword:recoveryPassword,
     loginUser:loginUser,
-    detailUser:detailUser
+    detailUser:detailUser,
+    LogoutUser:LogoutUser
   }),
     EffectsModule.forRoot([
       LoginEffects
@@ -49,7 +51,9 @@ const ngrxImport = [
     ...ngrxImport,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: PrincipalInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

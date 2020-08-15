@@ -17,6 +17,10 @@ const routes: Routes = [
     path:'proyectos',
     component:TemplateUsuarioComponent,
     loadChildren:()=>import('./proyectos/proyectos.module').then( m => m.ProyectosModule )
+  },
+  {
+    path:'modificar-cuenta',
+    loadChildren: ()=>import('../modificar-cuenta/modificar-cuenta.module').then( m => m.ModificarCuentaModule )
   }
 
 ];

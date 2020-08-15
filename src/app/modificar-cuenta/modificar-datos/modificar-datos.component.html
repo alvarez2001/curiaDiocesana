@@ -1,0 +1,163 @@
+<div class="container">
+  <h1 class="title has-text-centered is-uppercase pt-3"> Modificar mis datos </h1>
+
+  <form method="POST"   (ngSubmit)="guardarDatos()" [formGroup]="formCambiar" *ngIf="(detailUser$ | async) as detailUser" >
+
+
+    <h3 class="has-text-centered" *ngIf="detailUser.success === 3">Cargando datos...</h3>
+
+
+
+    <div *ngIf="detailUser.success === 2" class="has-text-centered">
+      <button class="button is-danger" type="button" (click)="cargarInfo()">Cargar nuevamente</button>
+    </div>
+
+
+    <div *ngIf="detailUser.success === 1">
+      <ng-container *ngIf="(ModifiedDataStore$ | async) as modified">
+
+
+        <fieldset class="columns is-multiline margin-auto" [disabled]="modified.loading" >
+
+
+
+
+          <div class="column is-12 is-6-tablet is-6-desktop">
+            <div class="field">
+              <label class="label">Nombres</label>
+              <div class="control has-icons-left" [ngClass]="{'is-loading': modified.loading}">
+                <input class="input"
+
+                formControlName="nombres"
+                [ngClass]="{
+                  'is-danger': formCambiar.get('nombres')?.errors,
+                  'is-success': formCambiar.get('nombres')?.errors === null
+                }"
+               type="text" placeholder="Introduce tus nombres" >
+                <span class="icon is-small is-left"
+                [ngClass]="{
+                  'has-text-danger': formCambiar.get('nombres')?.errors,
+                  'has-text-link-dark': formCambiar.get('nombres')?.errors === null
+                }"
+                >
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+              <p
+              class="help"
+              [ngClass]="{
+                'is-danger': formCambiar.get('nombres')?.errors,
+                'is-dark': formCambiar.get('nombres')?.errors === null
+              }"
+            >
+              {{ mostrarErrores("nombres") }}
+            </p>
+            </div>
+          </div>
+
+
+
+          <div class="column is-12 is-6-tablet is-6-desktop">
+            <div class="field">
+              <label class="label">Apellidos</label>
+              <div class="control has-icons-left" [ngClass]="{'is-loading': modified.loading}">
+                <input class="input "
+                [ngClass]="{
+                  'is-danger': formCambiar.get('apellidos')?.errors,
+                  'is-success': formCambiar.get('apellidos')?.errors === null
+                }"
+                formControlName="apellidos"
+                type="text" placeholder="Introduce tus apellidos" >
+                <span class="icon is-small is-left"
+                [ngClass]="{
+                  'has-text-danger': formCambiar.get('apellidos')?.errors,
+                  'has-text-link-dark': formCambiar.get('apellidos')?.errors === null
+                }"
+                >
+                  <i class="fas fa-user"></i>
+                </span>
+              </div>
+              <p
+              class="help"
+              [ngClass]="{
+                'is-danger': formCambiar.get('apellidos')?.errors,
+                'is-dark': formCambiar.get('apellidos')?.errors === null
+              }"
+            >
+              {{ mostrarErrores("apellidos") }}
+            </p>
+            </div>
+          </div>
+
+
+
+          <div class="column is-12 ">
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control has-icons-left" [ngClass]="{'is-loading': modified.loading}">
+                <input class="input"
+                [ngClass]="{
+                  'is-danger': formCambiar.get('email')?.errors,
+                  'is-success': formCambiar.get('email')?.errors === null
+                }"
+                formControlName="email"
+                type="text" placeholder="Introduce tu email" >
+                <span class="icon is-small is-left"
+                [ngClass]="{
+                  'has-text-danger': formCambiar.get('email')?.errors,
+                  'has-text-link-dark': formCambiar.get('email')?.errors === null
+                }"
+                >
+                  <i class="fas fa-at"></i>
+                </span>
+              </div>
+
+              <p
+              class="help"
+              [ngClass]="{
+                'is-danger': formCambiar.get('email')?.errors,
+                'is-dark': formCambiar.get('email')?.errors === null
+              }"
+            >
+              {{ mostrarErrores("email",'un email valido') }}
+            </p>
+            </div>
+          </div>
+
+
+          <div class="column is-12">
+            <div class="field is-grouped is-grouped-centered">
+              <p class="control">
+                <button routerLink="../" type="button" class="button is-primary">
+                  Retroceder
+                </button>
+              </p>
+              <p class="control">
+                <button class="button is-info" [disabled]="formCambiar.invalid" [ngClass]="{'is-loading': modified.loading}">
+                  Guardar datos
+                </button>
+              </p>
+            </div>
+          </div>
+
+
+
+
+
+
+        </fieldset>
+
+
+      </ng-container>
+    </div>
+
+
+
+  </form>
+
+
+
+
+
+
+</div>

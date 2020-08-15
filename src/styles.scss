@@ -1,72 +1,92 @@
 /* You can add global styles to this file, and also import other style files */
-@import '../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css';
+$modal-content-width:calc(100vw - 150px);
+@import "../node_modules/bulma/bulma.sass";
+@import "../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css";
+@import "./assets/css/all.css";
 
-@import './assets/css/all.css';
-
-.pageloader{
-  background-color: rgba(0, 0, 0, 0.771) ;
+.pageloader {
+  background-color: rgba(0, 0, 0, 0.771);
 }
 
-.is-image-200px{
+.is-image-200px {
   width: 200px;
   height: 200px;
 }
-.margin-auto{
+.margin-auto {
   margin: auto;
 }
-.image-curia{
+.image-curia {
   background-image: url(assets/fondos/fondoPrincipal.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
-.box-transparent{
+.box-transparent {
   background-color: rgba(255, 255, 255, 0.5);
 }
-select select::placeholder, .textarea::placeholder, .input::placeholder {
+select select::placeholder,
+.textarea::placeholder,
+.input::placeholder {
   color: rgba(0, 0, 0, 0.671);
 }
-.is-rounded-60{
+.is-rounded-60 {
   border-radius: 60px;
 }
-.mh-100{
+.mh-100 {
   max-height: 100%;
-
 }
 
-.box-shadow-Propio{
+.box-shadow-Propio {
   box-shadow: 4px 4px 10px black;
   /* min-width: 300px; */
 
   cursor: pointer;
-  transition: transform .5s;
-  &:hover{
-      transform: translateY(-10px);
+  transition: transform 0.5s;
+  &:hover {
+    transform: translateY(-10px);
   }
 }
-.bg-azul{
-  background: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+.bg-azul {
+  background: linear-gradient(
+    to right,
+    rgba(179, 220, 237, 1) 0%,
+    rgba(41, 184, 229, 1) 50%,
+    rgba(188, 224, 238, 1) 100%
+  );
   animation: jackInTheBox;
   animation-duration: 1.5s;
 }
 
-.bg-verde{
+.bg-verde {
   @extend .bg-azul;
   /* background:linear-gradient(to right, #ebe2b7 0%, #fbca35 50%, #ebe3b9 100%); */
-  background: linear-gradient(to right, rgba(183,235,191,1) 0%, rgba(43,227,55,1) 50%, rgba(185,235,191,1) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(183, 235, 191, 1) 0%,
+    rgba(43, 227, 55, 1) 50%,
+    rgba(185, 235, 191, 1) 100%
+  );
 }
 .table td {
   vertical-align: middle;
 }
-.mat-dialog-container{
-  padding: 0px!important;
+.minw-250{
+  min-width: 250px;
 }
-.cdk-overlay-dark-backdrop{
-  background-color: rgba(0,0,0,0.8);
+.mat-dialog-container {
+  padding: 0px !important;
+}
+.cdk-overlay-dark-backdrop {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .swal2-success-circular-line-right,
 .swal2-success-fix,
-.swal2-success-circular-line-left{
-  background: transparent!important;
+.swal2-success-circular-line-left {
+  background: transparent !important;
 }
+
+.modal-card{
+  max-width: 1200px;
+}
+
