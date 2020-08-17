@@ -1,7 +1,7 @@
 import { props, createAction } from "@ngrx/store";
 import { UsersAdminInterface } from "../models/usersAdmin.models";
 import { HttpErrorResponse } from '@angular/common/http';
-import { InitialStateUsersList, PaginateUsers } from '../models/usersInactive.models';
+import { InitialStateUsersList, PaginateUsers, UserModel, permisosModel, PermisoAsignarRevocar } from '../models/usersInactive.models';
 
 
 export enum ActionsUsuarios {
@@ -62,4 +62,25 @@ export const successInactivatedUser = createAction(ActionsUsuarios.SUCCESS_INACT
 export const failedInactivatedUser = createAction(ActionsUsuarios.FAILED_INACTIVATED_USER, props<{failedData:HttpErrorResponse}>());
 
 
+
+export const loadAllAdministrador = createAction('[ADMINISTRADOR COMPONENT] LOAD ADMINISTRADOR')
+export const SuccessAllAdministrador = createAction('[ADMINISTRADOR COMPONENT] SUCCESS ADMINISTRADOR', props<{admins:UserModel[]}>())
+export const FailedLoadAdministrador = createAction('[ADMINISTRADOR COMPONENT] FAILED ADMINISTRADOR',props<{failedData}>())
+
+export const loadAllPermisos = createAction('[PERMISOS COMPONENT] LOAD ALL PERMISOS')
+export const SuccessAllPermisos = createAction('[PERMISOS COMPONENT] SUCCESS ALL PERMISOS', props<{permisos:permisosModel[]}>())
+export const FailedAllPermisos = createAction('[PERMISOS COMPONENT] FAILED ALL PERMISOS',props<{failedData:HttpErrorResponse}>())
+
+export const loadPermisosUser = createAction('[PERMISOS COMPONENT] LOAD PERMISOS USER', props<{id:number}>())
+export const SuccessPermisosUser = createAction('[PERMISOS COMPONENT] SUCCESS PERMISOS USER',props<{permisosUser:permisosModel[]}>())
+export const FailedPermisosUser = createAction('[PERMISOS COMPONENT] FAILED PERMISOS USER',props<{failedData:HttpErrorResponse}>())
+
+
+export const loadAsignarPermiso = createAction('[PERMISOS COMPONENT] ASIGNAR PERMISOS USER', props<{data:PermisoAsignarRevocar}>())
+export const successAsignarPermiso = createAction('[PERMISOS COMPONENT] SUCCESS ASIGNAR PERMISOS USER',props<{success:string, id:number}>())
+export const FailedAsignarPermiso = createAction('[PERMISOS COMPONENT] FAILED ASIGNAR PERMISOS USER',props<{failed:HttpErrorResponse}>())
+
+export const loadRevocarPermiso = createAction('[PERMISOS COMPONENT] REVOCAR PERMISOS USER', props<{data:PermisoAsignarRevocar}>())
+export const successRevocarPermiso = createAction('[PERMISOS COMPONENT] SUCCESS REVOCAR PERMISOS USER',props<{success:string, id:number}>())
+export const FailedRevocarPermiso = createAction('[PERMISOS COMPONENT] FAILED REVOCAR PERMISOS USER',props<{failed:HttpErrorResponse}>())
 

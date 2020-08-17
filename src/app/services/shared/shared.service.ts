@@ -62,18 +62,18 @@ export class SharedService {
   }
 
   mostrarAlertError(data:HttpErrorResponse){
-    console.log(data)
+
 
 
     const conexionFallida = `<ul><li>Revise su internet</li></ul>`;
 
     if(data?.status){
+      console.log(data)
       switch (data.status) {
         case 0:
           return this.alertError(conexionFallida, 'Conexión fallida con el servidor');
         case 406:
           return this.alertStatusErrorDefault(data,'Error encontrado');
-
         case 403:
           return this.alertStatusErrorDefault(data,'Permiso denegado')
         default:

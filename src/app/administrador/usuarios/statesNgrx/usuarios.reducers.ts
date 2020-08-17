@@ -3,7 +3,7 @@ import * as actions from "./usuarios.actions";
 import { InitialDataRegisterAdmin } from "../models/usersAdmin.models";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Action } from "@ngrx/store/src/models";
-import { InitialStateUsersList, UserStatusModel } from '../models/usersInactive.models';
+import { InitialStateUsersList, UserStatusModel, AdminsStateModel, permisosStateModel, PermisosRevocarAsignarState } from '../models/usersInactive.models';
 
 const initialState: InitialDataRegisterAdmin = {
   dataAdmin:{},
@@ -159,4 +159,186 @@ const _userStatus = createReducer(
 
 export function userStatus(state:UserStatusModel,action:Action){
   return _userStatus(state,action);
+}
+
+
+
+
+
+
+/* PERMISOS Y ADMINISTRADOR */
+
+const initialStateLoadAllAdmin:AdminsStateModel = {
+  success:3,
+  loading:false,
+  dataAdmin:null
+}
+
+const _listAdmins = createReducer(
+  initialStateLoadAllAdmin,
+  on(actions.loadAllAdministrador, (state) => {
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      dataAdmin:null
+    }
+  }),
+  on(actions.SuccessAllAdministrador, (state, { admins }) => {
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      dataAdmin:admins
+    }
+  }),
+  on(actions.FailedLoadAdministrador, (state, { failedData }) => {
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  })
+)
+
+export function listAdmins(state:AdminsStateModel,action:Action){
+  return _listAdmins(state,action)
+}
+
+
+const InitialStateLoadPermisos:permisosStateModel = {
+  loading:false,
+  success:3,
+  permisos:null
+}
+
+const _StateAllPermisos = createReducer(
+  InitialStateLoadPermisos,
+  on(actions.loadAllPermisos, (state) => {
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      permisos:null
+    }
+  }),
+  on(actions.SuccessAllPermisos, (state, {permisos} )  => {
+    return {
+      ...state,
+      permisos:permisos,
+      loading:false,
+      success:1
+    }
+  }),
+  on(actions.FailedAllPermisos, (state, {failedData})=> {
+    return {
+      ...state,
+      loading:false,
+      success:2,
+    }
+  })
+)
+
+export function StateAllPermisos(state:permisosStateModel,action:Action){
+  return _StateAllPermisos(state,action)
+}
+
+
+const _StateAllPermisosUser = createReducer(
+  InitialStateLoadPermisos,
+  on(actions.loadPermisosUser, (state, {id}) => {
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      permisos:null
+    }
+  }),
+  on(actions.SuccessPermisosUser, (state, {permisosUser}) => {
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      permisos:permisosUser
+    }
+  }),
+  on(actions.FailedPermisosUser, (state,{failedData}) => {
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  })
+)
+
+export function StateAllPermisosUser(state:permisosStateModel,action:Action){
+  return _StateAllPermisosUser(state,action)
+}
+
+
+
+
+const initialStatePermisosAsignarRevocar:PermisosRevocarAsignarState = {
+  success:3,
+  loading:false,
+  data:null
+}
+
+const _permisosAsignarRevocarState = createReducer(
+  initialStatePermisosAsignarRevocar,
+  on(actions.loadAsignarPermiso , (state, {data})=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      data:null
+    }
+  }),
+  on(actions.successAsignarPermiso, (state, {success, id}  ) => {
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      data:success
+    }
+  }),
+  on(actions.FailedAsignarPermiso, (state, {failed} ) => {
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  }),
+
+  /* revocar */
+
+  on(actions.loadRevocarPermiso , (state, {data})=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      data:null
+    }
+  }),
+  on(actions.successRevocarPermiso, (state, {success, id}  ) => {
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      data:success
+    }
+  }),
+  on(actions.FailedRevocarPermiso, (state, {failed} ) => {
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  })
+
+
+)
+
+export function permisosAsignarRevocarState(state:PermisosRevocarAsignarState,action:Action){
+  return _permisosAsignarRevocarState(state,action)
 }

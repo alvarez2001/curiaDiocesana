@@ -8,9 +8,10 @@ import { UsuariosRoutingModule } from './usuarios-routing.module';
 import { InicioUsuarioComponent } from './inicio-usuario/inicio-usuario.component';
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ListarInactivosComponent } from './listar-inactivos/listar-inactivos.component';
-import { ListarActivosComponent } from './listar-activos/listar-activos.component';
 import { AgregarPermisosComponent } from './agregar-permisos/agregar-permisos.component';
-import { EliminarPermisosComponent } from './eliminar-permisos/eliminar-permisos.component';
+import { ListarPermisosComponent } from './listar-permisos/listar-permisos.component';
+import { ListarActivosComponent } from './listar-activos/listar-activos.component';
+
 import { ReactiveFormsModule } from "@angular/forms";
 import { StoreModule } from '@ngrx/store';
 
@@ -19,11 +20,16 @@ import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from "./statesNgrx/usuarios.effects";
 import { InfoUsuariosListadosComponent } from './info-usuarios-listados/info-usuarios-listados.component';
 
+
 const ngrxImport = [
   StoreModule.forFeature(indexUsersNgrx.keyStoreModule,{
     DataRegisterAdmin:indexUsersNgrx.registerAdmin,
     ListUsersInactiveOrActive:indexUsersNgrx.listUsers,
-    userStatus:indexUsersNgrx.userStatus
+    userStatus:indexUsersNgrx.userStatus,
+    ListAdmins:indexUsersNgrx.listAdmins,
+    ListPermisos:indexUsersNgrx.StateAllPermisos,
+    PermisosUser:indexUsersNgrx.StateAllPermisosUser,
+    AddOrTrashPermiso:indexUsersNgrx.permisosAsignarRevocarState
   }),
   EffectsModule.forFeature([
     UsersEffects
@@ -32,7 +38,7 @@ const ngrxImport = [
 
 
 @NgModule({
-  declarations: [InicioUsuarioComponent, CrearUsuarioComponent, ListarInactivosComponent, ListarActivosComponent, AgregarPermisosComponent, EliminarPermisosComponent,InfoUsuariosListadosComponent],
+  declarations: [InicioUsuarioComponent, CrearUsuarioComponent, ListarInactivosComponent, ListarActivosComponent, AgregarPermisosComponent,InfoUsuariosListadosComponent, ListarPermisosComponent],
   imports: [
     CommonModule,
     MatDialogModule,

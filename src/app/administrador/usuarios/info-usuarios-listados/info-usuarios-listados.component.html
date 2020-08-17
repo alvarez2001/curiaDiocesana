@@ -81,10 +81,10 @@
 </section>
 <footer class="modal-card-foot" *ngIf="(statusUserState | async) as statusAsync">
   <ng-container *ngIf="data.status === 0">
-    <button class="button is-warning" [disabled]="statusAsync.loading || statusAsync.success !== 3" [ngClass]="{'is-loading': statusAsync.loading}"  (click)="activarUsuario()">Activar usuario</button>
+    <button class="button is-warning" [disabled]="statusAsync.loading || statusAsync.success === 1" [ngClass]="{'is-loading': statusAsync.loading}"  (click)="activarUsuario()">Activar usuario</button>
   </ng-container>
   <ng-container  *ngIf="data.status === 1 ">
-    <button class="button is-warning" [disabled]="statusAsync.loading || statusAsync.success !== 3" [ngClass]="{'is-loading': statusAsync.loading}"  (click)="desactivarUsuario()">Desactivar usuario</button>
+    <button class="button is-warning" [disabled]="statusAsync.loading || statusAsync.success === 1" [ngClass]="{'is-loading': statusAsync.loading}"  (click)="desactivarUsuario()">Desactivar usuario</button>
   </ng-container>
 
   <button class="button is-danger" (click)="cerrarDialog()">Cerrar</button>

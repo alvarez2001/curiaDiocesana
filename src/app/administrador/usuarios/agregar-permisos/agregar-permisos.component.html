@@ -1,25 +1,34 @@
-<div class="columns is-multiline">
-  <div class="column is-12">
-    <h2 class="has-text-centered title is-uppercase">
-      Agregar permisos
-    </h2>
+<ng-container *ngIf="(allPermisosState$ | async) as allPermisos">
+  <div class="columns is-multiline" *ngIf="(StateListAdmins | async) as listAdmins">
+    <div class="column is-12">
+      <h2 class="has-text-centered title is-uppercase">
+       Control de permisos
+      </h2>
+    </div>
+
+    <div class="field mb-0 pb-0 column is-12" >
+      <div class="control ">
+        <div *ngIf="permitir(listAdmins.success, allPermisos.success, 2)" class="has-text-centered">
+          <button class="button is-danger" (click)="cargarInfo()">Cargar nuevamente la data</button>
+        </div>
+        <h2 *ngIf="permitir(listAdmins.success, allPermisos.success, 3)" class="has-text-centered">Cargando...</h2>
+        <div class="select is-info is-rounded is-fullwidth" [ngClass]="{'is-loading': listAdmins.loading}" *ngIf="permitir(listAdmins.success, allPermisos.success, 1)" [formGroup]="selectAdmin">
+          <select formControlName="select">
+            <option selected disabled value="">Seleccione un administrador</option>
+            <option *ngFor="let admin of listAdmins.dataAdmin" [value]="admin.id">
+              {{admin.apellidos +', '+ admin.nombres | titlecase}} - {{admin.nacionalidad+admin.cedula}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="column is-12" *ngIf="permitir(listAdmins.success, allPermisos.success, 1) && selectAdmin.get('select').value !== ''">
+    <app-listar-permisos [permisosUser]="ListpermisosUser$ | async" [allPermisos]="allPermisos.permisos" [idAdmin]="selectAdmin.value.select"></app-listar-permisos>
+    </div>
+
   </div>
 
-  <div class="field mb-0 pb-0 column is-6-tablet">
-    <mat-form-field appearance="outline" class="is-12 column" >
-      <mat-label>Usuario</mat-label>
-      <mat-select>
-        <mat-option selected> Seleccione</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <div class="field mb-0 pb-0 column is-6-tablet">
-    <mat-form-field appearance="outline" class="is-12 column" >
-      <mat-label>Permiso</mat-label>
-      <mat-select multiple>
-        <mat-option selected> Seleccione</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-</div>
+</ng-container>

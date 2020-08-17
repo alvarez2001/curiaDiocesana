@@ -30,11 +30,13 @@ export interface PaginateUsers extends PaginateMolde{
   data: UserModel[];
 }
 
-
-export interface BasicDataReducers{
-  failedData?:HttpErrorResponse | null;
+export interface BasicDatas{
   loading:boolean;
   success:number;
+}
+
+export interface BasicDataReducers extends BasicDatas{
+  failedData?:HttpErrorResponse | null;
 }
 
 export interface InitialStateUsersList extends BasicDataReducers{
@@ -47,4 +49,25 @@ export interface InitialStateUsersList extends BasicDataReducers{
 
 export interface UserStatusModel extends BasicDataReducers{
   successData:string | null;
+}
+
+export interface AdminsStateModel extends BasicDatas {
+  dataAdmin:UserModel[] | null;
+}
+export interface permisosStateModel extends BasicDatas{
+  permisos: string[] |  permisosModel[] | null ;
+}
+
+export interface permisosModel {
+  name:string
+}
+
+export interface PermisosRevocarAsignarState extends BasicDatas{
+  data:string | null;
+}
+
+
+export interface PermisoAsignarRevocar {
+  usuario:number;
+  permiso:string;
 }

@@ -147,5 +147,110 @@ export class UsersEffects {
   })
 
 
+  /* PERMISOS - ADMINISTRADOR ALL */
+
+  loadAllAdminsUser = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.loadAllAdministrador),
+    mergeMap(() => this.usersAdminSvc.listarUsuariosAdministradores().pipe(
+      map(val => actions.SuccessAllAdministrador({admins:val})),
+      catchError(error => of(actions.FailedLoadAdministrador(error)))
+    ))
+  ))
+
+  /* SuccessAllAdminsUser = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.SuccessAllAdministrador),
+    mergeMap(() => )
+  ))
+ */
+
+
+ /* FailedLoadAllAdminUser = createEffect(()=>
+ this.actions$.pipe(
+   ofType(actions.FailedLoadAdministrador),
+   mergeMap(({failedData}) => of(this.sharedSvc.mostrarAlertError(failedData)))
+ ), { dispatch:false}) */
+
+
+  loadAllPermisos = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.loadAllPermisos),
+    mergeMap(()=> this.usersAdminSvc.listarPermisos().pipe(
+      map(val=>actions.SuccessAllPermisos({permisos:val})),
+      catchError(error => of(actions.FailedAllPermisos({failedData:error})))
+    ))
+  ))
+
+  /* failedAllPermisos = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.FailedAllPermisos),
+    mergeMap(({failedData})=> of(this.sharedSvc.mostrarAlertError(failedData)))
+  ),{dispatch:false}) */
+
+
+/* permisos user */
+
+    loadAllPermisosUser = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.loadPermisosUser),
+      mergeMap(({id}) => this.usersAdminSvc.permisosDelUsuario(id).pipe(
+        map((permisos)=> actions.SuccessPermisosUser({permisosUser:permisos})),
+        catchError(error => of(actions.FailedPermisosUser({failedData:error})))
+      ))
+    ))
+
+
+    loadAsignarPermisos = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.loadAsignarPermiso),
+      mergeMap(({data})=>this.usersAdminSvc.agregarPermiso(data).pipe(
+        map(val => actions.successAsignarPermiso({success:val,id:data.usuario })),
+        catchError(error => of(actions.FailedAsignarPermiso({failed:error})))
+      ))
+    ))
+
+    successAsignarPermiso = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.successAsignarPermiso),
+      mergeMap(({success, id})=> of(actions.loadPermisosUser({id:id})) )
+    ))
+
+
+    failedAsignarPermiso = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.FailedAsignarPermiso),
+      mergeMap(({failed})=>of(this.sharedSvc.mostrarAlertError(failed)))
+    ),{ dispatch:false})
+
+
+      /* revocar */
+
+    loadRevocarPermiso = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.loadRevocarPermiso),
+      mergeMap(({data})=>this.usersAdminSvc.revocarPermiso(data).pipe(
+        map(val => actions.successRevocarPermiso({success:val,id:data.usuario })),
+        catchError(error => of(actions.FailedAsignarPermiso({failed:error})))
+      ))
+    ))
+
+    successRevocarPermiso = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.successRevocarPermiso),
+      mergeMap(({success, id})=> of(actions.loadPermisosUser({id:id})) )
+    ))
+
+
+    FailedRevocarPermiso = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.FailedRevocarPermiso),
+      mergeMap(({failed})=>of(this.sharedSvc.mostrarAlertError(failed)))
+    ),{ dispatch:false})
+
+
+
+
+
   constructor(private actions$:Actions,private store:Store, private usersAdminSvc:UsersService, private sharedSvc:SharedService){}
 }

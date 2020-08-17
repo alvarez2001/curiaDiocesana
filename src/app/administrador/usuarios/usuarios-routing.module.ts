@@ -4,7 +4,6 @@ import { ListarActivosComponent } from "./listar-activos/listar-activos.componen
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ListarInactivosComponent } from "./listar-inactivos/listar-inactivos.component";
 import { AgregarPermisosComponent } from "./agregar-permisos/agregar-permisos.component";
-import { EliminarPermisosComponent } from "./eliminar-permisos/eliminar-permisos.component";
 
 const routes: Routes = [
   {
@@ -24,13 +23,9 @@ const routes: Routes = [
     component:ListarActivosComponent
   },
   {
-    path:'agregar-permisos',
+    path:'control-permisos',
     component:AgregarPermisosComponent
   },
-  {
-    path:'eliminar-permisos',
-    component:EliminarPermisosComponent
-  }
 ];
 
 @NgModule({
