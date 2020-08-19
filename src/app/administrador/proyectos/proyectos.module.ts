@@ -4,8 +4,6 @@ import { CommonModule } from '@angular/common';
 import { ProyectosRoutingModule } from './proyectos-routing.module';
 import { CrearProyectoComponent } from './crear-proyecto/crear-proyecto.component';
 import { SeparadorMilesDirective } from 'src/app/directivas/separador-miles.directive';
-import { AgregarAliasProyectoComponent } from './agregar-alias-proyecto/agregar-alias-proyecto.component';
-import { AgregarUsuarioProyectoComponent } from './agregar-usuario-proyecto/agregar-usuario-proyecto.component';
 import { FormateadorMilesDirective } from 'src/app/directivas/formateador-miles.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
@@ -20,6 +18,8 @@ import { DetalleProyectoModalComponent } from './detalle-proyecto-modal/detalle-
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProjectsService } from './services/projects.service';
 import { ModificarProyectoComponent } from './modificar-proyecto/modificar-proyecto.component';
+import { ModificarProyectoCodigoComponent } from './modificar-proyecto-codigo/modificar-proyecto-codigo.component';
+import { ModificarProyectoUsuarioComponent } from './modificar-proyecto-usuario/modificar-proyecto-usuario.component';
 
 const ngrxImports = [
   StoreModule.forFeature(KeyProjectsFeature, {
@@ -27,7 +27,9 @@ const ngrxImports = [
     usersSolicitantes:reducers.UsersSolicitantes,
     projectsAll:reducers.ProjectsPaginateOrProjectsAll,
     proyectoEspecifico:reducers.ProyectoEspecifico,
-    modificarInfoProyecto:reducers.ProyectoModificarInformacion
+    modificarInfoProyecto:reducers.ProyectoModificarInformacion,
+    modificarCodigoProyecto:reducers.ProyectoModificarCodigo,
+    modificarUsuarioProyecto:reducers.ProyectoModificarUsuario
   }),
   EffectsModule.forFeature([ProjectsEffects]),
 ];
@@ -36,13 +38,13 @@ const ngrxImports = [
   declarations: [
     SeparadorMilesDirective,
     CrearProyectoComponent,
-    AgregarAliasProyectoComponent,
-    AgregarUsuarioProyectoComponent,
     FormateadorMilesDirective,
     ListarProyectosComponent,
     DetalleProyectoComponent,
     DetalleProyectoModalComponent,
     ModificarProyectoComponent,
+    ModificarProyectoCodigoComponent,
+    ModificarProyectoUsuarioComponent,
   ],
   imports: [
     CommonModule,

@@ -57,6 +57,14 @@ export class ProjectsService {
     return this.http.post<string>(`${this.url}proyecto/${idProyecto}/modificar/informacion`,data)
   }
 
+  modificarProyectoCodigo(idProyecto:number,codigo:{codigo:string}):Observable<string>{
+    return this.http.post<string>(`${this.url}proyecto/${idProyecto}/modificar/codigo`,codigo)
+  }
+
+  modificarProyectoUsuario(idProyecto:number,usuario:{usuario:number}):Observable<string>{
+    return this.http.post<string>(`${this.url}proyecto/${idProyecto}/modificar/usuario`,usuario)
+  }
+
 
 
 /* codigo informacion usuario  */
@@ -81,6 +89,12 @@ export class ProjectsService {
   SeleccionarModificarInfoProyecto():Observable<modelsState.RegisterProjectState>{
     return this.store.select(selectors.TomarModificarInfoProyecto)
   }
+  SeleccionarModificarCodigoProyecto():Observable<modelsState.RegisterProjectState>{
+    return this.store.select(selectors.TomarModificarCodigoProyecto)
+  }
+  SeleccionarModificarUsuarioProyecto():Observable<modelsState.RegisterProjectState>{
+    return this.store.select(selectors.TomarModificarUsuarioProyecto)
+  }
 
   /* DISPATCH PROJECTS */
   RestoreStateRegisterProject(){
@@ -101,6 +115,20 @@ export class ProjectsService {
   }
   RestaurarStateModificarProyectoInfo(){
     this.store.dispatch(actions.Reiniciar_Modificar_Informacion_Proyecto());
+  }
+  //
+  ModificarProyectoCodigo(idProyecto:number,data:{codigo:string}){
+    this.store.dispatch(actions.Cargar_Modificar_Codigo_Proyecto({id:idProyecto, modificarCodigo:data}))
+  }
+  RestaurarStateModificarProyectoCodigo(){
+    this.store.dispatch(actions.Reiniciar_Modificar_Codigo_Proyecto())
+  }
+  //
+  ModificarProyectoUsuario(idProyecto:number,data:{usuario:number}){
+    this.store.dispatch(actions.Cargar_Modificar_Usuario_Proyecto({id:idProyecto,modificarUsuario:data }))
+  }
+  RestaurarStateModificarProyectoUsuario(){
+    this.store.dispatch(actions.Reiniciar_Modificar_Usuario_Proyecto())
   }
 
   //Projects

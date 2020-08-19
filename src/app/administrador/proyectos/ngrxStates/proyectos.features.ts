@@ -8,7 +8,9 @@ interface StoreModuleProject{
   usersSolicitantes:AdminsStateModel,
   projectsAll:models.PaginateProjectsState,
   proyectoEspecifico:models.ProyectoEspecificoState,
-  modificarInfoProyecto:models.RegisterProjectState
+  modificarInfoProyecto:models.RegisterProjectState,
+  modificarCodigoProyecto:models.RegisterProjectState,
+  modificarUsuarioProyecto:models.RegisterProjectState
 }
 
 const featureSelectorProjects = createFeatureSelector<StoreModuleProject>(KeyProjectsFeature)
@@ -19,3 +21,5 @@ export const getListUsersSolicitante = createSelector(featureSelectorProjects, (
 export const ProjectsAllPaginatesOrNot = createSelector(featureSelectorProjects,(state)=>state.projectsAll)
 export const TomaProyectoEspecificoState = createSelector(featureSelectorProjects,(state)=>state.proyectoEspecifico)
 export const TomarModificarInfoProyecto = createSelector(featureSelectorProjects, (state)=>state.modificarInfoProyecto)
+export const TomarModificarCodigoProyecto = createSelector(featureSelectorProjects,(state)=>state.modificarCodigoProyecto)
+export const TomarModificarUsuarioProyecto = createSelector(featureSelectorProjects,(state)=>state.modificarUsuarioProyecto)

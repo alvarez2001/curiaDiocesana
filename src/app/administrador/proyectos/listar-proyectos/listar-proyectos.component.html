@@ -6,7 +6,7 @@
       </h2>
     </div>
 
-    <div class="column is-12 " >
+    <div class="column is-12 is-clearfix " >
 
       <div class="field has-addons is-pulled-right">
         <div class="control">
@@ -53,28 +53,31 @@
             <tr *ngIf="projectsPaginate.success === 1 && (projectsPaginate?.dataProjects && projectsPaginate?.dataProjects?.data.length === 0) ">
               <td colspan="6">No hay datos en este momento</td>
             </tr>
-            <tr *ngFor="let project of projectsPaginate?.dataProjects?.data">
-              <td > {{project.codigo}} </td>
-              <td > {{project.nombre}} </td>
-              <td > {{project?.alias}} </td>
-              <ng-container *ngIf="project.moneda === 'Euro'">
-                <td > {{project.aprobado | currency:'EUR'}} </td>
-                <td > {{project.disponible | currency:'EUR'}} </td>
-              </ng-container>
-              <ng-container *ngIf="project.moneda === 'Dolar'">
-                <td > {{project.aprobado | currency:'USD'}} </td>
-                <td > {{project.disponible | currency:'USD'}} </td>
-              </ng-container>
-              <td class="mb-0 is-centered py-3">
-                <button
-                  class="button mb-0"
-                  type="button"
-                (click)="mostrarInfo(project)"
-                >
-                  <i class="fas fa-search-plus"></i>
-                </button>
-              </td>
-            </tr>
+            <ng-container *ngIf="(ModalProyecto$ | async) as modal">
+              <tr *ngFor="let project of projectsPaginate?.dataProjects?.data">
+                <td > {{project.codigo}} </td>
+                <td > {{project.nombre}} </td>
+                <td > {{project?.alias}} </td>
+                <ng-container *ngIf="project.moneda === 'Euro'">
+                  <td > {{project.aprobado | currency:'EUR'}} </td>
+                  <td > {{project.disponible | currency:'EUR'}} </td>
+                </ng-container>
+                <ng-container *ngIf="project.moneda === 'Dolar'">
+                  <td > {{project.aprobado | currency:'USD'}} </td>
+                  <td > {{project.disponible | currency:'USD'}} </td>
+                </ng-container>
+                <td class="mb-0 is-centered py-3">
+                  <button
+                    class="button mb-0"
+                    type="button"
+                    [disabled]="modal.loading"
+                  (click)="mostrarInfo(project)"
+                  >
+                    <i class="fas fa-search-plus"></i>
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>

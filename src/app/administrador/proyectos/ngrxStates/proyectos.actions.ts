@@ -33,9 +33,23 @@ export const Cargar_Proyecto_Especifico = createAction('[PROYECTOS MODULE] CARGA
 export const Correcto_Proyecto_Especifico = createAction('[PROYECTOS MODULE] CARGA EXITOSA MODAL DEL PROYECTO CON LA ID', props<{proyecto:models.ProjectModelComplete,modal:boolean}>())
 export const Fallo_Proyecto_Especifico = createAction('[PROYECTOS MODULE] CARGA FALLIDA DEL PROYECTO CON LA ID', props<{fallida:HttpErrorResponse, modal:boolean}>())
 
-/* modificar proyecto */
+/* modificar proyecto info */
 
 export const Cargar_Modificar_Informacion_Proyecto = createAction('[PROYECTOS MODULE] CARGAR MODIFICAR INFORMACION PROYECTO', props<{id:number,informacion:models.ModelModificarDatosInformacion}>())
 export const Correcto_Modificar_Informacion_Proyecto = createAction('[PROYECTOS MODULE] CORRECTO MODIFICAR INFORMACION PROYECTO',props<{successData:string}>())
 export const Fallido_Modificar_Informacion_Proyecto = createAction('[PROYECTOS MODULE] FALLIDO MODIFICAR INFORMACION PROYECTO',props<{failedData:HttpErrorResponse}>())
 export const Reiniciar_Modificar_Informacion_Proyecto = createAction('[PROYECTOS MODULE] REINICIAR MODIFICAR INFORMACION PROYECTO')
+
+
+/* codigo */
+
+export const Cargar_Modificar_Codigo_Proyecto = createAction('[PROYECTOS MODULE] CARGAR MODIFICAR CODIGO PROYECTO', props<{id:number, modificarCodigo:{codigo:string}}>())
+export const Correcto_Modificar_Codigo_Proyecto = createAction('[PROYECTOS MODULE] CORRECTO MODIFICAR CODIGO PROYECTO',props<{successData:string}>())
+export const Fallido_Modificar_Codigo_Proyecto = createAction('[PROYECTOS MODULE] FALLIDO MODIFICAR CODIGO PROYECTO',props<{failedData:HttpErrorResponse}>())
+export const Reiniciar_Modificar_Codigo_Proyecto = createAction('[PROYECTOS MODULE] REINICIAR MODIFICAR CODIGO PROYECTO')
+
+
+export const Cargar_Modificar_Usuario_Proyecto = createAction('[PROYECTOS MODULE] CARGAR MODIFICAR USUARIO PROYECTO', props<{id:number, modificarUsuario:{usuario:number}}>())
+export const Correcto_Modificar_Usuario_Proyecto = createAction('[PROYECTOS MODULE] CORRECTO MODIFICAR USUARIO PROYECTO',props<{successData:string}>())
+export const Fallido_Modificar_Usuario_Proyecto = createAction('[PROYECTOS MODULE] FALLIDO MODIFICAR USUARIO PROYECTO',props<{failedData:HttpErrorResponse}>())
+export const Reiniciar_Modificar_Usuario_Proyecto = createAction('[PROYECTOS MODULE] REINICIAR MODIFICAR USUARIO PROYECTO')

@@ -1,0 +1,99 @@
+
+<div class="columns is-multiline">
+  <div class="column is-12">
+    <h2 class="title has-text-centered is-uppercase">
+      Asignar usuario al proyecto #{{id}}
+    </h2>
+  </div>
+</div>
+
+
+
+
+
+<ng-container *ngIf="(proyectoEspecifico$ | async) as proyecto">
+<ng-container *ngIf="(dataUsersListSolicitante$ | async) as usuariosSolicitantes">
+
+  <h2 class="subtitle has-text-centered" *ngIf="proyecto.success === 3 "> Cargando... </h2>
+
+  <div class="has-text-centered" *ngIf="proyecto.success === 2">
+    <button class="button is-danger" (click)="cargarInfo(id)"> Cargar nuevamente la información </button>
+  </div>
+
+
+
+
+
+
+  <form method="POST" [formGroup]="formModificar"  *ngIf="proyecto.success === 1" (ngSubmit)="modificarProyecto()">
+
+
+    <ng-container *ngIf="(modificarUsuarioProyecto$ | async) as ModiProyecto">
+      <div class="notification is-light" [ngClass]="{'is-success':ModiProyecto.success === 1, 'is-danger':ModiProyecto.success === 2}" *ngIf="ModiProyecto.success !== 3">
+        <button class="delete" type="button" (click)="ReiniciarDatos()"></button>
+        {{ModiProyecto.responseSv}}
+        <span *ngIf="ModiProyecto.success === 2">Ha ocurrido un error, intente nuevamente</span>
+      </div>
+      <fieldset class="columns is-multiline" [disabled]="ModiProyecto.loading">
+        <div class="field column is-6-tablet margin-auto is-clearfix ">
+          <button type="button" class="button is-danger is-pulled-right mb-2" (click)="getListUsersSolicitantes()" [disabled]="usuariosSolicitantes.loading"><i class="fas fa-spinner"></i></button>
+          <label class="label">Usuario con acceso al proyecto</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':ModiProyecto.loading}">
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formModificar.get('usuario')?.errors,
+              'is-success': formModificar.get('usuario')?.errors === null
+            }"
+            >
+              <select formControlName="usuario">
+                <option selected disabled value="null">Seleccione el usuario con acceso al proyecto</option>
+                <option *ngIf="usuariosSolicitantes.success === 3">Cargando usuarios...</option>
+                <option *ngIf="usuariosSolicitantes.success === 2"> Cargue nuevamente los usuarios </option>
+                <option *ngFor="let user of usuariosSolicitantes.dataAdmin" [value]="user.id">{{ user.apellidos + ', '+ user.nombres | titlecase }} -- {{user.nacionalidad+user.cedula}}</option>
+              </select>
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formModificar.get('usuario')?.errors,
+                'has-text-link-dark': formModificar.get('usuario')?.errors === null
+              }"
+            >
+              <i class="fas fa-id-card"></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formModificar.get('usuario')?.errors,
+            'is-dark': formModificar.get('usuario')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("usuario") }}
+        </p>
+        </div>
+
+
+        <div class="field is-12 column has-text-centered is-family-monospace" >
+          <p class="control py-2">
+            <button class="button is-info is-uppercase" [ngClass]="{'is-loading':ModiProyecto.loading}" [disabled]="formModificar.invalid || ModiProyecto.loading" type="submit">
+              Actualizar usuario del proyecto
+            </button>
+          </p>
+
+
+        </div>
+      </fieldset>
+
+    </ng-container>
+
+
+
+
+
+    </form>
+
+</ng-container>
+
+</ng-container>
+

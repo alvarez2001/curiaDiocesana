@@ -110,9 +110,11 @@
 
 
 </section>
-<footer class="modal-card-foot" >
+<footer class="modal-card-foot" style="overflow: auto;" >
 
-  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value]" (click)="cerrarDialog()">Modificar Proyecto</a>
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'informacion']" (click)="cerrarDialog()">Modificar Proyecto</a>
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'codigo']" (click)="cerrarDialog()">Modificar Código</a>
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'usuario']" (click)="cerrarDialog()">Modificar Usuario</a>
   <button class="button is-danger" (click)="cerrarDialog()">Cerrar</button>
 </footer>
 

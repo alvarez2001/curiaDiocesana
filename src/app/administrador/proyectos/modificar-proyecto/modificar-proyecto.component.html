@@ -24,9 +24,10 @@
 
 
     <ng-container *ngIf="(modificarInfoProyecto$ | async) as ModiProyecto">
-      <div class="notification is-light" [ngClass]="{'is-success':ModiProyecto.success === 1}" *ngIf="ModiProyecto.success !== 3">
+      <div class="notification is-light" [ngClass]="{'is-success':ModiProyecto.success === 1, 'is-danger':ModiProyecto.success === 2}" *ngIf="ModiProyecto.success !== 3">
         <button class="delete" type="button" (click)="restartData()"></button>
         {{ModiProyecto.responseSv}}
+        <span *ngIf="ModiProyecto.success === 2">Ha ocurrido un error, intente nuevamente</span>
       </div>
       <fieldset class="columns is-multiline" [disabled]="ModiProyecto.loading">
         <div class="field mb-0 pb-0 column is-12">

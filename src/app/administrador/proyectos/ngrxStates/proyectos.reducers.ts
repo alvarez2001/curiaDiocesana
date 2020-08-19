@@ -228,3 +228,89 @@ const _ProyectoModificarInformacion = createReducer(
 export function ProyectoModificarInformacion(state:modelsNgrx.RegisterProjectState, action:Action){
   return _ProyectoModificarInformacion(state,action)
 }
+
+
+const _ProyectoModificarCodigo = createReducer(
+  initialStateModificarProyecto,
+  on(actions.Cargar_Modificar_Codigo_Proyecto,(state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      responseSv:null
+    }
+  }),
+  on(actions.Correcto_Modificar_Codigo_Proyecto, (state, {successData})=>{
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      responseSv:successData
+    }
+  }),
+  on(actions.Fallido_Modificar_Codigo_Proyecto,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2,
+      responseSv:null
+    }
+  }),
+  on(actions.Reiniciar_Modificar_Codigo_Proyecto,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3,
+      responseSv:null
+    }
+  })
+)
+
+export function ProyectoModificarCodigo(state:modelsNgrx.RegisterProjectState,action:Action){
+  return _ProyectoModificarCodigo(state,action)
+}
+
+
+/* MODIFICAR USUARIO PROYECTO */
+
+
+const _ProyectoModificarUsuario = createReducer(
+  initialStateModificarProyecto,
+  on(actions.Cargar_Modificar_Usuario_Proyecto,(state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      responseSv:null
+    }
+  }),
+  on(actions.Correcto_Modificar_Usuario_Proyecto, (state, {successData})=>{
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      responseSv:successData
+    }
+  }),
+  on(actions.Fallido_Modificar_Usuario_Proyecto,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2,
+      responseSv:null
+    }
+  }),
+  on(actions.Reiniciar_Modificar_Usuario_Proyecto,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3,
+      responseSv:null
+    }
+  })
+)
+
+export function ProyectoModificarUsuario(state:modelsNgrx.RegisterProjectState,action:Action){
+  return _ProyectoModificarUsuario(state,action)
+}
+

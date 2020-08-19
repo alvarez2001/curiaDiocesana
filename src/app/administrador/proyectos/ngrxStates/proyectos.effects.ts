@@ -135,6 +135,38 @@ export class ProjectsEffects {
     ),{dispatch:false})
 
 
+    CargarModificarProyectoCodigo = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.Cargar_Modificar_Codigo_Proyecto),
+      mergeMap(({id,modificarCodigo})=>this.projectSvc.modificarProyectoCodigo(id,modificarCodigo).pipe(
+        map(val => actions.Correcto_Modificar_Codigo_Proyecto({successData:val})),
+        catchError(error => of(actions.Fallido_Modificar_Codigo_Proyecto({failedData:error})))
+      ))
+    ))
+
+
+    FallidoModificarProyectoCodigo = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.Fallido_Modificar_Codigo_Proyecto),
+      mergeMap(({failedData})=>of(this.sharedSvc.mostrarAlertError(failedData)))
+    ),{dispatch:false})
+
+
+    CargarModificarProyectoUsuario = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.Cargar_Modificar_Usuario_Proyecto),
+      mergeMap(({id,modificarUsuario})=>this.projectSvc.modificarProyectoUsuario(id,modificarUsuario).pipe(
+        map(val => actions.Correcto_Modificar_Usuario_Proyecto({successData:val})),
+        catchError(error => of(actions.Fallido_Modificar_Usuario_Proyecto({failedData:error})))
+      ))
+    ))
+
+
+    FallidoModificarProyectoUsuario = createEffect(()=>
+    this.actions$.pipe(
+      ofType(actions.Fallido_Modificar_Usuario_Proyecto),
+      mergeMap(({failedData})=>of(this.sharedSvc.mostrarAlertError(failedData)))
+    ),{dispatch:false})
 
 
   constructor(private actions$:Actions,private store:Store,private projectSvc:ProjectsService, private sharedSvc:SharedService){}

@@ -1,0 +1,93 @@
+
+<div class="columns is-multiline">
+  <div class="column is-12">
+    <h2 class="title has-text-centered is-uppercase">
+      Modificar código del proyecto #{{id}}
+    </h2>
+  </div>
+</div>
+
+
+
+
+
+<ng-container *ngIf="(proyectoEspecifico$ | async) as proyecto">
+
+  <h2 class="subtitle has-text-centered" *ngIf="proyecto.success === 3"> Cargando... </h2>
+
+  <div class="has-text-centered" *ngIf="proyecto.success === 2">
+    <button class="button is-danger" (click)="cargarInfo(id)"> Cargar nuevamente la información </button>
+  </div>
+
+
+
+
+
+
+  <form method="POST" [formGroup]="formModificar"  *ngIf="proyecto.success === 1" (ngSubmit)="modificarProyecto()">
+
+
+    <ng-container *ngIf="(modificarCodigoProyecto$ | async) as ModiProyecto">
+      <div class="notification is-light" [ngClass]="{'is-success':ModiProyecto.success === 1, 'is-danger':ModiProyecto.success === 2}" *ngIf="ModiProyecto.success !== 3">
+        <button class="delete" type="button" (click)="ReiniciarDatos()"></button>
+        {{ModiProyecto.responseSv}}
+        <span *ngIf="ModiProyecto.success === 2">Ha ocurrido un error, intente nuevamente</span>
+      </div>
+      <fieldset class="columns is-multiline" [disabled]="ModiProyecto.loading">
+        <div class="field mb-0 pb-0 column is-6-tablet margin-auto">
+          <label class="label">Código</label>
+          <div class="control  has-icons-left" [ngClass]="{'is-loading':ModiProyecto.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formModificar.get('codigo')?.errors,
+                'is-success': formModificar.get('codigo')?.errors === null
+              }"
+              autocomplete="off"
+              formControlName="codigo"
+              type="text"
+              placeholder="Introduce el código del proyecto"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formModificar.get('codigo')?.errors,
+                'has-text-link-dark': formModificar.get('codigo')?.errors === null
+              }"
+              >
+              <i class="fas fa-file-signature"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formModificar.get('codigo')?.errors,
+              'is-dark': formModificar.get('codigo')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("codigo") }}
+          </p>
+        </div>
+
+
+        <div class="field is-12 column has-text-centered is-family-monospace" >
+          <p class="control py-2">
+            <button class="button is-info is-uppercase" [ngClass]="{'is-loading':ModiProyecto.loading}" [disabled]="formModificar.invalid || ModiProyecto.loading" type="submit">
+              Actualizar código del proyecto
+            </button>
+          </p>
+
+
+        </div>
+      </fieldset>
+
+    </ng-container>
+
+
+
+
+
+    </form>
+
+
+</ng-container>
+

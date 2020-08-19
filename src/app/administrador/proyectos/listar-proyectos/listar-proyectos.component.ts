@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectsService } from '../services/projects.service';
 import { Observable } from 'rxjs';
-import { PaginateProjectsState } from '../models/ngrxModelsProjects';
+import { PaginateProjectsState, ProyectoEspecificoState } from '../models/ngrxModelsProjects';
 import { ProjectModelComplete } from "../models/project.models";
 
 
@@ -13,10 +13,12 @@ import { ProjectModelComplete } from "../models/project.models";
 export class ListarProyectosComponent implements OnInit {
 
   ProjectsPaginate$:Observable<PaginateProjectsState>
+  ModalProyecto$:Observable<ProyectoEspecificoState>;
   constructor(private ProjectsSvc:ProjectsService) { }
 
   ngOnInit(): void {
     this.cargarProyectos();
+    this.ModalProyecto$ = this.ProjectsSvc.SeleccionaProyectoEspecifico();
     this.ProjectsPaginate$ = this.ProjectsSvc.SelectProjectsAll()
   }
   buscarPagina(value:number,pagina:string){
