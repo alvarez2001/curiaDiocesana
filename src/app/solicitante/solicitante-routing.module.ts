@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path:'',
     component:InicioSolicitanteComponent
+  },
+  {
+    path:'modificar-cuenta',
+    loadChildren: ()=>import('../modificar-cuenta/modificar-cuenta.module').then( m => m.ModificarCuentaModule )
   }
 ];
 

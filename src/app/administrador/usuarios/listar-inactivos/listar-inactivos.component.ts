@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { InfoUsuariosListadosComponent } from "./../info-usuarios-listados/info-usuarios-listados.component";
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,8 @@ import { LogRegService } from 'src/app/services/login/log-reg.service';
 @Component({
   selector: 'app-listar-inactivos',
   templateUrl: './listar-inactivos.component.html',
-  providers:[UsersService,LogRegService]
+  providers:[UsersService,LogRegService],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ListarInactivosComponent implements OnInit {
 

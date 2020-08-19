@@ -1,150 +1,323 @@
-<form method="POST" class="">
+<form method="POST" [formGroup]="formRegister" (ngSubmit)="registrarProyecto()">
 
-  <div class="columns is-multiline">
-
-    <div class="column is-12">
-      <h2 class="has-text-centered title is-uppercase">Registrar proyecto</h2>
-    </div>
-
-    <div class="field mb-0 pb-0 column is-12">
-      <label class="label">Nombre</label>
-      <div class="control  has-icons-left">
-        <input
-          class="input is-info"
-          autocomplete="off"
-          type="text"
-          placeholder="Introduce el nombre del proyecto"
-        />
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-file-signature"></i>
-        </span>
+  <ng-container *ngIf="(dataUsersListSolicitante$ | async) as usersList">
+    <ng-container *ngIf="(dataRegister$ | async) as registerData" >
+      <div class="columns is-multiline">
+        <div class="column is-12">
+          <h2 class="has-text-centered title is-uppercase">Registrar proyecto</h2>
+        </div>
       </div>
-      <!-- <p class="help is-success">This username is available</p> -->
-    </div>
 
-    <div class="field column mb-0 pb-0 is-6-tablet">
-      <label class="label">Código</label>
-      <div class="control has-icons-left">
-        <input
-          class="input is-info"
-          type="text"
-          placeholder="Introduce el código del proyecto"
-          autocomplete="off"
-        />
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-code"></i>
-        </span>
+      <div *ngIf="usersList.success === 2" class="has-text-centered">
+        <button class="button is-danger" (click)="getListUsersSolicitantes()">Cargar nuevamente la información</button>
       </div>
-    </div>
-
-    <div class="field column mb-0 pb-0 is-6-tablet">
-      <label class="label">Alias</label>
-      <div class="control has-icons-left">
-        <input
-          class="input is-info"
-          type="text"
-          placeholder="Introduce el Alias del proyecto"
-          autocomplete="off"
-        />
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-file-alt"></i>
-        </span>
+      <div *ngIf="usersList.success === 3">
+        <h2 class="has-text-centered subtitle"> Cargando... </h2>
       </div>
-    </div>
 
-    <div class="field column mb-0 pb-0 is-6-tablet">
-      <label class="label">Monto aprobado</label>
-      <div class="control has-icons-left">
-        <input
-          appSeparadorMiles
-          class="input is-info"
-          type="text"
-          placeholder="Introduce el monto aprobado"
-          autocomplete="off"
-        />
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-dollar-sign"></i>
-        </span>
-      </div>
-    </div>
+      <fieldset class="columns is-multiline" [disabled]="registerData.loading" *ngIf="usersList.success === 1">
 
-    <div class="field column mb-0 pb-0 is-6-tablet">
-      <label class="label">Porcentaje de comisión</label>
-      <div class="control has-icons-left">
-        <div class="select is-fullwidth is-info">
-          <select name="country">
-            <option value="">Seleccione el % de comisión</option>
-            <option value="0">0%</option>
-            <option value="0.10">10%</option>
 
-          </select>
 
+        <div class="column is-12">
+          <div class="notification  is-light" [ngClass]="{'is-success':registerData.success === 1, 'is-danger':registerData.success === 2}" *ngIf="registerData.success !== 3">
+            <button class="delete" (click)="RestoreState()"></button>
+            {{registerData.responseSv}}
+          </div>
         </div>
 
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-dollar-sign"></i>
-        </span>
-      </div>
-    </div>
-
-    <div class="field column mb-0 pb-0 is-6-tablet">
-      <label class="label">Monto disponible</label>
-      <div class="control has-icons-left">
-        <input
-          class="input is-info"
-          type="number"
-          disabled
-          placeholder="Introduce el monto disponible"
-          autocomplete="off"
-        />
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-dollar-sign"></i>
-        </span>
-
-      </div>
-    </div>
-
-    <div class="field column mb-0 pb-0 is-6-tablet">
-      <label class="label">Comisión</label>
-      <div class="control has-icons-left">
-        <input
-          disabled
-          class="input is-info"
-          type="number"
-          placeholder="Introduce la Comisión"
-          autocomplete="off"
-        />
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-dollar-sign"></i>
-        </span>
-      </div>
-    </div>
-
-    <div class="field column mb-0 pb-0">
-      <label class="label">Usuario con acceso al proyecto</label>
-      <div class="control has-icons-left">
-        <div class="select is-fullwidth is-info">
-          <select name="country">
-            <option selected disabled value="">Seleccione el usuario con acceso al proyecto</option>
-            <option value="miguek">Jose miguel</option>
-          </select>
+        <div class="field mb-0 pb-0 column is-12">
+          <label class="label">Nombre</label>
+          <div class="control  has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formRegister.get('nombre')?.errors,
+                'is-success': formRegister.get('nombre')?.errors === null
+              }"
+              autocomplete="off"
+              formControlName="nombre"
+              type="text"
+              placeholder="Introduce el nombre del proyecto"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('nombre')?.errors,
+                'has-text-link-dark': formRegister.get('nombre')?.errors === null
+              }"
+              >
+              <i class="fas fa-file-signature"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formRegister.get('nombre')?.errors,
+              'is-dark': formRegister.get('nombre')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("nombre") }}
+          </p>
         </div>
 
-        <span class="icon is-small is-left has-text-link-dark">
-          <i class="fas fa-id-card"></i>
-        </span>
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Código</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formRegister.get('codigo')?.errors,
+                'is-success': formRegister.get('codigo')?.errors === null
+              }"
+              type="text"
+              placeholder="Introduce el código del proyecto"
+              autocomplete="off"
+              formControlName="codigo"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('codigo')?.errors,
+                'has-text-link-dark': formRegister.get('codigo')?.errors === null
+              }"
+              >
+              <i class="fas fa-code"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formRegister.get('codigo')?.errors,
+              'is-dark': formRegister.get('codigo')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("codigo") }}
+          </p>
+        </div>
+
+
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Status del proyecto</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formRegister.get('status')?.errors,
+              'is-success': formRegister.get('status')?.errors === null
+            }"
+            >
+              <select formControlName="status">
+                <option selected disabled value="">Seleccione el status del proyecto</option>
+                <option *ngFor="let statu of statusProject" [value]="statu.value"> {{statu.status | titlecase}} </option>
+              </select>
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('status')?.errors,
+                'has-text-link-dark': formRegister.get('status')?.errors === null
+              }"
+            >
+              <i class="fas fa-file-alt" ></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formRegister.get('status')?.errors,
+            'is-dark': formRegister.get('status')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("status") }}
+        </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Monto aprobado</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <input
+              appSeparadorMiles
+              class="input "
+              [ngClass]="{
+                'is-danger': formRegister.get('aprobado')?.errors,
+                'is-success': formRegister.get('aprobado')?.errors === null
+              }"
+              type="text"
+              (keypress)="comprobar($event)"
+              formControlName="aprobado"
+              placeholder="Introduce el monto aprobado"
+              autocomplete="off"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('aprobado')?.errors,
+                'has-text-link-dark': formRegister.get('aprobado')?.errors === null
+              }"
+            >
+              <i class="fas" [ngClass]="{'fa-dollar-sign':formRegister.get('moneda').value === 'Dolar', 'fa-euro-sign':formRegister.get('moneda').value !== 'Dolar'}"></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formRegister.get('aprobado')?.errors,
+            'is-dark': formRegister.get('aprobado')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("aprobado") }}
+        </p>
+        </div>
+
+
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Porcentaje de comisión</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formRegister.get('comision')?.errors,
+              'is-success': formRegister.get('comision')?.errors === null
+            }"
+            >
+              <select formControlName="comision">
+                <option value="" selected disabled>Seleccione el % de comisión</option>
+                <option *ngFor="let comi of comision" [value]="comi"> {{comi}}% </option>
+              </select>
+
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('comision')?.errors,
+                'has-text-link-dark': formRegister.get('comision')?.errors === null
+              }"
+            >
+              <i class="fas " [ngClass]="{'fa-dollar-sign':formRegister.get('moneda').value === 'Dolar', 'fa-euro-sign':formRegister.get('moneda').value !== 'Dolar'}" ></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formRegister.get('comision')?.errors,
+            'is-dark': formRegister.get('comision')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("comision") }}
+        </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Moneda del proyecto</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formRegister.get('moneda')?.errors,
+              'is-success': formRegister.get('moneda')?.errors === null
+            }"
+            >
+              <select formControlName="moneda">
+                <option selected disabled value="">Seleccione la moneda del proyecto</option>
+                <option *ngFor="let money of moneda" [value]="money"> {{money | titlecase}} </option>
+              </select>
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('moneda')?.errors,
+                'has-text-link-dark': formRegister.get('moneda')?.errors === null
+              }"
+            >
+              <i class="fas " [ngClass]="{'fa-dollar-sign':formRegister.get('moneda').value === 'Dolar', 'fa-euro-sign':formRegister.get('moneda').value !== 'Dolar'}"></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formRegister.get('moneda')?.errors,
+            'is-dark': formRegister.get('moneda')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("moneda") }}
+        </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Alias</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formRegister.get('alias')?.errors,
+                'is-success': formRegister.get('alias')?.errors === null
+              }"
+              type="text"
+              placeholder="Introduce el Alias del proyecto"
+              autocomplete="off"
+              formControlName="alias"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('alias')?.errors,
+                'has-text-link-dark': formRegister.get('alias')?.errors === null
+              }"
+            >
+              <i class="fas fa-file-alt"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formRegister.get('alias')?.errors,
+              'is-dark': formRegister.get('alias')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("alias") }}
+          </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-12">
+          <label class="label">Usuario con acceso al proyecto</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':registerData.loading}">
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formRegister.get('usuario')?.errors,
+              'is-success': formRegister.get('usuario')?.errors === null
+            }"
+            >
+              <select formControlName="usuario">
+                <option selected disabled value="null">Seleccione el usuario con acceso al proyecto</option>
+                <option *ngFor="let user of usersList.dataAdmin" [value]="user.id">{{ user.apellidos + ', '+ user.nombres | titlecase }} -- {{user.nacionalidad+user.cedula}}</option>
+              </select>
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formRegister.get('usuario')?.errors,
+                'has-text-link-dark': formRegister.get('usuario')?.errors === null
+              }"
+            >
+              <i class="fas fa-id-card"></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formRegister.get('usuario')?.errors,
+            'is-dark': formRegister.get('usuario')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("usuario") }}
+        </p>
+        </div>
+
+      </fieldset>
+
+      <div class="field has-text-centered is-family-monospace" *ngIf="usersList.success === 1">
+        <p class="control py-2">
+          <button class="button is-info is-uppercase" [disabled]="formRegister.invalid || registerData.loading" [ngClass]="{'is-loading':registerData.loading}" type="submit">
+            Registrar proyecto
+          </button>
+        </p>
+
+
       </div>
-    </div>
-
-  </div>
-
-  <div class="field has-text-centered is-family-monospace">
-    <p class="control py-2">
-      <button class="button is-info is-uppercase" type="button">
-        Registrar proyecto
-      </button>
-    </p>
-
-
-  </div>
+    </ng-container>
+  </ng-container>
 </form>

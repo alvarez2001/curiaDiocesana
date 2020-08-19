@@ -11,6 +11,7 @@ export class TemplateUsuarioComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

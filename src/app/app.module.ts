@@ -19,6 +19,9 @@ import { pantallaCarga } from "./reducers/app-reducers";
 import { registerUser, recoveryPassword, loginUser, detailUser, LogoutUser } from "./reducers/login.reducers";
 import { LoginEffects } from './effects/login.effects';
 import { PrincipalInterceptor } from "./services/interceptores/principal.interceptor";
+import { AsidesNavAdministradorComponent } from './asides-nav-administrador/asides-nav-administrador.component';
+
+
 
 
 const ngrxImport = [
@@ -43,6 +46,8 @@ const ngrxImport = [
     TemplateComponent,
     NavbarAdministradorComponent,
     TemplateInicioComponent,
+    AsidesNavAdministradorComponent,
+
   ],
   imports: [
     BrowserModule,

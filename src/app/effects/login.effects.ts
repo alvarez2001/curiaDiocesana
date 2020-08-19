@@ -158,11 +158,14 @@ export class LoginEffects {
   LoadLogoutUser = createEffect(()=>
   this.action$.pipe(
     ofType(actions.LoadLogoutUser),
-    tap(()=> loadOn()),
-    mergeMap(()=>this.loginSvc.logoutUser().pipe(
-      map((val) => actions.SuccessLogoutUser({successData:val.message})),
-      catchError((error )=> of(actions.FailedLogoutUser(error)))
-    ))
+
+    mergeMap(()=> {
+      this.store.dispatch(loadOn())
+      return this.loginSvc.logoutUser().pipe(
+        map((val) => actions.SuccessLogoutUser({successData:val.message})),
+        catchError((error )=> of(actions.FailedLogoutUser(error)))
+      )
+    })
   ))
 
   SuccessLogoutUser = createEffect(()=>

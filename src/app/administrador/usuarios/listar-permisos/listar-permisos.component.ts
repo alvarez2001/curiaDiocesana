@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import { UsersService } from 'src/app/services/usersAdmin/users.service';
 import { permisosStateModel, permisosModel, PermisoAsignarRevocar, PermisosRevocarAsignarState } from '../models/usersInactive.models';
 import { Observable } from 'rxjs';
@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-listar-permisos',
   templateUrl: './listar-permisos.component.html',
-  styleUrls: ['./listar-permisos.component.scss']
+  styleUrls: ['./listar-permisos.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class ListarPermisosComponent  {
 

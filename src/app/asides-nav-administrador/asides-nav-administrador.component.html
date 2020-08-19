@@ -1,0 +1,84 @@
+<div id="MenuAdministrativo" class="quickview">
+  <header class="quickview-header is-dark">
+
+    <p class="title is-uppercase">Menu administrativo</p>
+    <span class="delete" data-dismiss="quickview"></span>
+  </header>
+
+  <div class="quickview-body">
+
+    <aside class="menu">
+      <p class="menu-label">
+        Modulo de usuario
+      </p>
+      <ul class="menu-list">
+        <li>
+          <ul>
+            <li>
+              <a [routerLink]="['/administrador/usuarios/crear-usuario']" routerLinkActive="is-active" >
+                <i class="fas fa-user-plus "></i>
+                Crear cuenta
+              </a>
+            </li>
+            <li>
+              <a [routerLink]="['/administrador/usuarios/listar-inactivos']" routerLinkActive="is-active">
+                <i class="fas fa-users"></i>
+                Listar cuentas <small>( Inactivas )</small>
+              </a>
+            </li>
+            <li>
+              <a   [routerLink]="['/administrador/usuarios/listar-activos']" routerLinkActive="is-active">
+                <i class="far fa-list-alt"></i>
+                Listar cuentas <small>( Activas )</small>
+              </a>
+            </li>
+            <li>
+              <a  [routerLink]="['/administrador/usuarios/control-permisos']" routerLinkActive="is-active">
+                <i class="fas fa-plus-circle"></i>
+                Control de permisos
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <p class="menu-label">Modulo de proyectos</p>
+      <ul class="menu-list">
+        <li>
+          <ul>
+            <li>
+              <a routerLink="/administrador/proyectos/crear-proyecto" routerLinkActive="is-active" >
+                <i class="fas fa-file"></i>
+                Crear proyecto
+              </a>
+            </li>
+            <li>
+              <a routerLink="/administrador/proyectos/listar-proyectos" routerLinkActive="is-active" >
+                <i class="fas fa-file"></i>
+                Listar proyectos
+              </a>
+            </li>
+            <li>
+              <a routerLink="/administrador/proyectos/modificar-proyecto" routerLinkActive="is-active" >
+                <i class="fas fa-file-alt"></i>
+                Modificar proyecto
+              </a>
+            </li>
+            <li>
+              <a routerLink="/administrador/proyectos/usuario-proyecto" routerLinkActive="is-active" >
+                <i class="fas fa-user"></i>
+                Asignar usuario a proyecto
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+  </div>
+
+
+
+
+  <!-- <footer class="quickview-footer">
+
+  </footer> -->
+</div>

@@ -1,5 +1,10 @@
 <nav class="navbar  is-fixed-top" [ngClass]="{'is-info': path === 'administrador', 'is-primary':path !== 'administrador'}" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
+    <div class="navbar-item">
+      <button class="button is-info" type="button" data-show="quickview" data-target="MenuAdministrativo" *ngIf="path === 'administrador'">
+        <i class="fas fa-stream"></i>
+      </button>
+    </div>
     <a class="navbar-item is-uppercase" [routerLink]="rutaEnvio">
       <h1>Diócesis de carúpano</h1>
     </a>
@@ -25,9 +30,12 @@
 
       <ng-container *ngIf="path === 'administrador'; else itemNavbarSolicitante">
 
-        <a class="navbar-item" routerLink="/administrador/usuarios">
+        <!-- <a class="navbar-item" routerLink="/administrador/usuarios">
           Usuarios
         </a>
+        <a class="navbar-item" routerLink="/administrador/proyectos">
+          Proyectos
+        </a> -->
       </ng-container>
 
       <ng-template #itemNavbarSolicitante>
@@ -36,15 +44,10 @@
         </a>
       </ng-template>
 
-      <div class="navbar-item has-dropdown is-hoverable">
 
-        <!-- <figure class="navbar-item image is-flex-desktop  is-hidden-touch">
-          <img
-            src="https://bulma.io/images/placeholders/256x256.png"
-            class="is-rounded "
-          />
-        </figure> -->
-        <a [routerLink]="['modificar-cuenta']" class="navbar-link ">
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a  class="navbar-link ">
           {{nameUser() | titlecase}}
         </a>
 

@@ -46,10 +46,10 @@ private agregarMiles(){
           this.el.nativeElement.value = this.formatoNumero(guardarValor);
       }
       if(!this.el.nativeElement.value.includes(',') && this.el.nativeElement.value !== ''){
-          this.el.nativeElement.value = this.el.nativeElement.value + ',00'
+          this.el.nativeElement.value = this.el.nativeElement.value
       }
       if(this.el.nativeElement.value === ''){
-          this.el.nativeElement.value = '0,00';
+          this.el.nativeElement.value = '';
       }
   }else{
     this.el.nativeElement.value = +this.el.nativeElement.value.replace(/[,]/g, '.');

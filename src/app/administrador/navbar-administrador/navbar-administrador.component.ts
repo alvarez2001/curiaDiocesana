@@ -1,9 +1,8 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, OnChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit, OnDestroy, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { LogRegService } from 'src/app/services/login/log-reg.service';
-import { Store,select } from "@ngrx/store";
-import { Observable } from 'rxjs';
 import { UsersService } from 'src/app/services/usersAdmin/users.service';
+import * as bulmaQuickview from "node_modules/bulma-extensions/bulma-quickview/dist/js/bulma-quickview.min.js";
 
 @Component({
   selector: 'app-navbar-administrador',
@@ -11,7 +10,8 @@ import { UsersService } from 'src/app/services/usersAdmin/users.service';
   providers:[
     LogRegService,
     UsersService
-  ]
+  ],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class NavbarAdministradorComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
 
@@ -23,6 +23,7 @@ export class NavbarAdministradorComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnInit(): void {
+
     this.path = this.route.snapshot.routeConfig.path;
     this.nameUser();
     (this.path === 'administrador') ? this.rutaEnvio = ['/administrador'] : this.rutaEnvio = ['/solicitante'];
@@ -40,6 +41,7 @@ export class NavbarAdministradorComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit(){
+    const quickviews = bulmaQuickview.attach();
      this.activarNavbar();
   }
 

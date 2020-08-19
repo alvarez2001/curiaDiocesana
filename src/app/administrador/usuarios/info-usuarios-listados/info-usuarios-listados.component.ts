@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserModel, UserStatusModel } from '../models/usersInactive.models';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -12,7 +12,8 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-info-usuarios-listados',
   templateUrl: './info-usuarios-listados.component.html',
-  providers:[UsersService]
+  providers:[UsersService],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class InfoUsuariosListadosComponent implements OnInit, OnDestroy {
 

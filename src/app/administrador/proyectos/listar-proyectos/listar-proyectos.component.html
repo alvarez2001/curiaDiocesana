@@ -1,0 +1,131 @@
+<ng-container *ngIf="(ProjectsPaginate$ | async) as projectsPaginate">
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h2 class="title has-text-centered is-uppercase">
+        Listar Proyectos
+      </h2>
+    </div>
+
+    <div class="column is-12 " >
+
+      <div class="field has-addons is-pulled-right">
+        <div class="control">
+          <div class="select">
+            <select #SelectBusqueda>
+              <option value="1">Buscar página</option>
+              <option *ngFor="let pageSelect of selectPage(projectsPaginate.dataProjects?.last_page)" [value]="pageSelect">{{pageSelect}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <button type="button" class="button is-info" (click)="buscarPagina(SelectBusqueda.value, projectsPaginate.dataProjects?.path)">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="column is-12">
+
+      <div class="table-container">
+        <table
+          class="table has-text-centered is-striped is-hoverable is-fullwidth"
+        >
+          <thead class="has-background-info">
+            <tr class="py-3">
+              <th class="has-text-white max-150" >Codigo</th>
+              <th class="has-text-white minw-250">Nombre</th>
+              <th class="has-text-white max-150">Alias</th>
+              <th class="has-text-white">Aprobado</th>
+              <th class="has-text-white">Disponible</th>
+              <th class="has-text-white">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody >
+            <tr *ngIf="projectsPaginate.success === 3">
+              <td colspan="6">Cargando datos...</td>
+            </tr>
+            <tr *ngIf="projectsPaginate.success === 2" >
+              <td colspan="6"> <button class="is-danger button" (click)="cargarProyectos()">Presione para cargar nuevamente la data</button></td>
+            </tr>
+            <tr *ngIf="projectsPaginate.success === 1 && (projectsPaginate?.dataProjects && projectsPaginate?.dataProjects?.data.length === 0) ">
+              <td colspan="6">No hay datos en este momento</td>
+            </tr>
+            <tr *ngFor="let project of projectsPaginate?.dataProjects?.data">
+              <td > {{project.codigo}} </td>
+              <td > {{project.nombre}} </td>
+              <td > {{project?.alias}} </td>
+              <ng-container *ngIf="project.moneda === 'Euro'">
+                <td > {{project.aprobado | currency:'EUR'}} </td>
+                <td > {{project.disponible | currency:'EUR'}} </td>
+              </ng-container>
+              <ng-container *ngIf="project.moneda === 'Dolar'">
+                <td > {{project.aprobado | currency:'USD'}} </td>
+                <td > {{project.disponible | currency:'USD'}} </td>
+              </ng-container>
+              <td class="mb-0 is-centered py-3">
+                <button
+                  class="button mb-0"
+                  type="button"
+                (click)="mostrarInfo(project)"
+                >
+                  <i class="fas fa-search-plus"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="column is-12" >
+        <nav
+          class="pagination"
+          role="navigation"
+          *ngIf="projectsPaginate.success === 1"
+        >
+          <button
+            class="pagination-previous"
+            [disabled]="projectsPaginate.dataProjects?.current_page === 1"
+            (click)="paginate(projectsPaginate.dataProjects.path, projectsPaginate.dataProjects.current_page - 1)"
+          >
+            Anterior
+          </button>
+          <button
+            class="pagination-next"
+            [disabled]="projectsPaginate.dataProjects.current_page === projectsPaginate.dataProjects.last_page"
+            (click)="paginate(projectsPaginate.dataProjects.path, projectsPaginate.dataProjects.current_page + 1)"
+          >
+            Siguiente
+          </button>
+          <ul class="pagination-list">
+            <li *ngIf="projectsPaginate.dataProjects.current_page !== 1">
+              <a class="pagination-link" (click)="paginate(projectsPaginate.dataProjects.path, 1)"> 1 </a>
+            </li>
+            <li *ngIf="projectsPaginate.dataProjects.current_page !== 1">
+              <span class="pagination-ellipsis">&hellip;</span>
+            </li>
+            <li *ngIf="projectsPaginate.dataProjects.current_page >  1">
+              <a class="pagination-link" (click)="paginate(projectsPaginate.dataProjects.path, projectsPaginate.dataProjects.current_page - 1)">{{ projectsPaginate.dataProjects.current_page - 1 }}</a>
+            </li>
+            <li>
+              <a class="pagination-link is-current" (click)="paginate(projectsPaginate.dataProjects.path, projectsPaginate.dataProjects.current_page)">{{
+                projectsPaginate.dataProjects.current_page
+              }}</a>
+            </li>
+            <li *ngIf="projectsPaginate.dataProjects.current_page < projectsPaginate.dataProjects.last_page ">
+              <a class="pagination-link" (click)="paginate(projectsPaginate.dataProjects.path, projectsPaginate.dataProjects.current_page + 1)">{{ projectsPaginate.dataProjects.current_page + 1 }}</a>
+            </li>
+            <li *ngIf="projectsPaginate.dataProjects.current_page < projectsPaginate.dataProjects.last_page">
+              <span class="pagination-ellipsis">&hellip;</span>
+            </li>
+            <li *ngIf="projectsPaginate.dataProjects.current_page < projectsPaginate.dataProjects.last_page">
+              <a class="pagination-link" (click)="paginate(projectsPaginate.dataProjects.path, projectsPaginate.dataProjects.last_page)">{{ projectsPaginate.dataProjects.last_page }}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</ng-container>

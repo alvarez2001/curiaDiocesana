@@ -42,13 +42,13 @@
 
         <tbody *ngIf="usersList$ | async as listUsers">
           <tr *ngIf="listUsers.success === 3">
-            <td colspan="3">Cargando datos...</td>
+            <td colspan="4">Cargando datos...</td>
           </tr>
           <tr *ngIf="listUsers.success === 2" >
-            <td colspan="3"> <button class="is-danger button" (click)="chargeList()">Presione para cargar nuevamente la data</button></td>
+            <td colspan="4"> <button class="is-danger button" (click)="chargeList()">Presione para cargar nuevamente la data</button></td>
           </tr>
           <tr *ngIf="listUsers.success === 1 && listUsers.ListUsers.length === 0">
-            <td colspan="3">No hay datos en este momento</td>
+            <td colspan="4">No hay datos en este momento</td>
           </tr>
           <tr *ngFor="let user of listUsers.ListUsers">
             <td>{{ nombreCompleto(user) | titlecase }}</td>

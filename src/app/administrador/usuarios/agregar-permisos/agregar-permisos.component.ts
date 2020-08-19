@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { UsersService } from 'src/app/services/usersAdmin/users.service';
 import { Observable } from 'rxjs';
 import { AdminsStateModel, permisosStateModel } from '../models/usersInactive.models';
@@ -8,8 +8,7 @@ declare let $:any;
 @Component({
   selector: 'app-agregar-permisos',
   templateUrl: './agregar-permisos.component.html',
-  styles: [
-  ]
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class AgregarPermisosComponent implements OnInit {
 

@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 $modal-content-width:calc(100vw - 150px);
 @import "../node_modules/bulma/bulma.sass";
-@import "../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.min.css";
+@import "../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.sass";
+@import "../node_modules/bulma-extensions/bulma-quickview/dist/css/bulma-quickview.sass";
 @import "./assets/css/all.css";
 
 .pageloader {
@@ -73,6 +74,10 @@ select select::placeholder,
 }
 .minw-250{
   min-width: 250px;
+}
+
+.max-150{
+  max-width: 150px;
 }
 .mat-dialog-container {
   padding: 0px !important;

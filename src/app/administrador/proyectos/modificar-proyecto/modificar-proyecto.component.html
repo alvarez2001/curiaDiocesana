@@ -1,0 +1,195 @@
+
+<div class="columns is-multiline">
+  <div class="column is-12">
+    <h2 class="title has-text-centered is-uppercase">
+      Modificar proyecto #{{id}}
+    </h2>
+  </div>
+</div>
+
+<ng-container *ngIf="(proyectoEspecifico$ | async) as proyecto">
+
+  <h2 class="subtitle has-text-centered" *ngIf="proyecto.success === 3"> Cargando... </h2>
+
+  <div class="has-text-centered" *ngIf="proyecto.success === 2">
+    <button class="button is-danger" (click)="cargarInfo(id)"> Cargar nuevamente la información </button>
+  </div>
+
+
+
+
+
+
+  <form method="POST" [formGroup]="formModificar"  *ngIf="proyecto.success === 1" (ngSubmit)="modificarProyecto()">
+
+
+    <ng-container *ngIf="(modificarInfoProyecto$ | async) as ModiProyecto">
+      <div class="notification is-light" [ngClass]="{'is-success':ModiProyecto.success === 1}" *ngIf="ModiProyecto.success !== 3">
+        <button class="delete" type="button" (click)="restartData()"></button>
+        {{ModiProyecto.responseSv}}
+      </div>
+      <fieldset class="columns is-multiline" [disabled]="ModiProyecto.loading">
+        <div class="field mb-0 pb-0 column is-12">
+          <label class="label">Nombre</label>
+          <div class="control  has-icons-left" [ngClass]="{'is-loading':ModiProyecto.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formModificar.get('nombre')?.errors,
+                'is-success': formModificar.get('nombre')?.errors === null
+              }"
+              autocomplete="off"
+              formControlName="nombre"
+              type="text"
+              placeholder="Introduce el nombre del proyecto"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formModificar.get('nombre')?.errors,
+                'has-text-link-dark': formModificar.get('nombre')?.errors === null
+              }"
+              >
+              <i class="fas fa-file-signature"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formModificar.get('nombre')?.errors,
+              'is-dark': formModificar.get('nombre')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("nombre") }}
+          </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-3-tablet">
+          <label class="label">Status del proyecto</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':ModiProyecto.loading}">
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formModificar.get('status')?.errors,
+              'is-success': formModificar.get('status')?.errors === null
+            }"
+            >
+              <select formControlName="status">
+                <option selected disabled value="">Seleccione el status del proyecto</option>
+                <option *ngFor="let statu of statusProject" [value]="statu.value"> {{statu.status | titlecase}} </option>
+              </select>
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formModificar.get('status')?.errors,
+                'has-text-link-dark': formModificar.get('status')?.errors === null
+              }"
+            >
+              <i class="fas fa-file-alt" ></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formModificar.get('status')?.errors,
+            'is-dark': formModificar.get('status')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("status") }}
+        </p>
+        </div>
+
+
+
+
+        <div class="field column mb-0 pb-0 is-3-tablet">
+          <label class="label">Moneda del proyecto</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':ModiProyecto.loading}" >
+            <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': formModificar.get('moneda')?.errors,
+              'is-success': formModificar.get('moneda')?.errors === null
+            }"
+            >
+              <select formControlName="moneda">
+                <option selected disabled value="">Seleccione la moneda del proyecto</option>
+                <option *ngFor="let money of moneda" [value]="money"> {{money | titlecase}} </option>
+              </select>
+            </div>
+
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formModificar.get('moneda')?.errors,
+                'has-text-link-dark': formModificar.get('moneda')?.errors === null
+              }"
+            >
+              <i class="fas " [ngClass]="{'fa-dollar-sign':formModificar.get('moneda').value === 'Dolar', 'fa-euro-sign':formModificar.get('moneda').value !== 'Dolar'}"></i>
+            </span>
+          </div>
+          <p
+          class="help"
+          [ngClass]="{
+            'is-danger': formModificar.get('moneda')?.errors,
+            'is-dark': formModificar.get('moneda')?.errors === null
+          }"
+        >
+          {{ mostrarErrores("moneda") }}
+        </p>
+        </div>
+
+
+
+        <div class="field column mb-0 pb-0 is-6-tablet">
+          <label class="label">Alias</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':ModiProyecto.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formModificar.get('alias')?.errors,
+                'is-success': formModificar.get('alias')?.errors === null
+              }"
+              type="text"
+              placeholder="Introduce el Alias del proyecto"
+              autocomplete="off"
+              formControlName="alias"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formModificar.get('alias')?.errors,
+                'has-text-link-dark': formModificar.get('alias')?.errors === null
+              }"
+            >
+              <i class="fas fa-file-alt"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formModificar.get('alias')?.errors,
+              'is-dark': formModificar.get('alias')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("alias") }}
+          </p>
+        </div>
+
+        <div class="field is-12 column has-text-centered is-family-monospace" >
+          <p class="control py-2">
+            <button class="button is-info is-uppercase" [ngClass]="{'is-loading':ModiProyecto.loading}" [disabled]="formModificar.invalid || ModiProyecto.loading" type="submit">
+              Actualizar proyecto
+            </button>
+          </p>
+
+
+        </div>
+      </fieldset>
+
+    </ng-container>
+
+
+
+
+
+    </form>
+
+
+</ng-container>

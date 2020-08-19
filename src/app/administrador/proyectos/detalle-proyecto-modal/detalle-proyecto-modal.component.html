@@ -1,0 +1,120 @@
+<div class="modal animate__animated" [ngClass]="{'is-active animate__fadeInDown': active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card ">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Detalle del proyecto #{{formDetalleModal.get('id').value}}</p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+</header>
+<section class="modal-card-body">
+
+
+
+  <fieldset class="is-multiline columns"  [formGroup]="formDetalleModal">
+
+    <div class="field  is-12-tablet is-4-desktop  column">
+      <label class="label">Alias</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" formControlName="alias" placeholder="Alias">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-file-alt"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop column">
+      <label class="label">Status</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Status" formControlName="status">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-file-alt" ></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop  column">
+      <label class="label">Código</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Codigo" formControlName="codigo">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-code"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field is-12  column">
+      <label class="label">Nombre</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Nombre" formControlName="nombre">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-file-signature"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop column">
+      <label class="label">Aprobado</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Aprobado"  [value]="formDetalleModal.get('aprobado').value | currency:' '">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':formDetalleModal.get('moneda').value === 'Dolar', 'fa-euro-sign':formDetalleModal.get('moneda').value !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop  column">
+      <label class="label">Disponible</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Disponible" [value]="formDetalleModal.get('disponible').value | currency:' '">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':formDetalleModal.get('moneda').value === 'Dolar', 'fa-euro-sign':formDetalleModal.get('moneda').value !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop  column">
+      <label class="label">Comisión</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Codigo" [value]="formDetalleModal.get('comision').value | currency:' '">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':formDetalleModal.get('moneda').value === 'Dolar', 'fa-euro-sign':formDetalleModal.get('moneda').value !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet  column">
+      <label class="label">Moneda</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Moneda" formControlName="moneda">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':formDetalleModal.get('moneda').value === 'Dolar', 'fa-euro-sign':formDetalleModal.get('moneda').value !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet  column">
+      <label class="label">Usuario responsable del proyecto</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Usuario responsable" formControlName="usuario_id">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-id-card"></i>
+        </span>
+      </p>
+    </div>
+
+
+
+
+  </fieldset>
+
+
+</section>
+<footer class="modal-card-foot" >
+
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value]" (click)="cerrarDialog()">Modificar Proyecto</a>
+  <button class="button is-danger" (click)="cerrarDialog()">Cerrar</button>
+</footer>
+
+  </div>
+</div>

@@ -39,6 +39,16 @@ export class SharedService {
 
   }
 
+  formatoNumericoDecimal(valor):boolean{
+    const tecla = valor.key;
+    const patron = /[0-9\.]/;
+    const Punto = /[\.]/
+    if(Punto.test(valor.target.value) && Punto.test(tecla)){
+      return false;
+    }
+    return patron.test(tecla)
+  }
+
   redirigirDondeQuiera(redireccion){
     return this.router.navigate([redireccion])
   }
