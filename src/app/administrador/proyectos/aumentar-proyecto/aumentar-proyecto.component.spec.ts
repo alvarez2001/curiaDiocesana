@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PanelAdministradorComponent } from './panel-administrador.component';
+import { AumentarProyectoComponent } from './aumentar-proyecto.component';
 
-describe('PanelAdministradorComponent', () => {
-  let component: PanelAdministradorComponent;
-  let fixture: ComponentFixture<PanelAdministradorComponent>;
+describe('AumentarProyectoComponent', () => {
+  let component: AumentarProyectoComponent;
+  let fixture: ComponentFixture<AumentarProyectoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PanelAdministradorComponent ]
+      declarations: [ AumentarProyectoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PanelAdministradorComponent);
+    fixture = TestBed.createComponent(AumentarProyectoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabPanelProyectosComponent } from './tab-panel-proyectos.component';
+import { CrearBancoComponent } from './crear-banco.component';
 
-describe('TabPanelProyectosComponent', () => {
-  let component: TabPanelProyectosComponent;
-  let fixture: ComponentFixture<TabPanelProyectosComponent>;
+describe('CrearBancoComponent', () => {
+  let component: CrearBancoComponent;
+  let fixture: ComponentFixture<CrearBancoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabPanelProyectosComponent ]
+      declarations: [ CrearBancoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabPanelProyectosComponent);
+    fixture = TestBed.createComponent(CrearBancoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

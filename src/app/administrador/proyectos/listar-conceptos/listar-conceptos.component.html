@@ -1,0 +1,74 @@
+<div class="container box my-5" *ngIf="(ListarConceptos$ | async) as conceptosList">
+  <ng-container *ngIf="(EliminarConcepto$ |async) as deleteConcep">
+    <div class="columns is-multiline">
+      <div class="column is-12">
+        <h2 class="title has-text-centered is-uppercase">
+          Listar conceptos
+        </h2>
+      </div>
+
+
+      <div class="column is-12" *ngIf="deleteConcep.success !== 3">
+        <div class="notification "  [ngClass]="{
+          'is-danger':deleteConcep.success === 2,
+          'is-success':deleteConcep.success === 1
+        }">
+          <button class="delete" type="button" (click)="restaurarStateConcepto()"></button>
+          {{deleteConcep.responseSv}}
+        </div>
+      </div>
+
+
+      <div class="column is-12">
+
+        <div class="table-container">
+          <table
+            class="table has-text-centered is-striped is-hoverable is-fullwidth"
+          >
+            <thead class="has-background-info">
+              <tr class="py-3">
+                <th class="has-text-white" > N° </th>
+                <th class="has-text-white minw-250"> Descripción </th>
+                <th class="has-text-white"> Mostrar a solicitantes </th>
+                <th class="has-text-white">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody >
+              <tr *ngIf="conceptosList.success === 3">
+                <td colspan="6">Cargando datos...</td>
+              </tr>
+              <tr *ngIf="conceptosList.success === 2" >
+                <td colspan="6"> <button class="is-danger button" (click)="cargarInfo()">Presione para cargar nuevamente la data</button></td>
+              </tr>
+              <tr *ngIf="conceptosList.success === 1 && conceptosList.data.length === 0 ">
+                <td colspan="6">No hay datos en este momento</td>
+              </tr>
+              <tr *ngFor="let concepto of conceptosList.data; let i = index">
+                <td > {{i+1}} </td>
+                <td > {{concepto.descripcion}} </td>
+                <td> {{concepto.solicitud}} </td>
+                <td class="mb-0 is-centered py-3">
+                  <button
+                    class="button is-danger mb-0"
+                    [ngClass]="{
+                      'is-loading':deleteConcep.loading
+                    }"
+                    type="button"
+                    [disabled]="deleteConcep.loading"
+                    (click)="eliminarConcepto(concepto.id)"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
+</div>

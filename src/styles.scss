@@ -3,7 +3,10 @@ $modal-content-width:calc(100vw - 150px);
 @import "../node_modules/bulma/bulma.sass";
 @import "../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.sass";
 @import "../node_modules/bulma-extensions/bulma-quickview/dist/css/bulma-quickview.sass";
+@import "../node_modules/bulma-extensions/bulma-divider/dist/css/bulma-divider.sass";
 @import "./assets/css/all.css";
+
+
 
 .pageloader {
   background-color: rgba(0, 0, 0, 0.771);

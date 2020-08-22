@@ -1,0 +1,388 @@
+<div class="container box my-5" *ngIf="(bancoState$ | async) as bancoEstado">
+  <div class="columns column is-12 is-multiline">
+    <div class="column is-12">
+      <h2 class="title has-text-centered is-uppercase">
+        Registrar banco
+      </h2>
+    </div>
+  </div>
+
+  <form [formGroup]="registrarBanco" (ngSubmit)="guardarBanco()">
+    <fieldset [disabled]="bancoEstado.loading">
+
+       <div class="columns is-multiline">
+
+        <div class="field column is-6-tablet is-4-desktop">
+          <label class="label"> Nombres </label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':bancoEstado.loading}">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('nombres')?.errors,
+                'is-success':
+                  registrarBanco.get('nombres')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              placeholder="Introduce el nombre del títular de la cuenta"
+              autocomplete="off"
+              formControlName="nombres"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('nombres')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('nombres')?.errors === null
+              }"
+            >
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('nombres')?.errors,
+              'is-dark': registrarBanco.get('nombres')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("nombres") }}
+          </p>
+        </div>
+
+        <div class="field column is-6-tablet is-4-desktop">
+          <label class="label"> Apellidos </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('apellidos')?.errors,
+                'is-success':
+                  registrarBanco.get('apellidos')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              placeholder="Introduce el apellido del títular de la cuenta"
+              autocomplete="off"
+              formControlName="apellidos"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('apellidos')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('apellidos')?.errors === null
+              }"
+            >
+              <i class="fas fa-user"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('apellidos')?.errors,
+              'is-dark': registrarBanco.get('apellidos')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("apellidos") }}
+          </p>
+        </div>
+
+        <div class="field column is-6-tablet is-4-desktop">
+          <label class="label"> Nacionalidad </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <div
+              class="select is-fullwidth"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('nacionalidad')?.errors,
+                'is-success': registrarBanco.get('nacionalidad')?.errors === null
+              }"
+            >
+              <select formControlName="nacionalidad">
+                <option selected disabled value="">Seleccione una nacionalidad</option>
+                <option *ngFor="let nacio of nacionalidad" [value]="nacio.value"> {{nacio.nacionalidadMask}} </option>
+              </select>
+            </div>
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('nacionalidad')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('nacionalidad')?.errors === null
+              }"
+            >
+              <i class="fas fa-id-card"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('nacionalidad')?.errors,
+              'is-dark': registrarBanco.get('nacionalidad')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("nacionalidad") }}
+          </p>
+        </div>
+
+        <div class="field column is-6-tablet is-4-desktop">
+          <label class="label"> Identificacion </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('identificacion')?.errors,
+                'is-success':
+                  registrarBanco.get('identificacion')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              (keypress)="comprobarNumerico($event)"
+              placeholder="Introduce la cédula del títular de la cuenta "
+              autocomplete="off"
+              formControlName="identificacion"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('identificacion')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('identificacion')?.errors === null
+              }"
+            >
+              <i class="fas fa-id-card"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('identificacion')?.errors,
+              'is-dark': registrarBanco.get('identificacion')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("identificacion", 'caracteres numéricos') }}
+          </p>
+        </div>
+
+        <div class="field column is-12-tablet is-8-desktop">
+          <label class="label"> Nombre del Banco </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <div
+            *ngIf="registrarBanco.get('tipo_cuenta').value === 'Nacional'"
+            class="select is-fullwidth"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('banco')?.errors,
+              'is-success': registrarBanco.get('banco')?.errors === null
+            }"
+          >
+            <select formControlName="banco">
+              <option selected disabled value="">Seleccione un Banco</option>
+              <option *ngFor="let banco of listBancos" [value]="banco.nombre"> {{banco.codigo}} - {{banco.nombre}} </option>
+            </select>
+          </div>
+
+          <input
+              class="input"
+              *ngIf="registrarBanco.get('tipo_cuenta').value !== 'Nacional'"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('banco')?.errors,
+                'is-success':
+                  registrarBanco.get('banco')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              placeholder="Introduce el nombre del banco"
+              autocomplete="off"
+              formControlName="banco"
+            />
+
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('banco')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('banco')?.errors === null
+              }"
+            >
+              <i class="fas fa-university"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('banco')?.errors,
+              'is-dark': registrarBanco.get('banco')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("banco") }}
+          </p>
+        </div>
+
+        <div class="field column is-6-tablet is-4-desktop">
+          <label class="label"> Tipo de cuenta </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <div
+            class="select is-fullwidth"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('tipo_cuenta')?.errors,
+              'is-success': registrarBanco.get('tipo_cuenta')?.errors === null
+            }"
+          >
+            <select formControlName="tipo_cuenta">
+              <option value="Nacional">Nacional</option>
+              <option value="Internacional">Internacional</option>
+            </select>
+          </div>
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('tipo_cuenta')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('tipo_cuenta')?.errors === null
+              }"
+            >
+              <i class="fas fa-university"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('tipo_cuenta')?.errors,
+              'is-dark': registrarBanco.get('tipo_cuenta')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("tipo_cuenta") }}
+          </p>
+        </div>
+
+        <div class="field column is-6-tablet is-8-desktop" *ngIf="registrarBanco.get('tipo_cuenta').value === ('Nacional')">
+          <label class="label"> Número de cuenta nacional </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('numero_nacional')?.errors || validarCualTipoCuentaElige(1),
+                'is-success':
+                  registrarBanco.get('numero_nacional')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              (keypress)="comprobarNumerico($event)"
+              placeholder="Introduce el número de cuenta"
+              autocomplete="off"
+              formControlName="numero_nacional"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('numero_nacional')?.errors || validarCualTipoCuentaElige(1),
+                'has-text-link-dark':
+                  registrarBanco.get('numero_nacional')?.errors === null
+              }"
+            >
+              <i class="fas fa-university"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('numero_nacional')?.errors || validarCualTipoCuentaElige(1),
+              'is-dark': registrarBanco.get('numero_nacional')?.errors === null
+            }"
+          >
+          <span *ngIf="validarCualTipoCuentaElige(1)">El campo número nacional es requerido <br></span>
+            {{ mostrarErrores("numero_nacional") }}
+          </p>
+        </div>
+
+        <div class="field column is-6-tablet is-8-desktop" *ngIf="registrarBanco.get('tipo_cuenta').value === 'Internacional'">
+          <label class="label"> Número de cuenta internacional </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('numero_internacional')?.errors || validarCualTipoCuentaElige(0),
+                'is-success':
+                  registrarBanco.get('numero_internacional')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              placeholder="Introduce el número de cuenta"
+              autocomplete="off"
+              formControlName="numero_internacional"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('numero_internacional')?.errors || validarCualTipoCuentaElige(0),
+                'has-text-link-dark':
+                  registrarBanco.get('numero_internacional')?.errors === null
+              }"
+            >
+              <i class="fas fa-university"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('numero_internacional')?.errors || validarCualTipoCuentaElige(0),
+              'is-dark': registrarBanco.get('numero_internacional')?.errors === null
+            }"
+          >
+            <span *ngIf="validarCualTipoCuentaElige(0)">El campo número internacional es requerido <br></span>
+            {{ mostrarErrores("numero_internacional") }}
+          </p>
+        </div>
+
+        <div class="field column is-12-tablet">
+          <label class="label"> Alias </label>
+          <div class="control has-icons-left"[ngClass]="{'is-loading':bancoEstado.loading}">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarBanco.get('alias')?.errors,
+                'is-success':
+                  registrarBanco.get('alias')?.errors === null,
+                'is-loading':bancoEstado.loading
+              }"
+              type="text"
+              placeholder="registre un alias para la cuenta"
+              autocomplete="off"
+              formControlName="alias"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarBanco.get('alias')?.errors,
+                'has-text-link-dark':
+                  registrarBanco.get('alias')?.errors === null
+              }"
+            >
+              <i class="fas fa-file-signature"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarBanco.get('alias')?.errors,
+              'is-dark': registrarBanco.get('alias')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("alias") }}
+          </p>
+        </div>
+
+        <div class="notification  is-12 column" [ngClass]="{'is-success':bancoEstado.success === 1, 'is-danger':bancoEstado.success === 2}" *ngIf="bancoEstado.success !== 3">
+          <button type="button" class="delete" (click)="reiniciarState()"></button>
+          {{bancoEstado.responseSv}}
+        </div>
+
+        <div class="column is-12 has-text-centered margin-auto">
+          <button type="submit" [disabled]="registrarBanco.invalid || bancoEstado.loading" class="button is-info is-uppercase" [ngClass]="{'is-loading':bancoEstado.loading}">Guardar Banco</button>
+        </div>
+
+      </div>
+    </fieldset>
+  </form>
+
+</div>

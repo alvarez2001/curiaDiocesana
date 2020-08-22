@@ -1,0 +1,89 @@
+<div class="container box my-5" *ngIf="(proyectosSinPaginar | async) as projects">
+
+<div class="columns column is-12 is-multiline">
+  <div class="column is-12 ">
+    <h2 class="title has-text-centered is-uppercase">
+      Aumentar aprobado del proyecto
+    </h2>
+  </div>
+</div>
+
+
+<fieldset [formGroup]="seleccioneProyecto">
+
+  <ng-container  *ngIf="(proyectoAprobado$ | async) as aprobadoProyecto">
+    <div class="columns is-multiline">
+      <div class="notification  is-12 column" [ngClass]="{'is-success':aprobadoProyecto.success === 1, 'is-danger':aprobadoProyecto.success === 2}" *ngIf="aprobadoProyecto.success !== 3">
+        <button type="button" class="delete" (click)="restaurarInfo()"></button>
+        {{aprobadoProyecto.responseSv}}
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="columns is-multiline">
+
+  <div class="column is-12 margin-auto" *ngIf="projects.success === 3">
+    <h2 class="has-text-centered">
+      Cargando...
+    </h2>
+  </div>
+
+  <div class="column is-12 margin-auto has-text-centered" *ngIf="projects.success === 2">
+    <button type="button" class="button is-danger" (click)="cargarProyectos()"> Cargar nuevamente la información </button>
+  </div>
+
+  <div class="field column is-12 margin-auto" *ngIf="projects.success === 1">
+    <label class="label">Proyecto</label>
+    <div class="control has-icons-left">
+      <div class="select is-fullwidth "
+            [ngClass]="{
+              'is-danger': seleccioneProyecto.get('proyecto')?.errors,
+              'is-success': seleccioneProyecto.get('proyecto')?.errors === null
+            }"
+            >
+              <select formControlName="proyecto">
+                <option selected disabled value="">Seleccione el proyecto</option>
+                <option value="" *ngIf="projects.dataProjects.data.length === 0">No se ha encontrado ningun proyecto</option>
+                <option *ngFor="let project of projects.dataProjects.data " [value]="project.id">
+                  {{project.codigo}} --- {{project.nombre}}
+                </option>
+              </select>
+            </div>
+      <span class="icon is-small is-left "
+      [ngClass]="{
+          'has-text-danger': seleccioneProyecto.get('proyecto')?.errors,
+          'has-text-link-dark': seleccioneProyecto.get('proyecto')?.errors === null
+        }"
+        >
+        <i class="fas fa-file-signature"></i>
+      </span>
+    </div>
+    <p
+      class="help"
+      [ngClass]="{
+        'is-danger': seleccioneProyecto.get('proyecto')?.errors,
+        'is-dark': seleccioneProyecto.get('proyecto')?.errors === null
+      }"
+    >
+      {{ mostrarErrores("proyecto") }}
+    </p>
+  </div>
+
+  </div>
+
+</fieldset>
+
+
+<ng-container *ngIf="(proyectoEspecifico | async) as proyectoEspe">
+  <app-detalle-proyecto [proyecto]="proyectoEspe" [idProyecto]="pasarEntero(seleccioneProyecto.get('proyecto').value)" *ngIf="seleccioneProyecto.get('proyecto').value !== '' && projects.success === 1" (recargarProyectoEspecifico)="buscarUnProyecto($event)"></app-detalle-proyecto>
+
+
+  <app-aprobado [moneda]="proyectoEspe.Proyecto?.moneda" [id]="proyectoEspe?.Proyecto?.id" (cargarNuevamenteDatos)="buscarUnProyecto($event)" *ngIf="proyectoEspe.success === 1  && seleccioneProyecto.get('proyecto').value !== '' && projects.success === 1"></app-aprobado>
+
+</ng-container>
+
+
+
+
+
+</div>

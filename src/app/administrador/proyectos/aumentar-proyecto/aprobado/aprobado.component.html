@@ -1,0 +1,130 @@
+<div class="is-divider" data-content="Aumentar aprobado"></div>
+
+
+<form method="POST" [formGroup]="formularioAprobado" (ngSubmit)="guardarInformacion()">
+
+  <ng-container *ngIf="(proyectoAprobado$ | async) as aprobadoProyecto">
+    <fieldset [disabled]="aprobadoProyecto.loading">
+      <legend class="subtitle "> Aumento del aprobado </legend>
+      <div class="columns is-multiline">
+        <div class="field column mb-0 pb-0 is-6-tablet is-6-desktop">
+          <label class="label">Aprobado</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formularioAprobado.get('aprobado')?.errors,
+                'is-success': formularioAprobado.get('aprobado')?.errors === null
+              }"
+              type="text"
+              appSeparadorMiles
+              (keypress)="comprobar($event)"
+              placeholder="Introduce el aprobado del proyecto"
+              autocomplete="off"
+              formControlName="aprobado"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formularioAprobado.get('aprobado')?.errors,
+                'has-text-link-dark': formularioAprobado.get('aprobado')?.errors === null
+              }"
+              >
+              <i class="fas" [ngClass]="{'fa-dollar-sign':moneda === 'Dolar', 'fa-euro-sign':moneda !== 'Dolar'}"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('aprobado')?.errors,
+              'is-dark': formularioAprobado.get('aprobado')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("aprobado") }}
+          </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-6-tablet is-6-desktop">
+          <label class="label">Comisión</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+            <div class="select is-fullwidth "
+                [ngClass]="{
+                  'is-danger': formularioAprobado.get('comision')?.errors,
+                  'is-success': formularioAprobado.get('comision')?.errors === null
+                }"
+                >
+                  <select formControlName="comision">
+                    <option value="" selected disabled>Seleccione el % de comisión</option>
+                    <option *ngFor="let comi of comision" [value]="comi"> {{comi}}% </option>
+                  </select>
+
+                </div>
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formularioAprobado.get('comision')?.errors,
+                'has-text-link-dark': formularioAprobado.get('comision')?.errors === null
+              }"
+              >
+              <i class="fas" [ngClass]="{'fa-dollar-sign':moneda === 'Dolar', 'fa-euro-sign':moneda !== 'Dolar'}"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('comision')?.errors,
+              'is-dark': formularioAprobado.get('comision')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("comision") }}
+          </p>
+        </div>
+
+        <div class="field column mb-0 pb-0 is-12">
+          <label class="label">Descripción del aumento</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+            <input
+              class="input "
+              [ngClass]="{
+                'is-danger': formularioAprobado.get('descripcion')?.errors,
+                'is-success': formularioAprobado.get('descripcion')?.errors === null
+              }"
+              type="text"
+              placeholder="Especifique el aumento del aprobado"
+              autocomplete="off"
+              formControlName="descripcion"
+            />
+            <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formularioAprobado.get('descripcion')?.errors,
+                'has-text-link-dark': formularioAprobado.get('descripcion')?.errors === null
+              }"
+              >
+              <i class="fas fa-file-alt"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('descripcion')?.errors,
+              'is-dark': formularioAprobado.get('descripcion')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("descripcion") }}
+          </p>
+        </div>
+
+
+
+
+        <div class="field has-text-centered column is-12">
+          <button type="submit" class="is-info button is-uppercase" [ngClass]="{'is-loading':aprobadoProyecto.loading}" [disabled]="formularioAprobado.invalid || aprobadoProyecto.loading">Aumentar aprobado</button>
+        </div>
+
+
+      </div>
+
+
+
+    </fieldset>
+  </ng-container>
+
+</form>

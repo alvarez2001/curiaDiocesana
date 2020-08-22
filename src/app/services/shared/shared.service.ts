@@ -39,6 +39,12 @@ export class SharedService {
 
   }
 
+  formatoNumerico(valor):boolean{
+    const tecla = valor.key;
+    const patron = /[0-9\.]/;
+    return patron.test(tecla)
+  }
+
   formatoNumericoDecimal(valor):boolean{
     const tecla = valor.key;
     const patron = /[0-9\.]/;

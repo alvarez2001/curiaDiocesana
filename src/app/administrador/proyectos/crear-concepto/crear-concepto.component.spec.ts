@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabPanelUsuarioComponent } from './tab-panel-usuario.component';
+import { CrearConceptoComponent } from './crear-concepto.component';
 
-describe('TabPanelUsuarioComponent', () => {
-  let component: TabPanelUsuarioComponent;
-  let fixture: ComponentFixture<TabPanelUsuarioComponent>;
+describe('CrearConceptoComponent', () => {
+  let component: CrearConceptoComponent;
+  let fixture: ComponentFixture<CrearConceptoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TabPanelUsuarioComponent ]
+      declarations: [ CrearConceptoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabPanelUsuarioComponent);
+    fixture = TestBed.createComponent(CrearConceptoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

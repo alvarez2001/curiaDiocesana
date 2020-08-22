@@ -1,1 +1,88 @@
-<p>detalle-proyecto works!</p>
+<div class="is-divider" data-content="Información del proyecto"></div>
+
+<div class="columns is-multiline" *ngIf="proyecto.success !== 1">
+  <div class="column is-12 has-text-centered" *ngIf="proyecto.success === 2">
+    <button class="button is-danger" type="button" (click)="recargarProyectoComponent()"> Cargar nuevamente la información del proyecto </button>
+  </div>
+  <div class="column is-12" *ngIf="proyecto.success === 3">
+    <h2 class="has-text-centered"> Cargando información del proyecto... </h2>
+  </div>
+</div>
+
+<fieldset *ngIf="proyecto.success === 1">
+  <legend class="mb-4 subtitle">Información del proyecto</legend>
+
+  <div class="columns is-multiline" >
+    <div class=" column is-12-tablet is-4-desktop  ">
+      <label class="label">Alias</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" [value]="proyecto.Proyecto?.alias" placeholder="Alias">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-file-alt"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class=" column is-6-tablet is-4-desktop ">
+      <label class="label">Moneda</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Moneda" [value]="proyecto.Proyecto?.moneda">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':proyecto.Proyecto?.moneda === 'Dolar', 'fa-euro-sign':proyecto.Proyecto?.moneda !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop  column">
+      <label class="label">Código</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Codigo" [value]="proyecto.Proyecto?.codigo">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-code"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field is-12  column">
+      <label class="label">Nombre</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Nombre" [value]="proyecto.Proyecto?.nombre">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas fa-file-signature"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop column">
+      <label class="label">Aprobado</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Aprobado" [value]="proyecto.Proyecto?.aprobado | currency:' '">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':proyecto.Proyecto?.moneda === 'Dolar', 'fa-euro-sign':proyecto.Proyecto?.moneda !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop  column">
+      <label class="label">Disponible</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Disponible" [value]="proyecto.Proyecto?.disponible | currency:' '">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':proyecto.Proyecto?.moneda === 'Dolar', 'fa-euro-sign':proyecto.Proyecto?.moneda !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+    <div class="field  is-6-tablet is-4-desktop  column">
+      <label class="label">Comisión</label>
+      <p class="control has-icons-left">
+        <input class="input" readonly type="text" placeholder="Codigo" [value]="proyecto.Proyecto?.comision | currency:' '">
+        <span class="icon is-small has-text-link-dark is-left">
+          <i class="fas" [ngClass]="{'fa-dollar-sign':proyecto.Proyecto?.moneda === 'Dolar', 'fa-euro-sign':proyecto.Proyecto?.moneda !== 'Dolar'}"></i>
+        </span>
+      </p>
+    </div>
+
+  </div>
+
+</fieldset>

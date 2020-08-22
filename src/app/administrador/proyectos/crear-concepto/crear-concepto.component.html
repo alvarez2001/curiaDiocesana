@@ -1,0 +1,108 @@
+<div class="container box my-5" *ngIf="(conceptoState$ | async) as conceptoState">
+  <div class="columns column is-12 is-multiline">
+    <div class="column is-12">
+      <h2 class="title has-text-centered is-uppercase">
+        Registrar concepto
+      </h2>
+    </div>
+  </div>
+
+  <form [formGroup]="registrarConcepto" (ngSubmit)="guardarConcepto()">
+    <fieldset >
+
+        <div class="columns is-multiline">
+          <div class="notification  is-7-tablet margin-auto column" [ngClass]="{'is-success':conceptoState.success === 1, 'is-danger':conceptoState.success === 2}" *ngIf="conceptoState.success !== 3">
+            <button type="button" class="delete" (click)="reiniciarState()"></button>
+            {{conceptoState.responseSv}}
+          </div>
+        </div>
+
+
+      <div class="columns is-multiline">
+        <div class="field column is-7-tablet margin-auto">
+          <label class="label"
+            >Desea que los solicitantes vean este concepto
+          </label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':conceptoState.loading}">
+            <div
+              class="select is-fullwidth"
+              [ngClass]="{
+                'is-danger': registrarConcepto.get('solicitud')?.errors,
+                'is-success': registrarConcepto.get('solicitud')?.errors === null
+              }"
+            >
+              <select formControlName="solicitud">
+                <option selected disabled value="">Seleccione una opción</option>
+                <option value="SI"> Sí </option>
+                <option value="NO"> No </option>
+              </select>
+            </div>
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarConcepto.get('solicitud')?.errors,
+                'has-text-link-dark':
+                  registrarConcepto.get('solicitud')?.errors === null
+              }"
+            >
+              <i class="fas fa-eye"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarConcepto.get('solicitud')?.errors,
+              'is-dark': registrarConcepto.get('solicitud')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("solicitud") }}
+          </p>
+        </div>
+
+        <div class="field column is-7-tablet margin-auto">
+          <label class="label"> Descripción del concepto </label>
+          <div class="control has-icons-left">
+            <input
+              class="input"
+              [ngClass]="{
+                'is-danger': registrarConcepto.get('descripcion')?.errors,
+                'is-success':
+                  registrarConcepto.get('descripcion')?.errors === null,
+                'is-loading':conceptoState.loading
+              }"
+              type="text"
+              placeholder="Introduce la descripción del concepto"
+              autocomplete="off"
+              formControlName="descripcion"
+            />
+            <span
+              class="icon is-small is-left"
+              [ngClass]="{
+                'has-text-danger': registrarConcepto.get('descripcion')?.errors,
+                'has-text-link-dark':
+                  registrarConcepto.get('descripcion')?.errors === null
+              }"
+            >
+              <i class="fas fa-pencil-alt"></i>
+            </span>
+          </div>
+          <p
+            class="help"
+            [ngClass]="{
+              'is-danger': registrarConcepto.get('descripcion')?.errors,
+              'is-dark': registrarConcepto.get('descripcion')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("descripcion") }}
+          </p>
+        </div>
+
+        <div class="column is-7-tablet has-text-centered margin-auto">
+          <button type="submit" [disabled]="registrarConcepto.invalid || conceptoState.loading" class="button is-info is-uppercase" [ngClass]="{'is-loading':conceptoState.loading}">Guardar concepto</button>
+        </div>
+
+      </div>
+    </fieldset>
+  </form>
+
+</div>

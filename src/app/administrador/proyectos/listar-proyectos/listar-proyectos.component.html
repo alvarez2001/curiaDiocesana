@@ -36,7 +36,7 @@
             <tr class="py-3">
               <th class="has-text-white max-150" >Codigo</th>
               <th class="has-text-white minw-250">Nombre</th>
-              <th class="has-text-white max-150">Alias</th>
+              <!-- <th class="has-text-white max-150">Alias</th> -->
               <th class="has-text-white">Aprobado</th>
               <th class="has-text-white">Disponible</th>
               <th class="has-text-white">Acciones</th>
@@ -57,7 +57,7 @@
               <tr *ngFor="let project of projectsPaginate?.dataProjects?.data">
                 <td > {{project.codigo}} </td>
                 <td > {{project.nombre}} </td>
-                <td > {{project?.alias}} </td>
+                <!-- <td > {{project?.alias}} </td> -->
                 <ng-container *ngIf="project.moneda === 'Euro'">
                   <td > {{project.aprobado | currency:'EUR'}} </td>
                   <td > {{project.disponible | currency:'EUR'}} </td>

@@ -1,0 +1,89 @@
+<div class="modal animate__animated" [ngClass]="{'is-active animate__fadeInDown': active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card ">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Detalle del banco #{{data.id}}</p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+</header>
+<section class="modal-card-body">
+
+
+
+  <fieldset>
+
+
+
+    <div class="columns is-multiline">
+
+      <div class="field column is-12">
+        <label class="label">Entidad bancaria</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" readonly type="text" placeholder="Entidad bancaria" [value]="data.entidad">
+          <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-university"></i>
+          </span>
+        </p>
+      </div>
+
+      <div class="field column is-6-tablet is-4-desktop  ">
+        <label class="label">Alias</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" readonly type="text" [value]="data.alias" placeholder="Alias">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-file-signature"></i>
+        </span>
+        </p>
+      </div>
+
+
+
+      <div class="field  is-6-tablet is-4-desktop  column">
+        <label class="label">Títular</label>
+        <p class="control has-icons-left ">
+          <input class="input is-info" readonly type="text" placeholder="Titular de la cuenta" [value]="data.titular">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-user"></i>
+        </span>
+        </p>
+      </div>
+      <div class="field  is-6-tablet is-4-desktop column">
+        <label class="label">Identificación</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" readonly type="text" placeholder="Identificacion del titular"  [value]="data.identificacion">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-id-card"></i>
+        </span>
+        </p>
+      </div>
+
+      <div class="field is-12  column">
+        <label class="label">Número de cuenta</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" readonly type="text" placeholder="Número de cuenta" [value]="data.numero">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-money-check"></i>
+        </span>
+
+        </p>
+      </div>
+
+
+
+
+    </div>
+
+
+
+  </fieldset>
+
+
+</section>
+<footer class="modal-card-foot" style="overflow: auto;"  *ngIf="(eliminarStateBancos$ | async) as deleteBanco">
+  <button class="button is-warning" type="button" (click)="eliminarBanco()" [disabled]="deleteBanco.loading" [ngClass]="{'is-loading':deleteBanco.loading}"> Eliminar banco </button>
+  <button class="button is-danger" type="button" (click)="cerrarDialog()" [disabled]="deleteBanco.loading" [ngClass]="{'is-loading':deleteBanco.loading}">Cerrar</button>
+</footer>
+
+  </div>
+</div>

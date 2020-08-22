@@ -1,3 +1,3 @@
 export var Global = {
-  url:'http://192.168.1.13/sgp/public/api/'
+  url:'http://192.168.1.7/sgp/public/api/'
 }
