@@ -112,8 +112,6 @@ export class CrearBancoModel{
       delete obj['numero_nacional'];
     }
 
-    console.log(obj)
-
     return new CrearBancoModel(
       obj['nombres'],
       obj['apellidos'],

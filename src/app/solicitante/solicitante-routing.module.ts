@@ -1,11 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InicioSolicitanteComponent } from './inicio-solicitante/inicio-solicitante.component';
+import { AgregarSolicitudComponent } from './agregar-solicitud/agregar-solicitud.component';
+import { ListarSolicitudesComponent } from './listar-solicitudes/listar-solicitudes.component';
 
 const routes: Routes = [
   {
     path:'',
     component:InicioSolicitanteComponent
+  },
+  {
+    path:'agregar-solicitud',
+    component:AgregarSolicitudComponent
+  },
+  {
+    path:'listar-solicitud',
+    component:ListarSolicitudesComponent
   },
   {
     path:'modificar-cuenta',

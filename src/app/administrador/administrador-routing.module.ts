@@ -21,6 +21,11 @@ const routes: Routes = [
   {
     path:'modificar-cuenta',
     loadChildren: ()=>import('../modificar-cuenta/modificar-cuenta.module').then( m => m.ModificarCuentaModule )
+  },
+  {
+    path:'solicitudes',
+    component:TemplateUsuarioComponent,
+    loadChildren:()=>import('./solicituds/solicituds.module').then(m => m.SolicitudsModule)
   }
 
 ];

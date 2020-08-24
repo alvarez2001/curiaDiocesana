@@ -1,19 +1,34 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ErrorHandler } from '@angular/core';
 import { ValidationErrors, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2'
 import { HttpErrorResponse } from '@angular/common/http';
+import { AsignarTasaModalComponent } from 'src/app/administrador/solicituds/asignar-tasa-modal/asignar-tasa-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
 
+
+  private styloAlert:Object = {
+    width:600,
+    background:'#fff url(/assets/fondos/trees.png)',
+      backdrop:'rgba(0,0,0,.83)',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+  }
+
   constructor(private router:Router) { }
 
   mostrarErrores(form, control, pattron):string{
-    const errores:ValidationErrors = form.get(control).errors;
+    const errores:ValidationErrors = form.get(control)?.errors;
     let mostrarErrores:string = '';
     if(errores?.required) {
       mostrarErrores =  `El campo ${control} es requerido`
@@ -65,29 +80,23 @@ export class SharedService {
       title: 'Respuesta exitosa',
       html:data,
       icon:'success',
-      background:'#fff url(/assets/fondos/trees.png)',
-      backdrop:'rgba(0,0,0,.83)',
-      width:600,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+      ...this.styloAlert
     })
   }
 
-  mostrarAlertError(data:HttpErrorResponse){
+  mostrarAlertError(data:any){
 
 
 
-    const conexionFallida = `<ul><li>Revise su internet</li></ul>`;
+    if(!data || !navigator.onLine){
+      return this.ErrorAlertConexionFallida();
+    }
 
     if(data?.status){
       console.log(data)
       switch (data.status) {
         case 0:
-          return this.alertError(conexionFallida, 'Conexión fallida con el servidor');
+          return this.ErrorAlertConexionFallida();
         case 406:
           return this.alertStatusErrorDefault(data,'Error encontrado');
         case 403:
@@ -99,20 +108,21 @@ export class SharedService {
   }
   /* 3uurvjzdhDDQrX */
 
+  private ErrorAlertConexionFallida(){
+    return Swal.fire({
+      title:'Conexión fallido con el servidor',
+      text:'Revise su internet',
+      icon:'error',
+      ...this.styloAlert
+    })
+  }
+
   private alertError(error,msjErrorTitle:string){
     return Swal.fire({
       title: msjErrorTitle,
       html:error,
       icon:'error',
-      width:600,
-      background:'#fff url(/assets/fondos/trees.png)',
-      backdrop:'rgba(0,0,0,.83)',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+      ...this.styloAlert
     })
   }
 
@@ -152,6 +162,21 @@ export class SharedService {
     for (const key in form.value) {
       form.controls[key].disable()
     }
+  }
+
+
+
+  ConfirmarGenerarCodigo(response:any){
+    return Swal.fire({
+      title: 'Quieres generar un código?',
+      text: response,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si',
+      cancelButtonText:'No'
+    })
   }
 
 

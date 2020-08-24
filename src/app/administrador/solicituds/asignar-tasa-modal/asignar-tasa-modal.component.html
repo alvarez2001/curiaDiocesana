@@ -1,0 +1,44 @@
+<div class="modal animate__animated is-active" [ngClass]="{'animate__fadeInDown': active, 'animate__fadeOutUp':!active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card " style="width:320px;">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Asignar Tasa </p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+  </header>
+    <section class="modal-card-body">
+
+      <div class="columns is-multiline" [formGroup]="asignarTasa">
+        <div class="column is-12">
+          <div class="field">
+            <!-- <label class="label">Tasa</label> -->
+            <p class="control has-icons-left">
+              <input class="input is-info" formControlName="tasa" appSeparadorMiles (keypress)="comprobar($event)" type="text" >
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-dollar-sign"></i>
+              </span>
+            </p>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': asignarTasa.get('tasa')?.errors,
+              'is-dark': asignarTasa.get('tasa')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("tasa") }}
+          </p>
+          </div>
+        </div>
+
+      </div>
+
+
+    </section>
+  <footer class="modal-card-foot" style="overflow: auto;" >
+    <button class="button is-success" type="button" [disabled]="asignarTasa.invalid" (click)="asignar()">Asignar</button>
+    <button class="button is-danger" type="button" (click)="cerrarDialog()">Cerrar</button>
+  </footer>
+
+  </div>
+</div>

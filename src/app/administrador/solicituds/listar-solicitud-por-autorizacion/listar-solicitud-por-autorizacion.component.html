@@ -1,0 +1,62 @@
+<div class="columns is-multiline">
+  <div class="column is-12">
+    <h1 class="has-text-centered title is-uppercase">Listar solicitudes por ejecución</h1>
+  </div>
+
+  <div class="column is-12 mt-5" >
+
+    <div class="table-container">
+      <table
+        class="table has-text-centered is-striped is-hoverable is-fullwidth"
+      >
+        <thead class="has-background-info">
+          <tr class="py-3">
+            <th class="has-text-white " > Solicitud N° </th>
+            <th class="has-text-white minw-250" > Proyecto </th>
+            <th class="has-text-white"> Disponible proyecto </th>
+            <th class="has-text-white minw-150"> Concepto solicitud </th>
+            <th class="has-text-white"> Total solicitud </th>
+            <th class="has-text-white">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="(SolicitudState$ | async) as solicitud">
+          <tr *ngIf="solicitud.success === 3">
+            <td colspan="6">Cargando datos...</td>
+          </tr>
+          <tr *ngIf="solicitud.success === 2" >
+            <td colspan="6"> <button class="is-danger button" (click)="cargarInfo()">Presione para cargar nuevamente la data</button></td>
+          </tr>
+          <tr *ngIf="solicitud.success === 1 && solicitud?.data.length === 0 ">
+            <td colspan="6">No hay datos en este momento</td>
+          </tr>
+          <tr *ngFor="let sol of solicitud?.data">
+            <td> {{sol.id}} </td>
+            <td > {{sol?.proyecto?.nombre}} </td>
+            <ng-container *ngIf="sol.proyecto.moneda === 'Euro'">
+              <td> {{sol?.proyecto?.disponible | currency:'EUR' }} </td>
+            </ng-container>
+            <ng-container *ngIf="sol.proyecto.moneda === 'Dolar'">
+              <td> {{sol?.proyecto?.disponible | currency:'USD' }} </td>
+            </ng-container>
+            <td> {{sol?.concepto}} </td>
+            <td> {{sol?.total | currency:'Bs. '}} </td>
+            <td class="mb-0 is-centered py-3">
+              <button
+                class="button is-info mb-0"
+                type="button"
+                (click)="mostrarInfo(sol)"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+

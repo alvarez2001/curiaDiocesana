@@ -192,13 +192,13 @@ export const Fallido_Todos_Conceptos = createAction(
 
 //bancos
 
-export const Cargar_Registro_Banco = createAction('[PROYECTOS MODULE] CARGAR REGISTRO BANCO', props<{data:models.CrearBancoModel}>())
-export const Cargar_Eliminar_Banco = createAction('[PROYECTOS MODULE] CARGAR ELIMINAR BANCO', props<{id:number}>())
-export const Correcto_Registro_Banco = createAction('[PROYECTOS MODULE] CORRECTO REGISTRO O ELIMINAR BANCO',props<{correcto:string}>())
-export const Fallido_Registro_Banco = createAction('[PROYECTOS MODULE] FALLIDO REGISTRO O ELIMINAR BANCO',props<{error:HttpErrorResponse}>())
-export const Reiniciar_Registro_Banco = createAction('[PROYECTOS MODULE] FALLIDO REGISTRO O ELIMINAR BANCO')
+export const Cargar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR REGISTRO BANCO', props<{data:models.CrearBancoModel}>())
+export const Cargar_Eliminar_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR ELIMINAR BANCO', props<{id:number}>())
+export const Correcto_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO REGISTRO O ELIMINAR BANCO',props<{correcto:string}>())
+export const Fallido_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO REGISTRO O ELIMINAR BANCO',props<{error:HttpErrorResponse}>())
+export const Reiniciar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO REGISTRO O ELIMINAR BANCO')
 
 //bancos all
-export const Cargar_Todos_Los_Bancos = createAction('[PROYECTOS MODULE] CARGAR TODOS LOS BANCOS')
-export const Correcto_Todos_Los_Bancos = createAction('[PROYECTOS MODULE] CORRECTO TODOS LOS BANCOS', props<{bancos:models.bancosModel[]}>())
-export const Fallido_Todos_Los_Bancos = createAction('[PROYECTOS MODULE] FALLIDO TODOS LOS BANCOS', props<{error:HttpErrorResponse}>())
+export const Cargar_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR TODOS LOS BANCOS')
+export const Correcto_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO TODOS LOS BANCOS', props<{bancos:models.bancosModel[]}>())
+export const Fallido_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO TODOS LOS BANCOS', props<{error:HttpErrorResponse}>())

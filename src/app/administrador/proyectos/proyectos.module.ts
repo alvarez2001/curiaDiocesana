@@ -29,6 +29,7 @@ import { ListarConceptosComponent } from './listar-conceptos/listar-conceptos.co
 import { CrearBancoComponent } from './crear-banco/crear-banco.component';
 import { ListarBancosComponent } from './listar-bancos/listar-bancos.component';
 import { InfoBancoComponent } from './info-banco/info-banco.component';
+import { SharedModule } from "../../modules/shared/shared.module";
 
 const ngrxImports = [
   StoreModule.forFeature(KeyProjectsFeature, {
@@ -52,7 +53,7 @@ const ngrxImports = [
 
 @NgModule({
   declarations: [
-    SeparadorMilesDirective,
+
     CrearProyectoComponent,
     FormateadorMilesDirective,
     ListarProyectosComponent,
@@ -77,6 +78,7 @@ const ngrxImports = [
     ...ngrxImports,
     ReactiveFormsModule,
     ProyectosRoutingModule,
+    SharedModule,
   ],
   entryComponents: [DetalleProyectoModalComponent,InfoBancoComponent],
   providers: [ProjectsService],

@@ -1,7 +1,7 @@
 <nav class="navbar  is-fixed-top" [ngClass]="{'is-info': path === 'administrador', 'is-primary':path !== 'administrador'}" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <div class="navbar-item">
-      <button class="button is-info" type="button" data-show="quickview" data-target="MenuAdministrativo" *ngIf="path === 'administrador'">
+    <div class="navbar-item" *ngIf="path === 'administrador'">
+      <button class="button is-info" type="button" data-show="quickview" data-target="MenuAdministrativo" >
         <i class="fas fa-stream"></i>
       </button>
     </div>
@@ -30,17 +30,15 @@
 
       <ng-container *ngIf="path === 'administrador'; else itemNavbarSolicitante">
 
-        <!-- <a class="navbar-item" routerLink="/administrador/usuarios">
-          Usuarios
-        </a>
-        <a class="navbar-item" routerLink="/administrador/proyectos">
-          Proyectos
-        </a> -->
+
       </ng-container>
 
       <ng-template #itemNavbarSolicitante>
-        <a class="navbar-item">
-          Solicitante
+        <a class="navbar-item" routerLink="/solicitante/agregar-solicitud" routerLinkActive="is-active">
+          Registrar solicitud
+        </a>
+        <a class="navbar-item" routerLink="/solicitante/listar-solicitud" routerLinkActive="is-active">
+          Listar solicitudes
         </a>
       </ng-template>
 

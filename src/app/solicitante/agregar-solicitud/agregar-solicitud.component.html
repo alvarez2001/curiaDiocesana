@@ -1,0 +1,882 @@
+<div class="container box my-3 pt-2">
+  <h1 class="title has-text-centered is-uppercase">Registrar Solicitud</h1>
+
+  <div class="steps"  id="stepsDemo">
+    <div class="step-item is-active " [ngClass]="{'is-danger':formSeleccioneProyecto.invalid}">
+      <div class="step-marker">1</div>
+      <div class="step-details">
+        <p class="step-title">Proyectos</p>
+      </div>
+    </div>
+
+    <div class="step-item" [ngClass]="{'is-danger':formDatos.invalid}">
+      <div class="step-marker">2</div>
+      <div class="step-details">
+        <p class="step-title">Datos</p>
+      </div>
+    </div>
+
+    <div class="step-item" [ngClass]="{'is-danger':formProductos.invalid}">
+      <div class="step-marker">3</div>
+      <div class="step-details">
+        <p class="step-title">Productos / Servicios</p>
+      </div>
+    </div>
+
+    <div class="step-item" [ngClass]="{'is-danger': formBancoId.invalid}">
+      <div class="step-marker">4</div>
+      <div class="step-details">
+        <p class="step-title">Banco</p>
+      </div>
+    </div>
+
+    <div class="step-item" [ngClass]="{'is-danger': formBancoId.invalid}">
+      <div class="step-marker">5</div>
+      <div class="step-details">
+        <p class="step-title">Envíar</p>
+      </div>
+    </div>
+
+
+    <div class="steps-content">
+      <div
+        class="step-content is-active"
+        [formGroup]="formSeleccioneProyecto"
+        *ngIf="(seleccionarProyectos$ | async) as proyectosSolicitante"
+      >
+        <div class="columns is-multiline">
+          <div class="field is-clearfix column is-12">
+            <button
+              type="button"
+              class="button is-small is-danger is-pulled-right mb-2"
+              (click)="cargarProyectos()"
+              [disabled]="proyectosSolicitante.loading"
+            >
+              <i class="fas fa-spinner"></i>
+            </button>
+            <label class="label">Proyectos</label>
+            <div class="control has-icons-left">
+              <div class="select is-fullwidth"
+              [ngClass]="{
+                'is-danger': formSeleccioneProyecto.get('proyecto')?.errors,
+                'is-success': formSeleccioneProyecto.get('proyecto')?.errors === null
+              }"
+              >
+                <select formControlName="proyecto">
+                  <option
+                    value="null"
+                    disabled
+                    selected
+                    *ngIf="proyectosSolicitante.success === 1"
+                    >Seleccione un proyecto</option
+                  >
+                  <option
+                    disabled
+                    selected
+                    value="null"
+                    *ngIf="proyectosSolicitante.success === 3"
+                  >
+                    Cargando...
+                  </option>
+                  <option
+                    disabled
+                    selected
+                    value="null"
+                    *ngIf="proyectosSolicitante.success === 2"
+                  >
+                    Ha ocurrido un error, intente nuevamente
+                  </option>
+                  <option
+                    *ngFor="let proyecto of proyectosSolicitante.data"
+                    [value]="proyecto.id"
+                  >
+                    {{ proyecto.nombre }}
+                  </option>
+                </select>
+              </div>
+              <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formSeleccioneProyecto.get('proyecto')?.errors,
+                'has-text-link-dark': formSeleccioneProyecto.get('proyecto')?.errors === null
+              }"
+            >
+                <i class="fas fa-file-powerpoint"></i>
+              </span>
+            </div>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formSeleccioneProyecto.get('proyecto')?.errors,
+              'is-dark': formSeleccioneProyecto.get('proyecto')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formSeleccioneProyecto,"proyecto") }}
+          </p>
+          </div>
+
+          <div class="field column is-3-tablet is-4-desktop">
+            <label class="label">Disponible</label>
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                readonly
+                type="text"
+                [value]="
+                  buscarProyectoVista(proyectosSolicitante.data)?.disponible |currency:' '
+                "
+                placeholder="Disponible del proyecto"
+              />
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-euro-sign"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field column is-9-tablet is-8-desktop">
+            <label class="label">Nombre</label>
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                readonly
+                type="text"
+                [value]="buscarProyectoVista(proyectosSolicitante.data)?.nombre"
+                placeholder="Nombre del proyecto"
+              />
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-signature"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content ">
+        <div class="columns is-multiline" [formGroup]="formDatos">
+
+          <div class="field column is-6-tablet">
+            <label class="label mb-4">Responsable</label>
+            <div class="control has-icons-left">
+              <input
+                class="input"
+                [ngClass]="{
+                  'is-danger': formDatos.get('responsable')?.errors,
+                  'is-success': formDatos.get('responsable')?.errors === null
+                }"
+                type="text"
+                formControlName="responsable"
+                placeholder="Responsable de la solicitud"
+              />
+              <span class="icon is-small is-left "
+            [ngClass]="{
+                'has-text-danger': formDatos.get('responsable')?.errors,
+                'has-text-link-dark': formDatos.get('responsable')?.errors === null
+              }"
+            >
+                <i class="fas fa-user-tie"></i>
+              </span>
+            </div>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formDatos.get('responsable')?.errors,
+              'is-dark': formDatos.get('responsable')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formDatos,"responsable") }}
+          </p>
+          </div>
+
+          <div class="field column is-6-tablet is-clearfix" *ngIf="(seleccionarConcepto$ | async) as conceptos">
+            <button
+              type="button"
+              class="button is-small is-danger is-pulled-right mb-2"
+              (click)="cargarConceptos()"
+              [disabled]="conceptos.loading"
+            >
+              <i class="fas fa-spinner"></i>
+            </button>
+            <label class="label">Concepto</label>
+            <div class="control has-icons-left">
+              <div class="select is-fullwidth"
+              [ngClass]="{
+                'is-danger': formDatos.get('concepto')?.errors,
+                'is-success': formDatos.get('concepto')?.errors === null
+              }"
+              >
+                <select formControlName="concepto">
+                  <option
+                    value="null"
+                    disabled
+                    selected
+                    *ngIf="conceptos.success === 1"
+                    >Seleccione un concepto</option
+                  >
+                  <option
+                    disabled
+                    selected
+                    value="null"
+                    *ngIf="conceptos.success === 3"
+                  >
+                    Cargando...
+                  </option>
+                  <option
+                    disabled
+                    selected
+                    value="null"
+                    *ngIf="conceptos.success === 2"
+                  >
+                    Ha ocurrido un error, intente nuevamente
+                  </option>
+                  <option
+                    *ngFor="let concepto of conceptos.data"
+                    [value]="concepto.descripcion"
+                  >
+                    {{ concepto.descripcion }}
+                  </option>
+                </select>
+              </div>
+              <span class="icon is-small is-left "
+              [ngClass]="{
+                  'has-text-danger': formDatos.get('concepto')?.errors,
+                  'has-text-link-dark': formDatos.get('concepto')?.errors === null
+                }"
+              >
+                <i class="fas fa-book-open"></i>
+              </span>
+            </div>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formDatos.get('concepto')?.errors,
+              'is-dark': formDatos.get('concepto')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formDatos,"concepto") }}
+          </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content " >
+
+        <ng-container [formGroup]="formProductos">
+          <div formArrayName="productos" *ngFor="let products of productosArray.controls; let i = index">
+            <div class="columns mb-0 is-multiline" [formGroupName]="i">
+              <div class="field mb-0 pb-0 column is-6-tablet is-2-desktop">
+                <label class="label">Cantidad</label>
+                <p class="control has-icons-left">
+                  <input
+                    class="input is-info"
+                    appSeparadorMiles
+                    (keypress)="comprobar($event)"
+                    maxlength="7"
+                    readonly
+                    type="text"
+                    formControlName="cantidad"
+                    placeholder="Responsable de la solicitud"
+                  />
+                  <span class="icon is-small is-left has-text-link-dark"
+
+                  >
+                    <i class="fas fa-box-open"></i>
+                  </span>
+                </p>
+
+              </div>
+
+              <div class="field mb-0 pb-0 column is-6-tablet is-3-desktop">
+                <label class="label">Precio</label>
+                <p class="control has-icons-left">
+                  <input
+                    class="input is-info"
+                    type="text"
+                    appSeparadorMiles
+                    maxlength="11"
+                    (keypress)="comprobar($event)"
+                    readonly
+                    formControlName="precio"
+                    placeholder="Concepto de la solicitud"
+                  />
+                  <span class="icon is-small is-left has-text-link-dark"
+
+                  >
+                    <i class="fas fa-money-bill-wave"></i>
+                  </span>
+                </p>
+
+              </div>
+
+              <div class="field mb-0 pb-0 column is-12-tablet is-5-desktop">
+                <label class="label">Descripción</label>
+                <p class="control has-icons-left">
+                  <input
+                    class="input is-info"
+                    type="text"
+                    readonly
+                    formControlName="descripcion"
+                    placeholder="Concepto de la solicitud"
+                  />
+                  <span class="icon is-small is-left has-text-link-dark"
+                  >
+                    <i class="fas fa-book-open"></i>
+                  </span>
+                </p>
+
+              </div>
+
+              <div class="field column is-2-desktop  has-text-centered align-selft-center mt-4 " >
+                <button type="button" (click)="removerProducto(i)" class="button is-danger is-uppercase">
+                  Eliminar
+                </button>
+              </div>
+            </div>
+            <div class="is-divider" [attr.data-content]="i+1"></div>
+           </div>
+        </ng-container>
+
+
+        <div class="columns is-multiline" [formGroup]="formElement">
+          <div class="field column is-6-tablet is-3-desktop">
+            <label class="label">Cantidad</label>
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                appSeparadorMiles
+                (keypress)="comprobar($event)"
+                maxlength="7"
+                [ngClass]="{
+                  'is-danger': formElement.get('cantidad')?.errors,
+                  'is-success': formElement.get('cantidad')?.errors === null
+                }"
+                type="text"
+                formControlName="cantidad"
+                placeholder="Responsable de la solicitud"
+              />
+              <span class="icon is-small is-left "
+              [ngClass]="{
+                  'has-text-danger': formElement.get('cantidad')?.errors,
+                  'has-text-link-dark': formElement.get('cantidad')?.errors === null
+                }"
+              >
+                <i class="fas fa-box-open"></i>
+              </span>
+            </p>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formElement.get('cantidad')?.errors,
+              'is-dark': formElement.get('cantidad')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formElement,"cantidad") }}
+          </p>
+          </div>
+
+          <div class="field column is-6-tablet is-3-desktop">
+            <label class="label">Precio</label>
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                type="text"
+                maxlength="11"
+                appSeparadorMiles
+                (keypress)="comprobar($event)"
+                [ngClass]="{
+                  'is-danger': formElement.get('precio')?.errors,
+                  'is-success': formElement.get('precio')?.errors === null
+                }"
+                formControlName="precio"
+                placeholder="Concepto de la solicitud"
+              />
+              <span class="icon is-small is-left "
+              [ngClass]="{
+                  'has-text-danger': formElement.get('precio')?.errors,
+                  'has-text-link-dark': formElement.get('precio')?.errors === null
+                }"
+              >
+                <i class="fas fa-money-bill-wave"></i>
+              </span>
+            </p>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formElement.get('precio')?.errors,
+              'is-dark': formElement.get('precio')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formElement,"precio") }}
+          </p>
+          </div>
+
+          <div class="field column is-12-tablet is-6-desktop">
+            <label class="label">Descripción</label>
+            <p class="control has-icons-left">
+              <input
+                class="input"
+                type="text"
+                [ngClass]="{
+                  'is-danger': formElement.get('descripcion')?.errors,
+                  'is-success': formElement.get('descripcion')?.errors === null
+                }"
+                formControlName="descripcion"
+                placeholder="Concepto de la solicitud"
+              />
+              <span class="icon is-small is-left "
+              [ngClass]="{
+                  'has-text-danger': formElement.get('descripcion')?.errors,
+                  'has-text-link-dark': formElement.get('descripcion')?.errors === null
+                }"
+              >
+                <i class="fas fa-book-open"></i>
+              </span>
+            </p>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formElement.get('descripcion')?.errors,
+              'is-dark': formElement.get('descripcion')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formElement,"descripcion") }}
+          </p>
+          </div>
+
+          <div class="field column is-12 has-text-centered">
+            <button type="button" [disabled]="formElement.get('descripcion').value === '' || formElement.get('precio').value === '' || formElement.get('cantidad').value === ''" (click)="agregarInformacionProductos()" class="button is-success is-uppercase">
+              agregar producto
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content " >
+        <div class="columns is-multiline" [formGroup]="formBancoId" *ngIf="(seleccionarBancos$ | async) as bancos">
+          <div class="field column is-12">
+            <div class="control has-icons-left">
+              <button
+              type="button"
+              class="button is-small is-danger is-pulled-right mb-2"
+              (click)="cargarBancos()"
+              [disabled]="bancos.loading"
+            >
+              <i class="fas fa-spinner"></i>
+            </button>
+            <label class="label">Bancos</label>
+            <div class="control has-icons-left">
+              <div class="select is-fullwidth"
+              [ngClass]="{
+                'is-danger': formBancoId.get('banco')?.errors,
+                'is-success': formBancoId.get('banco')?.errors === null
+              }"
+              >
+                <select formControlName="banco">
+                  <option
+                    value="null"
+                    disabled
+                    selected
+                    *ngIf="bancos.success === 1"
+                    >Seleccione un Banco</option
+                  >
+                  <option
+                    disabled
+                    selected
+                    value="null"
+                    *ngIf="bancos.success === 3"
+                  >
+                    Cargando...
+                  </option>
+                  <option
+                    disabled
+                    selected
+                    value="null"
+                    *ngIf="bancos.success === 2"
+                  >
+                    Ha ocurrido un error, intente nuevamente
+                  </option>
+                  <option
+                    *ngFor="let banco of bancos.data"
+                    [value]="banco.id"
+                  >
+                  {{ banco.titular }} ------ {{banco.entidad}}
+                  </option>
+                </select>
+              </div>
+              <span class="icon is-small is-left "
+              [ngClass]="{
+                'has-text-danger': formBancoId.get('banco')?.errors,
+                'has-text-link-dark': formBancoId.get('banco')?.errors === null
+              }">
+                <i class="fas fa-university"></i>
+              </span>
+            </div>
+            </div>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formBancoId.get('banco')?.errors,
+              'is-dark': formBancoId.get('banco')?.errors === null
+            }"
+          >
+            {{ mostrarErrores(formBancoId,"banco") }}
+          </p>
+          </div>
+
+          <div class="field column is-6-tablet is-8-desktop">
+            <label class="label">Títular</label>
+            <p class="control has-icons-left">
+              <input
+                class="input is-info"
+                type="text"
+                readonly
+                placeholder="Títular de la cuenta"
+                [value]="buscarBancoVista(bancos.data)?.titular"
+              />
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-box-open"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field column is-6-tablet is-4-desktop">
+            <label class="label">Identificación</label>
+            <p class="control has-icons-left">
+              <input
+                class="input is-info"
+                type="text"
+                readonly
+                [value]="buscarBancoVista(bancos.data)?.identificacion"
+                placeholder="Identificación del títular"
+              />
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-box-open"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field column is-6-tablet is-6-desktop">
+            <label class="label">Entidad bancaria</label>
+            <p class="control has-icons-left">
+              <input
+                class="input is-info"
+                type="text"
+                readonly
+                [value]="buscarBancoVista(bancos.data)?.entidad"
+                placeholder="Nombre de la entidad bancaria"
+              />
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-box-open"></i>
+              </span>
+            </p>
+          </div>
+
+          <div class="field column is-6-tablet is-6-desktop">
+            <label class="label">Número de cuenta</label>
+            <p class="control has-icons-left">
+              <input
+                class="input is-info"
+                type="text"
+                readonly
+                placeholder="Número de la cuenta seleccionada"
+                [value]="buscarBancoVista(bancos.data)?.numero"
+              />
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-box-open"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-content ">
+        <div *ngIf="formBancoId.invalid || formProductos.invalid || formDatos.invalid || formSeleccioneProyecto.invalid">
+          <h2 class="has-text-centered title">Complete todos los campos que son requeridos, para registrar la solicitud</h2>
+        </div>
+        <div *ngIf="formBancoId.valid && formProductos.valid && formDatos.valid && formSeleccioneProyecto.valid" >
+
+          <fieldset *ngIf="(seleccionarProyectos$ | async) as proyectosSolicitante">
+
+            <div class="columns is-multiline mb-5">
+
+             <div class=" column  is-12">
+
+
+              <div class="field is-horizontal">
+                <div class="mr-5 is-normal">
+                  <label class="label">Proyecto</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control is-expanded">
+                      <input class="input is-info" type="text" readonly [value]="buscarProyectoVista(proyectosSolicitante.data)?.nombre">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field is-horizontal">
+                <div class="mr-2 is-normal">
+                  <label class="label">Disponible</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control is-expanded">
+                      <input class="input is-info" type="text" readonly [value]="buscarProyectoVista(proyectosSolicitante.data)?.disponible | currency:' '">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+             </div>
+            </div>
+          </fieldset>
+
+
+          <fieldset>
+
+            <div class="columns">
+              <div class="column is-12">
+                <h2 class="has-text-centered subtitle">Datos del producto / servicio</h2>
+              </div>
+            </div>
+
+
+            <ng-container [formGroup]="formProductos">
+              <div formArrayName="productos"  *ngFor="let products of productosArray.controls; let i = index">
+                <div class="columns mb-0 is-multiline" [formGroupName]="i">
+                  <div class="field mb-0 pb-0 column is-6-tablet is-3-desktop">
+                    <label class="label" *ngIf="i === 0">Cantidad</label>
+                    <p class="control has-icons-left">
+                      <input
+                        class="input is-info"
+                        appSeparadorMiles
+
+                        maxlength="7"
+                        readonly
+                        type="text"
+                        formControlName="cantidad"
+                        placeholder="Responsable de la solicitud"
+                      />
+                      <span class="icon is-small is-left has-text-link-dark"
+
+                      >
+                        <i class="fas fa-box-open"></i>
+                      </span>
+                    </p>
+
+                  </div>
+
+
+
+                  <div class="field mb-0 pb-0 column is-6-tablet is-3-desktop">
+                    <label class="label" *ngIf="i === 0">Precio</label>
+                    <p class="control has-icons-left">
+                      <input
+                        class="input is-info"
+                        type="text"
+                        appSeparadorMiles
+                        maxlength="11"
+
+                        readonly
+                        formControlName="precio"
+                        placeholder="Concepto de la solicitud"
+                      />
+                      <span class="icon is-small is-left has-text-link-dark"
+
+                      >
+                        <i class="fas fa-money-bill-wave"></i>
+                      </span>
+                    </p>
+
+                  </div>
+
+
+                  <div class="field column mb-0 pb-0 is-12-tablet is-6-desktop">
+                    <label class="label" *ngIf="i === 0">Descripción</label>
+                    <p class="control has-icons-left">
+                      <input
+                        class="input is-info"
+                        type="text"
+                        readonly
+                        formControlName="descripcion"
+                        placeholder="Concepto de la solicitud"
+                      />
+                      <span class="icon is-small is-left has-text-link-dark"
+                      >
+                        <i class="fas fa-book-open"></i>
+                      </span>
+                    </p>
+
+                  </div>
+
+
+
+                </div>
+                <hr>
+               </div>
+            </ng-container>
+
+
+          </fieldset>
+
+
+
+          <fieldset>
+            <div class="columns">
+              <div class="column is-12">
+                <h2 class="has-text-centered subtitle">Datos para la transferencia</h2>
+              </div>
+            </div>
+
+            <div class="columns is-multiline" >
+
+              <ng-container [formGroup]="formDatos">
+                <div class="field column is-6-tablet ">
+                  <label class="label">Responsable</label>
+                  <div class="control has-icons-left">
+                    <input
+                      class="input is-info"
+                      readonly
+                      type="text"
+                      formControlName="responsable"
+                      placeholder="Responsable de la solicitud"
+                    />
+                    <span class="icon is-small is-left  has-text-link-dark"
+
+                  >
+                      <i class="fas fa-user-tie"></i>
+                    </span>
+                  </div>
+
+                </div>
+
+                <div class="field column is-6-tablet " >
+                  <label class="label">Concepto</label>
+                  <div class="control has-icons-left">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      readonly
+                      formControlName="concepto"
+                      placeholder="concepto de la solicitud"
+                    />
+                    <span class="icon is-small is-left has-text-link-dark"
+
+                    >
+                      <i class="fas fa-book-open"></i>
+                    </span>
+                  </div>
+
+                </div>
+              </ng-container>
+
+              <ng-container [formGroup]="formBancoId" *ngIf="(seleccionarBancos$ | async) as bancos">
+                <div class="field column is-6-tablet is-8-desktop">
+                  <label class="label">Títular</label>
+                  <p class="control has-icons-left">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      readonly
+                      placeholder="Títular de la cuenta"
+                      [value]="buscarBancoVista(bancos.data)?.titular"
+                    />
+                    <span class="icon is-small is-left has-text-link-dark">
+                      <i class="fas fa-user-tie"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field column is-6-tablet is-4-desktop">
+                  <label class="label">Identificación</label>
+                  <p class="control has-icons-left">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      readonly
+                      [value]="buscarBancoVista(bancos.data)?.identificacion"
+                      placeholder="Identificación del títular"
+                    />
+                    <span class="icon is-small is-left has-text-link-dark">
+                      <i class="fas fa-id-card"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field column is-6-tablet is-6-desktop">
+                  <label class="label">Entidad bancaria</label>
+                  <p class="control has-icons-left">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      readonly
+                      [value]="buscarBancoVista(bancos.data)?.entidad"
+                      placeholder="Nombre de la entidad bancaria"
+                    />
+                    <span class="icon is-small is-left has-text-link-dark">
+                      <i class="fas fa-university"></i>
+                    </span>
+                  </p>
+                </div>
+
+                <div class="field column is-6-tablet is-6-desktop">
+                  <label class="label">Número de cuenta</label>
+                  <p class="control has-icons-left">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      readonly
+                      placeholder="Número de la cuenta seleccionada"
+                      [value]="buscarBancoVista(bancos.data)?.numero"
+                    />
+                    <span class="icon is-small is-left has-text-link-dark">
+                      <i class="fas fa-credit-card"></i>
+                    </span>
+                  </p>
+                </div>
+              </ng-container>
+
+
+            </div>
+          </fieldset>
+
+
+          <div class="columns mt-5">
+            <div class="column is-12 has-text-centered">
+              <button class="button is-primary is-uppercase" (click)="guardarSolicitud()" type="button"> Registrar solicitud </button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-actions">
+      <div class="steps-action">
+        <a data-nav="previous" class="button is-light is-danger" >Anterior</a>
+      </div>
+      <div class="steps-action">
+        <a data-nav="next" beforeNext="null" class="button is-light is-primary " >Siguiente</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--
+
+  <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Proyecto</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control is-expanded">
+                      <input class="input is-info" type="text" readonly [value]="buscarProyectoVista(proyectosSolicitante.data)?.nombre">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+ -->

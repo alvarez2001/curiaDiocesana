@@ -41,7 +41,6 @@ export class ModificarProyectoUsuarioComponent implements OnInit {
     this.subscription.add(
       this.proyectoEspecifico$.subscribe(res => {
         if(!this.comprobarQueNoRepita && res.Proyecto?.id ){
-          console.log(res)
           this.formModificar.get('usuario').setValue(res?.Proyecto?.usuario_id);
           this.idProyecto = res.Proyecto.id;
           this.comprobarQueNoRepita = true;

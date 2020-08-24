@@ -1,0 +1,208 @@
+<div class="modal animate__animated is-active" [ngClass]="{'animate__fadeInDown': active, 'animate__fadeOutUp':!active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card ">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Detalle de la solicitud #{{data?.id}}</p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+</header>
+<section class="modal-card-body">
+
+  <div class="columns is-mobile is-multiline">
+
+
+    <div class="column is-12">
+      <div class="field">
+        <label class="label">Proyecto</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.proyecto?.nombre">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-file-signature"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-6-mobile is-6-tablet is-3-desktop">
+      <div class="field">
+        <label class="label">Código</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.proyecto?.codigo">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-file-signature"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-6-mobile is-6-tablet is-3-desktop">
+      <div class="field">
+        <label class="label">Disponible</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.proyecto?.disponible | currency:' '">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas " [ngClass]="{'fa-dollar-sign':data?.proyecto?.moneda === 'Dolar', 'fa-euro-sign':data?.proyecto?.moneda !== 'Dolar'}"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet " [ngClass]="{'is-3-desktop':!data?.tasa_cambio, 'is-6-desktop':data?.tasa_cambio}">
+      <div class="field">
+        <label class="label">Concepto Solicitud</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.concepto">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-book-open"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet " [ngClass]="{'is-3-desktop':!data?.tasa_cambio, 'is-6-desktop':data?.tasa_cambio}">
+      <div class="field">
+        <label class="label">Total Solicitud</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.total | currency:'Bs. '">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-12-tablet is-6-desktop"  *ngIf="data?.tasa_cambio">
+      <div class="field">
+        <label class="label">Tasa de cambio</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.tasa_cambio | currency:'Bs. '">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12 py-2 mt-3">
+      <h2 class="subtitle has-text-centered">Datos de los Productos / Servicios</h2>
+    </div>
+
+
+    <ng-container *ngFor="let producto of data?.productos; let i = index">
+      <div class="column is-6-mobile is-6-tablet is-3-desktop pb-0">
+        <div class="field">
+          <label class="label">Cantidad</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="producto?.cantidad | currency:' '">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-box-open"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="column is-6-mobile is-6-tablet is-3-desktop pb-0">
+        <div class="field">
+          <label class="label">Precio</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="producto?.precio | currency:'Bs. '">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-money-bill-wave"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-12-mobile is-12-tablet is-6-desktop pb-0">
+        <div class="field">
+          <label class="label">Descripcion</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="producto?.descripcion">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-book-open"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+      <ng-container *ngIf="data?.productos.length > (i+1)">
+        <div class="column is-12 py-0 my-0" >
+          <hr>
+        </div>
+      </ng-container>
+    </ng-container>
+
+
+    <div class="column is-12 py-2 mt-3">
+      <h2 class="subtitle has-text-centered">Datos para la transferencia</h2>
+    </div>
+
+
+    <ng-container *ngFor="let banco of data?.banco">
+      <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+        <div class="field">
+          <label class="label">Entidad bancaria</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="banco?.banco">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-university"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+        <div class="field">
+          <label class="label">Títular de la cuenta</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="banco?.titular">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-user-tie"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+        <div class="field">
+          <label class="label">Identificación del títular</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="banco?.identificacion">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-id-card"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+        <div class="field">
+          <label class="label">Número de cuenta</label>
+          <p class="control has-icons-left">
+            <input class="input is-info" type="text" readonly [value]="banco?.numero">
+            <span class="icon is-small is-left has-text-link-dark">
+              <i class="fas fa-credit-card"></i>
+            </span>
+          </p>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+
+</section>
+<footer class="modal-card-foot" style="overflow: auto;" >
+
+  <ng-container *ngIf="(StateProceso$ | async ) as procesos">
+    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="revisarSolicitud(data.id)" *ngIf="tipo === 5">Revisar</button>
+    <button class="button is-success  " type="button" [disabled]="procesos.loading" (click)="autorizarSolicitud(data.id)" *ngIf="tipo === 1">Autorizar</button>
+    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="asignarTasa()" *ngIf="tipo === 0">Asignar Tasa</button>
+    <button class="button is-warning " type="button" [disabled]="procesos.loading" (click)="rechazarSolicitud(data.id)" *ngIf="tipo !== 4 && tipo !== 3">Rechazar</button>
+  </ng-container>
+
+
+  <button class="button is-danger " type="button" (click)="cerrarDialog()">Cerrar</button>
+</footer>
+
+  </div>
+</div>

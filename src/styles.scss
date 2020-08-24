@@ -1,13 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 $modal-content-width:calc(100vw - 150px);
+body, html{
+  font-size: 14px!important;
+}
+
 @import "../node_modules/bulma/bulma.sass";
 @import "../node_modules/bulma-extensions/bulma-pageloader/dist/css/bulma-pageloader.sass";
 @import "../node_modules/bulma-extensions/bulma-quickview/dist/css/bulma-quickview.sass";
 @import "../node_modules/bulma-extensions/bulma-divider/dist/css/bulma-divider.sass";
+@import "../node_modules/bulma-extensions/bulma-steps/dist/css/bulma-steps.sass";
 @import "./assets/css/all.css";
 
 
+table th{
+  vertical-align: middle !important;
+}
 
+.align-selft-center{
+  align-self: center;
+}
 .pageloader {
   background-color: rgba(0, 0, 0, 0.771);
 }
@@ -77,6 +88,9 @@ select select::placeholder,
 }
 .minw-250{
   min-width: 250px;
+}
+.minw-150{
+  min-width: 150px;
 }
 
 .max-150{

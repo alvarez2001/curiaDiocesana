@@ -38,7 +38,6 @@ export class AumentarProyectoComponent implements OnInit, OnDestroy {
       this.seleccioneProyecto.get('proyecto').valueChanges
       .pipe(
         distinctUntilChanged((x, y) => {
-          console.log(x,y)
           if(x !== y ){
 
             this.projectSvc.RestaurarProyectoAprobado()

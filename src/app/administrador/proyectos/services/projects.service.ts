@@ -254,11 +254,5 @@ export class ProjectsService {
   }
 
 
-  mostrarModalBanco(data:models.bancosModel){
-    return this.dialog.open(InfoBancoComponent, {
-      width: '1000px',
-      data:data,
-      disableClose:true
-    });
-  }
+
 }

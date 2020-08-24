@@ -3,6 +3,8 @@ import { ProjectsService } from '../services/projects.service';
 import { BancosState, RegisterProjectState } from '../models/ngrxModelsProjects';
 import { Observable, Subscription } from 'rxjs';
 import { bancosModel } from '../models/project.models';
+import { InfoBancoComponent } from '../info-banco/info-banco.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-listar-bancos',
@@ -17,7 +19,7 @@ export class ListarBancosComponent implements OnInit, OnDestroy {
   eliminarStateBancos$:Observable<RegisterProjectState>
   private subscription:Subscription = new Subscription()
 
-  constructor(private projectSvc:ProjectsService) { }
+  constructor(private projectSvc:ProjectsService,private dialog: MatDialog) { }
 
 
   ngOnInit(): void {
@@ -45,7 +47,15 @@ export class ListarBancosComponent implements OnInit, OnDestroy {
     this.projectSvc.CargarTodosLosBancos()
   }
   mostrarInfoBanco(banco:bancosModel){
-    this.projectSvc.mostrarModalBanco(banco);
+    this.mostrarModalBanco(banco);
+  }
+
+  mostrarModalBanco(data:bancosModel){
+    return this.dialog.open(InfoBancoComponent, {
+      width: '1000px',
+      data:data,
+      disableClose:true
+    });
   }
 
 
