@@ -1,0 +1,83 @@
+<div class="container box my-5" *ngIf="(todosLosBancos$ | async) as bancos">
+  <ng-container *ngIf="(eliminarStateBancos$ |async) as deleteBanco">
+    <div class="columns is-multiline">
+      <div class="column is-12">
+        <h2 class="title has-text-centered is-uppercase">
+          Listar Bancos
+        </h2>
+      </div>
+
+      <div class="column is-12 is-clearfix">
+        <button class="button is-primary is-pulled-right" type="button" routerLink="/solicitante/bancos/crear">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+
+
+      <div class="column is-12" *ngIf="deleteBanco.success !== 3">
+        <div class="notification "  [ngClass]="{
+          'is-danger':deleteBanco.success === 2,
+          'is-success':deleteBanco.success === 1
+        }">
+          <button class="delete" type="button" (click)="restaurarData()"></button>
+          {{deleteBanco.responseSv}}
+        </div>
+      </div>
+
+
+
+
+      <div class="column is-12">
+
+        <div class="table-container">
+          <table
+            class="table has-text-centered is-striped is-hoverable is-fullwidth"
+          >
+            <thead class="has-background-primary">
+              <tr class="py-3">
+                <th class="has-text-white minw-250" > Entidad Bancaria </th>
+                <th class="has-text-white minw-250"> Títular </th>
+                <th class="has-text-white"> Alias </th>
+                <th class="has-text-white">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody >
+              <tr *ngIf="bancos.success === 3">
+                <td colspan="6">Cargando datos...</td>
+              </tr>
+              <tr *ngIf="bancos.success === 2" >
+                <td colspan="6"> <button class="is-danger button" (click)="buscarInfo()">Presione para cargar nuevamente la data</button></td>
+              </tr>
+              <tr *ngIf="bancos.success === 1 && bancos.data.length === 0 ">
+                <td colspan="6">No hay datos en este momento</td>
+              </tr>
+              <tr *ngFor="let bank of bancos.data; let i = index">
+                <td > {{bank.entidad}} </td>
+                <td> {{bank.titular}} </td>
+                <td> {{bank.alias}} </td>
+                <td class="mb-0 is-centered py-3">
+                  <button
+                    class="button is-primary mb-0"
+                    [ngClass]="{
+                      'is-loading':deleteBanco.loading
+                    }"
+                    type="button"
+                    [disabled]="deleteBanco.loading"
+                    (click)="mostrarInfoBanco(bank)"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+

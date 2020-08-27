@@ -41,7 +41,7 @@ export class SolicitudsEffectsModule {
 
   CargarSolicitudesPorAutorizacion = createEffect(()=>this.actions$.pipe(
     ofType(actions.CargarSolicitudesPorAutorizacion),
-    mergeMap(()=>this.solicitudSvc.SolicitudesRevisadas().pipe(
+    mergeMap(()=>this.solicitudSvc.SolicitudesPorAutorizacion().pipe(
       map(value => actions.CorrectoSolicitudesLista({data:value})),
       catchError(error => of(actions.FallidoSolicitudesLista({error:error})))
     ))

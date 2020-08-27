@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { InicioSolicitanteComponent } from './inicio-solicitante/inicio-solicitante.component';
 import { AgregarSolicitudComponent } from './agregar-solicitud/agregar-solicitud.component';
 import { ListarSolicitudesComponent } from './listar-solicitudes/listar-solicitudes.component';
+import { CrearBancoComponent } from './crear-banco/crear-banco.component';
+import { ListarBancoComponent } from './listar-banco/listar-banco.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,18 @@ const routes: Routes = [
   {
     path:'listar-solicitud',
     component:ListarSolicitudesComponent
+  },
+  {
+    path:'bancos',
+    redirectTo:'bancos/crear'
+  },
+  {
+    path:'bancos/crear',
+    component:CrearBancoComponent
+  },
+  {
+    path:'bancos/listar',
+    component:ListarBancoComponent
   },
   {
     path:'modificar-cuenta',

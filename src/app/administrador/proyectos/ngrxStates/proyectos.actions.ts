@@ -196,7 +196,7 @@ export const Cargar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITAN
 export const Cargar_Eliminar_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR ELIMINAR BANCO', props<{id:number}>())
 export const Correcto_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO REGISTRO O ELIMINAR BANCO',props<{correcto:string}>())
 export const Fallido_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO REGISTRO O ELIMINAR BANCO',props<{error:HttpErrorResponse}>())
-export const Reiniciar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO REGISTRO O ELIMINAR BANCO')
+export const Reiniciar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] REINICIAR REGISTRO O ELIMINAR BANCO')
 
 //bancos all
 export const Cargar_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR TODOS LOS BANCOS')

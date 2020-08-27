@@ -17,6 +17,9 @@ import { ProjectsService } from '../administrador/proyectos/services/projects.se
 import { MatDialogModule } from '@angular/material/dialog';
 import * as reducers from "./ngrx/reducers.solicitante";
 import { SharedModule } from "../modules/shared/shared.module";
+import { CrearBancoComponent } from './crear-banco/crear-banco.component';
+import { ListarBancoComponent } from './listar-banco/listar-banco.component';
+import { InfoBancoComponent } from './info-banco/info-banco.component';
 
 const ngrxImports = [
   StoreModule.forFeature(keySolicitantesModule,{
@@ -33,7 +36,7 @@ const ngrxImports = [
 ]
 
 @NgModule({
-  declarations: [InicioSolicitanteComponent, AgregarSolicitudComponent, ListarSolicitudesComponent],
+  declarations: [InicioSolicitanteComponent, AgregarSolicitudComponent, ListarSolicitudesComponent, CrearBancoComponent, ListarBancoComponent, InfoBancoComponent],
   imports: [
     CommonModule,
     ...ngrxImports,
@@ -45,6 +48,7 @@ const ngrxImports = [
   providers:[
     SolicitanteServiceService,
     ProjectsService,
-  ]
+  ],
+  entryComponents:[InfoBancoComponent]
 })
 export class SolicitanteModule { }
