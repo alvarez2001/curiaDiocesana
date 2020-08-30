@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as features from '../ngrx/solicituds.feature';
 import { Observable } from 'rxjs';
-import { SolicitudStateModel, AsignacionTasaState } from '../models/models-ngrx';
+import { SolicitudStateModel, AsignacionTasaState, DatosReportesDiaState } from '../models/models-ngrx';
 import * as actions from '../ngrx/solicituds.actions';
 import { BasicDatas } from '../../usuarios/models/usersInactive.models';
+import { EjecucionSolicitud } from '../models/solicitud-i';
 
 
 @Injectable({
@@ -75,10 +76,56 @@ export class SolicitudsNgrxService {
   CargarRechazarSolicitud(solicitud:number):void{
     this.store.dispatch(actions.CargarRechazarSolicitud({solicitud:solicitud}))
   }
-
   ReiniciarStateProcesoSolicitud():void{
     this.store.dispatch(actions.ReiniciarProcesoSolicitud())
   }
 
+  //REPORTES
+
+  SeleccionarStateReportesPorDia():Observable<DatosReportesDiaState>{
+    return this.store.select(features.StateReportesPorDia)
+  }
+  DispatchCargarReportesPorDia(data:string){
+    this.store.dispatch(actions.CargarReportePorDia({fecha:data}))
+  }
+  DispatchCargarReportesPorDiaIngresos(data:string){
+    this.store.dispatch(actions.CargarReportePorDiaIngresos({fecha:data}))
+  }
+  ReiniciarReportePorDia(){
+    this.store.dispatch(actions.ReiniciarReportePorDia())
+  }
+
+  //registrar operacion
+
+  SeleccionarStateOperacion():Observable<BasicDatas>{
+    return this.store.select(features.StateAgregarOperacion)
+  }
+  DistpatchCargarRegistroOperacion(data:EjecucionSolicitud,idSolicitud:number):void{
+    this.store.dispatch(actions.CargarRegistrarOperacion({data,idSolicitud}))
+  }
+  ReiniciarRegistroOperacion():void{
+    this.store.dispatch(actions.ReiniciarRegistrarOperacion())
+  }
+
+
+
+  //egresos
+  SeleccionarStateInfoEgresoDetallado():Observable<BasicDatas>{
+    return this.store.select(features.StateInfoEgresoDetallado);
+  }
+
+  DispatchCargarInfoEgresoDetallado(idEgreso:number):void{
+    this.store.dispatch(actions.CargarEgresoDetallado({idEgreso:idEgreso}));
+  }
+
+  SeleccionarStateAnularEgreso():Observable<BasicDatas>{
+    return this.store.select(features.StateAnularEgreso);
+  }
+  DispatchCargarAnularEgreso(idEgreso:number):void{
+    this.store.dispatch(actions.CargarAnularEgreso({idEgreso:idEgreso}));
+  }
+  DispatchReiniciarAnularEgreso(){
+    this.store.dispatch(actions.ReiniciarAnularEgreso())
+  }
 
 }

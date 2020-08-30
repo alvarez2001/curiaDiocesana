@@ -20,6 +20,7 @@ import { SharedModule } from "../modules/shared/shared.module";
 import { CrearBancoComponent } from './crear-banco/crear-banco.component';
 import { ListarBancoComponent } from './listar-banco/listar-banco.component';
 import { InfoBancoComponent } from './info-banco/info-banco.component';
+import { ListarSolicitudesMiasComponent } from './listar-solicitudes-mias/listar-solicitudes-mias.component';
 
 const ngrxImports = [
   StoreModule.forFeature(keySolicitantesModule,{
@@ -27,7 +28,8 @@ const ngrxImports = [
     registrarEliminarBanco:RegistroEliminarBanco,
     proyectosSolicitantesSolicitud:reducers.ProyectosSolicitantesSolicitud,
     ConceptosSolicitantesState:reducers.ConceptosSolicitantesState,
-    StateSolicitudRegistrar:reducers.StateSolicitudRegistrar
+    StateSolicitudRegistrar:reducers.StateSolicitudRegistrar,
+    StateSolicitudesProyecto:reducers.StateSolicitudesProyecto
   }),
   EffectsModule.forFeature([
     ProjectsEffects,
@@ -36,7 +38,7 @@ const ngrxImports = [
 ]
 
 @NgModule({
-  declarations: [InicioSolicitanteComponent, AgregarSolicitudComponent, ListarSolicitudesComponent, CrearBancoComponent, ListarBancoComponent, InfoBancoComponent],
+  declarations: [InicioSolicitanteComponent, AgregarSolicitudComponent, ListarSolicitudesComponent, CrearBancoComponent, ListarBancoComponent, InfoBancoComponent, ListarSolicitudesMiasComponent],
   imports: [
     CommonModule,
     ...ngrxImports,

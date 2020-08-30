@@ -203,5 +203,106 @@ export class SolicitudsEffectsModule {
   ))
 
 
+  CargarReporteListadoPorDia = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarReportePorDia),
+    mergeMap(({fecha})=>this.solicitudSvc.ListarReportesPorDia({fecha:fecha}).pipe(
+      map(value => actions.CorrectoReportePorDia({data:value})),
+      catchError(error => of(actions.FallidoReportePorDia({error:error})))
+    ))
+  ))
+
+  CargarReporteListadoPorDiaIngresos = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarReportePorDiaIngresos),
+    mergeMap(({fecha})=>this.solicitudSvc.ListarReportesPorDiaIngresos({fecha:fecha}).pipe(
+      map(value => actions.CorrectoReportePorDia({data:value})),
+      catchError(error => of(actions.FallidoReportePorDia({error:error})))
+    ))
+  ))
+
+  FallidoReporteListadoPorDia = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.FallidoReportePorDia),
+    mergeMap(({error})=>of(this.sharedSvc.mostrarAlertError(error)))
+  ),{dispatch:false})
+
+
+  CargarRegistrarOperacion = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarRegistrarOperacion),
+    mergeMap(({data,idSolicitud})=>this.solicitudSvc.RegistrarOperacion(data,idSolicitud).pipe(
+      map(response => actions.CorrectoRegistrarOperacion({correcto:response})),
+      catchError(error => of(actions.FallidoRegistrarOperacion({error:error})))
+    ))
+  ))
+
+  FallidoRegistrarOperacion = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.FallidoRegistrarOperacion),
+    mergeMap(({error})=>of(this.sharedSvc.mostrarAlertError(error)))
+  ), {dispatch:false})
+
+
+  CorrectoRegistrarOperacion = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CorrectoRegistrarOperacion),
+    mergeMap(({correcto})=>of(this.sharedSvc.mostrarAlertSuccess(correcto)))
+  ), {dispatch:false})
+
+
+  CargarInforEgresoDetallado = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarEgresoDetallado),
+    mergeMap(({idEgreso})=>{
+      this.store.dispatch(loadOn());
+      return this.solicitudSvc.buscarEgresoPorId(idEgreso).pipe(
+        map(value => actions.CorrectoEgresoDetallado({correcto:value})),
+        catchError(error => of(actions.FallidoEgresoDetallado({error})))
+      )
+    })
+  ))
+
+  CorrectoInfoEgresoDetallado = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CorrectoEgresoDetallado),
+    mergeMap(({correcto}) => {
+      this.modalesSvc.ModalInfoEgreso(correcto)
+      return of(loadOff())
+    })
+  ))
+
+  FallidoInfoEgresoDetallado = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.FallidoEgresoDetallado),
+    mergeMap(({error})=>{
+      this.sharedSvc.mostrarAlertError(error)
+      return of(loadOff());
+    })
+  ))
+
+
+  CargarAnularEgreso = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarAnularEgreso),
+    mergeMap(({idEgreso})=>this.solicitudSvc.anularUnEgresoPorId(idEgreso).pipe(
+      map(value => actions.CorrectoAnularEgreso({correcto:value})),
+      catchError(error => of(actions.FallidoAnularEgreso({error:error})))
+    ))
+  ))
+
+  CorrectoAnularEgreso = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CorrectoAnularEgreso),
+    mergeMap(({correcto})=>of(this.sharedSvc.mostrarAlertSuccess(correcto)))
+  ),{dispatch:false})
+
+  FallidoAnularEgreso = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.FallidoAnularEgreso),
+    mergeMap(({error})=>of(this.sharedSvc.mostrarAlertError(error)))
+  ),{dispatch:false})
+
+
   constructor(private actions$:Actions, private sharedSvc:SharedService, private solicitudSvc:SolicitudsService, private store:Store, private solicitudNgrxSvc:SolicitudsNgrxService, private modalesSvc:ModalesService){}
 }

@@ -1,1 +1,63 @@
-<p>listar-solicitudes works!</p>
+<div class="container box my-5" >
+
+    <div class="columns is-multiline">
+      <div class="column is-12">
+        <h2 class="title has-text-centered is-uppercase">
+          Listar Proyectos
+        </h2>
+      </div>
+
+
+      <div class="column is-12">
+
+        <div class="table-container">
+          <table
+            class="table has-text-centered is-striped is-hoverable is-fullwidth"
+          >
+            <thead class="has-background-primary">
+              <tr class="py-3">
+                <th class="has-text-white"> N° </th>
+                <th class="has-text-white minw-250" > Nombre </th>
+                <th class="has-text-white "> Disponible </th>
+                <th class="has-text-white">Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody *ngIf="(seleccionarProyectos$ |async) as proyectos">
+              <tr *ngIf="proyectos.success === 2">
+                <td colspan="4">
+                  Ha ocurrido un error, cargue nuevamente la informacion <button class="button is-danger" type="button" (click)="cargarProyectos()"><i class="fas fa-spinner"></i></button>
+                </td>
+              </tr>
+              <tr *ngIf="proyectos.success === 3">
+                <td colspan="4">
+                  Buscando la información...
+                </td>
+              </tr>
+              <tr *ngFor="let proyecto of proyectos.data">
+                <td> {{proyecto.id}} </td>
+                <td>{{proyecto.nombre}}</td>
+                <td>{{proyecto.disponible |currency:' '}}</td>
+                <td>
+                  <div class="field is-grouped is-grouped-centered">
+                    <p class="control">
+                      <button class="button is-primary" [routerLink]="['/solicitante','listar','solicitud',proyecto.id]" type="button">
+                        <i class="fas fa-file-contract"></i>
+                      </button>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+
+
+
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+
+</div>
+

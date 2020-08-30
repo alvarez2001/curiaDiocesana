@@ -59,4 +59,13 @@ export class NgrxServicesService {
   CargarGuardarSolicitud(idBanco:number,idProyecto:number,solicitud:SolicitudAgregar){
     this.store.dispatch(actions.CargarGuardarSolicitud({idBanco,idProyecto,solicitud}))
   }
+
+
+  SeleccionarSolicitudesDelProyecto():Observable<modelsNrgx.SolicitudesProyecto>{
+    return this.store.select(selectors.StateSolicitudesProyecto)
+  }
+
+  CargarSolicitudesProyecto(IdProyecto:number):void{
+    this.store.dispatch(actions.CargarSolicitudesProyecto({idProyecto:IdProyecto}))
+  }
 }

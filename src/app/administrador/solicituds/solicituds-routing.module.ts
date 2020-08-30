@@ -7,6 +7,7 @@ import { ListarSolicitudRevisadasListoComponent } from './listar-solicitud-revis
 import { ListarSolicitudPorAutorizacionComponent } from './listar-solicitud-por-autorizacion/listar-solicitud-por-autorizacion.component';
 import { ListarSolicitudEjecutadasComponent } from './listar-solicitud-ejecutadas/listar-solicitud-ejecutadas.component';
 import { ListarSolicitudRechazadasComponent } from './listar-solicitud-rechazadas/listar-solicitud-rechazadas.component';
+import { ReporteListadoComponent } from './reporte-listado/reporte-listado.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,14 @@ const routes: Routes = [
   {
     path:'listar/rechazadas',
     component:ListarSolicitudRechazadasComponent
+  },
+  {
+    path:'reportes',
+    redirectTo:'reportes/egresos'
+  },
+  {
+    path:'reportes/egresos',
+    component:ReporteListadoComponent
   }
 ];
 

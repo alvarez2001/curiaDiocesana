@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { HttpErrorResponse } from '@angular/common/http';
-import { SolicitudModel } from "../models/solicitud-i";
+import { SolicitudModel, EgresosIngresosModel, EjecucionSolicitud } from "../models/solicitud-i";
 
 export const KeySolicitudsAdmin = '[MODULO SOLICITUDS ADMIN]'
 
@@ -40,3 +40,25 @@ export const CargarAutorizarSolicitud = createAction('[MODULO SOLICITUDES ADMIN]
 export const CorrectoProcesoSolicitud = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO PROCESO SOLICITUD',props<{correcto:string}>())
 export const FallidoProcesoSolicitud = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO PROCESO SOLICITUD', props<{error:HttpErrorResponse}>())
 export const ReiniciarProcesoSolicitud = createAction('[MODULO SOLICITUDES ADMIN] REINICIAR PROCESO SOLICITUD')
+
+export const CargarReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] CARGAR REPORTES POR DIA EGRESOS', props<{fecha:string}>())
+export const CargarReportePorDiaIngresos = createAction('[MODULO SOLICITUDES ADMIN] CARGAR REPORTES POR DIA INGRESOS', props<{fecha:string}>())
+export const CorrectoReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO REPORTES POR DIA', props<{data:EgresosIngresosModel[]}>())
+export const FallidoReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO REPORTES POR DIA', props<{error:HttpErrorResponse}>())
+export const ReiniciarReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] REINICIAR REPORTES POR DIA')
+
+export const CargarRegistrarOperacion = createAction('[MODULO SOLICITUDES ADMIN] CARGAR REGISTRAR OPERACION', props<{idSolicitud:number, data:EjecucionSolicitud}>())
+export const CorrectoRegistrarOperacion = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO REGISTRAR OPERACION', props<{correcto:string}>())
+export const FallidoRegistrarOperacion = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO REGISTRAR OPERACION', props<{error:HttpErrorResponse}>())
+export const ReiniciarRegistrarOperacion = createAction('[MODULO SOLICITUDES ADMIN] REINICIAR REGISTRAR OPERACION')
+
+export const CargarEgresoDetallado = createAction('[MODULO SOLICITUDES ADMIN] CARGAR EGRESO DETALLADO ', props<{idEgreso:number}>())
+export const CorrectoEgresoDetallado = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO EGRESO DETALLADO ', props<{correcto:EgresosIngresosModel}>())
+export const FallidoEgresoDetallado = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO EGRESO DETALLADO ', props<{error:HttpErrorResponse}>())
+
+
+export const CargarAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] CARGAR ANULAR EGRESO', props<{idEgreso:number}>())
+export const CorrectoAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO ANULAR EGRESO', props<{correcto:string}>())
+export const FallidoAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO ANULAR EGRESO', props<{error:HttpErrorResponse}>())
+export const ReiniciarAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] REINICIAR ANULAR EGRESO')
+

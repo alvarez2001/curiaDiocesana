@@ -8,6 +8,7 @@ import { ModalesService } from '../services/modales.service';
 import { Observable, Subscription } from 'rxjs';
 import { AsignacionTasaState } from '../models/models-ngrx';
 import { BasicDatas } from '../../usuarios/models/usersInactive.models';
+import { Global } from 'src/app/services/Global';
 
 @Component({
   selector: 'app-info-solicitud-model',
@@ -17,7 +18,7 @@ import { BasicDatas } from '../../usuarios/models/usersInactive.models';
 export class InfoSolicitudModelComponent implements OnInit, OnDestroy {
 
   active:boolean = true;
-
+  url:string;
   public data:SolicitudModel;
   public tipo:number;
   private stateTasa$:Observable<AsignacionTasaState>
@@ -31,6 +32,7 @@ export class InfoSolicitudModelComponent implements OnInit, OnDestroy {
     private modalesSvc:ModalesService,
     private solicitudNgrx:SolicitudsNgrxService
     ) {
+      this.url = Global.url
       this.tipo = this.dataFuera.tipoSolicitud;
       this.data = this.dataFuera.solicitud;
     }
@@ -103,7 +105,10 @@ export class InfoSolicitudModelComponent implements OnInit, OnDestroy {
   }
 
   rechazarSolicitud(solicitud:number):void{
-    this.solicitudNgrx.CargarRechazarSolicitud(solicitud)
+    const confirmar = window.confirm(`Estas seguro de rechazar la solicitud N°${this.data.id}`)
+    if(confirmar){
+      this.solicitudNgrx.CargarRechazarSolicitud(solicitud)
+    }
   }
 
 
@@ -114,6 +119,20 @@ export class InfoSolicitudModelComponent implements OnInit, OnDestroy {
   cerrarDialog(){
     this.active = false;
     setTimeout(()=> this.dialogRef.close(), 300)
+  }
+
+  PdfSolicitud(idSolicitud:number){
+
+      window.open(`${this.url}planilla/solicitud/${idSolicitud}`, 'Detalle de la solicitud')
+
+  }
+
+  ejecutarOperacion(){
+    this.modalesSvc.ModalAgregarOperacion(this.data).afterClosed().subscribe(res => {
+      if(res){
+        this.cerrarDialog();
+      }
+    });
   }
 
 }

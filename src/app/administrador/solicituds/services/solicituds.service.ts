@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Global } from 'src/app/services/Global';
-import { SolicitudModel } from "../models/solicitud-i";
+import { SolicitudModel, EgresosIngresosModel, EjecucionSolicitud } from "../models/solicitud-i";
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoSolicitudModelComponent } from '../info-solicitud-model/info-solicitud-model.component';
 import { AsignarTasaModalComponent } from '../asignar-tasa-modal/asignar-tasa-modal.component';
+import { AgregarOperacionComponent } from '../agregar-operacion/agregar-operacion.component';
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,34 @@ export class SolicitudsService {
     return this.http.post<string>(`${this.url}solicitud/${idSolicitud}/autorizar`,null)
   }
 
+  ListarReportesPorDia(data:{fecha:string}):Observable<EgresosIngresosModel[]>{
+    return this.http.post<EgresosIngresosModel[]>(`${this.url}reporte/listado/dia/egreso`,data);
+  }
+
+  ListarReportesPorDiaIngresos(data:{fecha:string}):Observable<EgresosIngresosModel[]>{
+    return this.http.post<EgresosIngresosModel[]>(`${this.url}reporte/listado/dia/ingreso`,data);
+  }
+
+  RegistrarOperacion(data:EjecucionSolicitud, idSolicitud:number):Observable<string>{
+    return this.http.post<string>(`${this.url}operacion/add/solicitud/${idSolicitud}`, data)
+  }
+
+  buscarEgresoPorId(idEgreso:number):Observable<EgresosIngresosModel>{
+    return this.http.get<EgresosIngresosModel>(`${this.url}egreso/${idEgreso}/detallado`)
+  }
+
+  anularUnEgresoPorId(idEgreso:number):Observable<string>{
+    return this.http.post<string>(`${this.url}egreso/${idEgreso}/anular`,null)
+  }
+
+  mostrarInfoSolicitudPdf(idSolicitud:number){
+    window.open(`${this.url}planilla/solicitud/${idSolicitud}`, 'Detalle de la solicitud')
+  }
+
+  mostrarInfoEgreso(idEgreso:number){
+    window.open(`${this.url}planilla/egreso/${idEgreso}`, 'Detalle del egreso')
+  }
+
 
   ModalInfoSolicitud(data:SolicitudModel,tipo:number){
     return this.dialog.open(InfoSolicitudModelComponent, {
@@ -71,9 +100,5 @@ export class SolicitudsService {
       disableClose:true
     });
   }
-
-
-
-
 
 }

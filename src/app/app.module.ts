@@ -24,6 +24,7 @@ import { AsidesNavAdministradorComponent } from './asides-nav-administrador/asid
 
 
 
+
 const ngrxImport = [
   StoreModule.forRoot({
     pantallaCarga:pantallaCarga,
@@ -46,7 +47,7 @@ const ngrxImport = [
     TemplateComponent,
     NavbarAdministradorComponent,
     TemplateInicioComponent,
-    AsidesNavAdministradorComponent,
+    AsidesNavAdministradorComponent
 
   ],
   imports: [

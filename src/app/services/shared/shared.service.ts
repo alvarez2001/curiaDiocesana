@@ -46,6 +46,14 @@ export class SharedService {
       const maxlen = errores?.maxlength;
       mostrarErrores = `El campo ${control} debe contener como maximo ${maxlen.requiredLength} caracteres`;
     };
+    if(errores?.max){
+      const max = errores?.max.max;
+      mostrarErrores = `El campo ${control} debe ser menor o igual a ${max}`
+    }
+    if(errores?.min){
+      const min = errores?.min.min;
+      mostrarErrores = `El campo ${control} debe ser mayor a ${min}`
+    }
     if(errores === null){
       mostrarErrores = 'Campo exitoso';
     }
@@ -57,6 +65,12 @@ export class SharedService {
   formatoNumerico(valor):boolean{
     const tecla = valor.key;
     const patron = /[0-9\.]/;
+    return patron.test(tecla)
+  }
+
+  FormatoNumericoFecha(valor):boolean{
+    const tecla = valor.key;
+    const patron = /[0-9]/;
     return patron.test(tecla)
   }
 

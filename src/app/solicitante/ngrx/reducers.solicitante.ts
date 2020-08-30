@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import { ProyectosSolicitantesModule, ConceptosSolicitantesModulo } from "../models/SolicitantesNrgx.Models";
+import { ProyectosSolicitantesModule, ConceptosSolicitantesModulo, SolicitudesProyecto } from "../models/SolicitantesNrgx.Models";
 import * as actions from "./solicitante.actions";
 import { BasicDatas } from 'src/app/administrador/usuarios/models/usersInactive.models';
 
@@ -112,4 +112,43 @@ const _StateSolicitudRegistrar = createReducer(
 
 export function StateSolicitudRegistrar(state:BasicDatas,action:Action){
   return _StateSolicitudRegistrar(state,action)
+}
+
+
+const initialStateSolicitudes:SolicitudesProyecto = {
+    loading:false,
+    success:3,
+    data:[]
+}
+
+const _StateSolicitudesProyecto = createReducer(
+  initialStateSolicitudes,
+  on(actions.CargarSolicitudesProyecto,(state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      data:[]
+    }
+  }),
+  on(actions.CorrectoSolicitudesProyecto, (state,{data})=>{
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      data:data
+    }
+  }),
+  on(actions.FallidoSolicitudesProyecto, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2,
+      data:[]
+    }
+  })
+)
+
+export function StateSolicitudesProyecto(state:SolicitudesProyecto,action:Action){
+  return _StateSolicitudesProyecto(state,action)
 }

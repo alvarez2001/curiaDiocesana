@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { proyectosUsuarioSolicitanteAddSolicitud, SolicitudAgregar } from "../models/solicitantes.models";
 import { CrearNuevoConceptoInterface } from 'src/app/administrador/proyectos/models/project.models';
+import { Solicitud } from 'src/app/administrador/solicituds/models/solicitud-i';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class SolicitanteServiceService {
   }
   ConceptosSolicitantes():Observable<CrearNuevoConceptoInterface[]>{
     return this.http.get<CrearNuevoConceptoInterface[]>(`${this.url}conceptos/solicitantes`)
+  }
+
+  BuscarSolicitudesProyecto(idProyecto:number):Observable<Solicitud[]>{
+    return this.http.get<Solicitud[]>(`${this.url}solicitudes/solicitantes/proyecto/${idProyecto}`);
   }
 
 

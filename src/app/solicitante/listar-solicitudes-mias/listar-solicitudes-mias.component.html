@@ -1,0 +1,70 @@
+<div class="container box my-5" >
+
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h2 class="title has-text-centered is-uppercase">
+        Listar Solicitudes del proyecto #{{idProyecto}}
+      </h2>
+    </div>
+
+
+    <div class="column is-12">
+
+      <div class="table-container">
+        <table
+          class="table has-text-centered is-striped is-hoverable is-fullwidth"
+        >
+          <thead class="has-background-primary">
+            <tr class="py-3">
+              <th class="has-text-white">N° Solicitud</th>
+              <th class="has-text-white minw-250" > Concepto </th>
+              <th class="has-text-white "> Responsable </th>
+              <th class="has-text-white"> Status de la solicitud </th>
+              <th class="has-text-white"> Tasa de cambio </th>
+              <th class="has-text-white"> Total solicitud </th>
+              <th class="has-text-white">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody  *ngIf="(stateSolicitanteSolicitudes$ |async) as solicitudesProyecto">
+            <tr *ngIf="solicitudesProyecto.success === 3">
+              <td colspan="7"> Cargando información... </td>
+            </tr>
+
+            <tr *ngIf="solicitudesProyecto.success === 2">
+              <td colspan="7"> Ha ocurrido un error, cargue nuevamente la información  <button class="button is-danger" type="button" (click)="cargarSolicitante(idProyecto)"><i class="fas fa-spinner"></i></button> </td>
+            </tr>
+
+            <tr *ngIf="solicitudesProyecto.data.length === 0 && solicitudesProyecto.success === 1">
+              <td colspan="7"> El proyecto N° {{idProyecto}} no posee solicitudes </td>
+            </tr>
+
+            <tr *ngFor="let proyecto of solicitudesProyecto.data">
+              <td> {{proyecto.id}} </td>
+              <td> {{proyecto.concepto}} </td>
+              <td> {{proyecto.responsable}} </td>
+              <td> {{revisarStatus(proyecto.status)}} </td>
+              <ng-container *ngIf="proyecto.tasa_cambio !== null">
+                <td> {{proyecto.tasa_cambio |currency :'Bs. '}} </td>
+              </ng-container>
+              <ng-container *ngIf="proyecto.tasa_cambio === null">
+                <td> No posee </td>
+              </ng-container>
+              <td> {{proyecto.total | currency:'Bs. '}} </td>
+              <td>
+                <button class="is-primary  button" type="button" (click)="descargarSolicitud(proyecto.id)">
+                  <i class="fas fa-file-pdf"></i>
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+

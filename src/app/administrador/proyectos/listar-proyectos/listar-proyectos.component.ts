@@ -3,6 +3,7 @@ import { ProjectsService } from '../services/projects.service';
 import { Observable } from 'rxjs';
 import { PaginateProjectsState, ProyectoEspecificoState } from '../models/ngrxModelsProjects';
 import { ProjectModelComplete } from "../models/project.models";
+import { Global } from 'src/app/services/Global';
 
 
 @Component({
@@ -44,5 +45,13 @@ export class ListarProyectosComponent implements OnInit {
 
   mostrarInfo(data:ProjectModelComplete){
     this.ProjectsSvc.cargarProyectoEspecifico(data.id)
+  }
+
+  ReporteProyectos(id:number){
+    window.open(`${Global.url}reporte/proyecto/${id}`, `Reporte del proyecto ${id}`)
+  }
+
+  AuditoriaProyecto(id:number){
+    window.open(`${Global.url}auditoria/interna/proyecto/${id}`, `Auditoria del proyecto ${id}`)
   }
 }

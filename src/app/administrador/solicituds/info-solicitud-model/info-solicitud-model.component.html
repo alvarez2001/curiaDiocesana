@@ -137,55 +137,53 @@
     </div>
 
 
-    <ng-container *ngFor="let banco of data?.banco">
-      <div class="column is-12-mobile is-12-tablet is-12-desktop ">
-        <div class="field">
-          <label class="label">Entidad bancaria</label>
-          <p class="control has-icons-left">
-            <input class="input is-info" type="text" readonly [value]="banco?.banco">
-            <span class="icon is-small is-left has-text-link-dark">
-              <i class="fas fa-university"></i>
-            </span>
-          </p>
-        </div>
+    <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+      <div class="field">
+        <label class="label">Entidad bancaria</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.banco">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-university"></i>
+          </span>
+        </p>
       </div>
+    </div>
 
-      <div class="column is-12-mobile is-6-tablet is-6-desktop ">
-        <div class="field">
-          <label class="label">Títular de la cuenta</label>
-          <p class="control has-icons-left">
-            <input class="input is-info" type="text" readonly [value]="banco?.titular">
-            <span class="icon is-small is-left has-text-link-dark">
-              <i class="fas fa-user-tie"></i>
-            </span>
-          </p>
-        </div>
+    <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+      <div class="field">
+        <label class="label">Títular de la cuenta</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.titular">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-user-tie"></i>
+          </span>
+        </p>
       </div>
+    </div>
 
-      <div class="column is-12-mobile is-6-tablet is-6-desktop ">
-        <div class="field">
-          <label class="label">Identificación del títular</label>
-          <p class="control has-icons-left">
-            <input class="input is-info" type="text" readonly [value]="banco?.identificacion">
-            <span class="icon is-small is-left has-text-link-dark">
-              <i class="fas fa-id-card"></i>
-            </span>
-          </p>
-        </div>
+    <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+      <div class="field">
+        <label class="label">Identificación del títular</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.identificacion">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-id-card"></i>
+          </span>
+        </p>
       </div>
+    </div>
 
-      <div class="column is-12-mobile is-12-tablet is-12-desktop ">
-        <div class="field">
-          <label class="label">Número de cuenta</label>
-          <p class="control has-icons-left">
-            <input class="input is-info" type="text" readonly [value]="banco?.numero">
-            <span class="icon is-small is-left has-text-link-dark">
-              <i class="fas fa-credit-card"></i>
-            </span>
-          </p>
-        </div>
+    <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+      <div class="field">
+        <label class="label">Número de cuenta</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.numero">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-credit-card"></i>
+          </span>
+        </p>
       </div>
-    </ng-container>
+    </div>
 
   </div>
 
@@ -197,9 +195,13 @@
     <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="revisarSolicitud(data.id)" *ngIf="tipo === 5">Revisar</button>
     <button class="button is-success  " type="button" [disabled]="procesos.loading" (click)="autorizarSolicitud(data.id)" *ngIf="tipo === 1">Autorizar</button>
     <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="asignarTasa()" *ngIf="tipo === 0">Asignar Tasa</button>
+    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="ejecutarOperacion()" *ngIf="tipo === 2">Ejecutar operación</button>
+
+  <button class="button is-info" type="button" (click)="PdfSolicitud(data.id)">
+    Descargar PDF
+  </button>
     <button class="button is-warning " type="button" [disabled]="procesos.loading" (click)="rechazarSolicitud(data.id)" *ngIf="tipo !== 4 && tipo !== 3">Rechazar</button>
   </ng-container>
-
 
   <button class="button is-danger " type="button" (click)="cerrarDialog()">Cerrar</button>
 </footer>

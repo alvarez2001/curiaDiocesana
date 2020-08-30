@@ -1,0 +1,152 @@
+<div class="modal animate__animated is-active" [ngClass]="{'animate__fadeInDown': active, 'animate__fadeOutUp':!active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card ">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Detalle del egreso # {{data.id}}</p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+</header>
+<section class="modal-card-body" >
+
+
+    <div class="columns is-multiline">
+
+      <div class="column is-12">
+        <h2 class="subtitle">{{comprobarStatus(data?.operacion?.status)}} {{cuandoFueCreado(data?.updated_at)}}</h2>
+      </div>
+
+      <div class="column is-12">
+        <div class="field">
+          <label class="label">Nombre del proyecto</label>
+          <div class="control">
+            <input class="input" type="text" readonly [value]="data?.proyecto?.nombre" placeholder="Nombre del proyecto">
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-12-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Código del proyecto</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Código del proyecto" [value]="data?.proyecto?.codigo" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Disponible del proyecto</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Disponible del proyecto" [value]="data?.proyecto?.disponible | currency:' '" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Estado del egreso</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Disponible del proyecto" [value]="comprobarStatus(data?.operacion?.status)" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Responsable de la solicitud</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Responsable de la solicitud" [value]="data?.solicitud?.responsable" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Tasa de cambio</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Tasa de cambio de la solicitud" [value]="data?.operacion?.tasa |currency:'Bs. '" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-12-tablet is-4-desktop">
+        <div class="field">
+          <label class="label">Total solicitud</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Total de la solicitud" [value]="data?.operacion?.total_solicitud |currency:'Bs. '" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet">
+        <div class="field">
+          <label class="label">Concepto de la solicitud</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Concepto de la solicitud" [value]="data?.operacion?.concepto" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet">
+        <div class="field">
+          <label class="label">Banco</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Concepto de la solicitud" [value]="data?.operacion?.banco" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-3-desktop">
+        <div class="field">
+          <label class="label">Fecha bancaria</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="fecha bancaria" [value]="data?.operacion?.fecha_bancaria" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-3-desktop">
+        <div class="field">
+          <label class="label">Comisión bancaria</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Comisión bancaria" [value]="data?.operacion?.comision |currency:'Bs. '" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-3-desktop">
+        <div class="field">
+          <label class="label">Referencia</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="referencia bancaria" [value]="data?.operacion?.referencia" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-6-tablet is-3-desktop">
+        <div class="field">
+          <label class="label">Total {{data?.proyecto?.moneda}}</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="total {{data?.proyecto?.moneda}}" [value]="data?.operacion?.total_euro |currency:' '" readonly>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+</section>
+<footer class="modal-card-foot" style="overflow: auto;" *ngIf="(stateAnularEgreso |async) as StateAnular">
+  <button class="button is-warning " type="button" [ngClass]="{'is-loading':StateAnular.loading}" (click)="anularEgreso(data.id)" [disabled]="StateAnular.loading" *ngIf="devolverValor(data?.operacion?.status) !== 0">Anular</button>
+  <button type="button" class="button is-info" (click)="descargarPdfEgreso(data.id)">Descargar PDF</button>
+  <button class="button is-danger " type="button" (click)="cerrarDialog()">Cerrar</button>
+</footer>
+
+  </div>
+</div>

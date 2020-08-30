@@ -1,0 +1,313 @@
+<div class="modal animate__animated is-active" [ngClass]="{'animate__fadeInDown': active, 'animate__fadeOutUp':!active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card ">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Ejecución de la solicitud N° #{{data?.id}}</p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+</header>
+<section class="modal-card-body" *ngIf="(stateOperacion |async) as operacion">
+
+
+  <div class="columns is-multiline">
+    <div class="column is-12">
+      <h2 class="has-text-centered subtitle"> Datos para la transferencia </h2>
+    </div>
+    <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+      <div class="field">
+        <label class="label">Entidad bancaria</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.banco">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-university"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+      <div class="field">
+        <label class="label">Títular de la cuenta</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.titular">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-user-tie"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+      <div class="field">
+        <label class="label">Identificación del títular</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.identificacion">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-id-card"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+      <div class="field">
+        <label class="label">Número de cuenta</label>
+        <p class="control has-icons-left">
+          <input class="input is-info" type="text" readonly [value]="data?.banco?.numero">
+          <span class="icon is-small is-left has-text-link-dark">
+            <i class="fas fa-credit-card"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12">
+      <h2 class="has-text-centered subtitle"> Datos de la transferencia </h2>
+    </div>
+
+    <ng-container [formGroup]="FormOperacion">
+
+    <div class="column is-12-mobile  "
+    [ngClass]="{'is-6-tablet is-6-desktop':FormOperacion.get('referencia').value !== 'otros',
+     'is-12-tablet is-4-desktop':FormOperacion.get('referencia').value === 'otros'}"
+    >
+      <div class="field">
+        <label class="label">Comisión bancaria</label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': FormOperacion.get('comision')?.errors,
+            'is-info': FormOperacion.get('comision')?.errors === null
+          }"
+          placeholder="Comisión bancaria" appSeparadorMiles formControlName="comision" (keypress)="comprobar($event)" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': FormOperacion.get('comision')?.errors,
+            'has-text-link-dark': FormOperacion.get('comision')?.errors === null
+          }">
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': FormOperacion.get('comision')?.errors,
+              'is-dark': FormOperacion.get('comision')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("comision") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop "
+    [ngClass]="{'is-6-tablet is-6-desktop':FormOperacion.get('referencia').value !== 'otros',
+     'is-6-tablet is-4-desktop':FormOperacion.get('referencia').value === 'otros'}"
+    >
+      <div class="field">
+        <label class="label">Referencia</label>
+        <div class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
+
+          <div class="select is-fullwidth "
+          [ngClass]="{
+            'is-danger': FormOperacion.get('referencia')?.errors,
+            'is-info': FormOperacion.get('referencia')?.errors === null
+          }"
+            >
+              <select formControlName="referencia" >
+                <option selected disabled value="">Seleccione la referencia</option>
+                <option *ngFor="let refe of referencias" [value]="refe.value"> {{refe.mask}} </option>
+              </select>
+            </div>
+
+
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': FormOperacion.get('referencia')?.errors,
+            'has-text-link-dark': FormOperacion.get('referencia')?.errors === null
+          }">
+          <i class="fas fa-credit-card"></i>
+          </span>
+        </div>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': FormOperacion.get('referencia')?.errors,
+              'is-dark': FormOperacion.get('referencia')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("referencia") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop "
+    [ngClass]="{'is-6-tablet is-6-desktop':FormOperacion.get('referencia').value !== 'otros',
+     'is-6-tablet is-4-desktop':FormOperacion.get('referencia').value === 'otros'}"
+      *ngIf="FormOperacion.get('referencia').value === 'otros'">
+      <div class="field">
+        <label class="label">Referencia bancaria </label>
+        <div class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
+          <input class="input is-info"
+          [ngClass]="{
+            'is-danger': FormOperacion.get('referenciaBancaria')?.errors,
+            'is-info': FormOperacion.get('referenciaBancaria')?.errors === null
+          }"
+          formControlName="referenciaBancaria" placeholder="Ingrese la referencia bancaria" (keypress)="comprobar($event)" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': FormOperacion.get('referenciaBancaria')?.errors,
+            'has-text-link-dark': FormOperacion.get('referenciaBancaria')?.errors === null
+          }">
+          <i class="fas fa-credit-card"></i>
+          </span>
+        </div>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': FormOperacion.get('referenciaBancaria')?.errors,
+              'is-dark': FormOperacion.get('referenciaBancaria')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("referenciaBancaria") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+      <div class="field">
+        <label class="label">Banco</label>
+        <div class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
+
+          <div class="select is-fullwidth "
+          [ngClass]="{
+            'is-danger': FormOperacion.get('banco')?.errors,
+            'is-info': FormOperacion.get('banco')?.errors === null
+          }"
+            >
+              <select formControlName="banco" >
+                <option selected disabled value="">Seleccione el banco</option>
+                <option value="Bancaribe 9865">Bancaribe 9865</option>
+                <option value="Banesco 8487">Banesco 8487</option>
+                <option value="Otros">Otros</option>
+              </select>
+            </div>
+
+
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': FormOperacion.get('banco')?.errors,
+            'has-text-link-dark': FormOperacion.get('banco')?.errors === null
+          }"
+          >
+          <i class="fas fa-university"></i>
+          </span>
+        </div>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': FormOperacion.get('banco')?.errors,
+              'is-dark': FormOperacion.get('banco')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("banco") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop ">
+      <div class="field">
+        <label class="label">Fecha bancaria</label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': FormOperacion.get('fecha')?.errors,
+            'is-info': FormOperacion.get('fecha')?.errors === null
+          }"
+          (keypress)="comprobar($event)" placeholder="AAAA/MM/DD" formControlName="fecha" type="date" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': FormOperacion.get('fecha')?.errors,
+            'has-text-link-dark': FormOperacion.get('fecha')?.errors === null
+          }"
+          >
+            <i class="fas fa-calendar-day"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': FormOperacion.get('fecha')?.errors,
+              'is-dark': FormOperacion.get('fecha')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("fecha") }}
+          </p>
+      </div>
+    </div>
+
+    <ng-container *ngIf="(FormOperacion.get('referencia').valueChanges |async) as referenciaBancaria">
+      <ng-container *ngIf="(projectsStateAll |async) as proyectosEstado">
+      <div class="column is-12-mobile is-12-tablet is-12-desktop " *ngIf="referenciaBancaria === '002' || referenciaBancaria === '005'">
+        <div class="field is-clearfix">
+          <button type="button" class="button is-danger is-pulled-right mb-2" (click)="cargarProyectos()"[disabled]="proyectosEstado.loading" ><i class="fas fa-spinner"></i></button>
+          <label class="label">Proyecto a descontar</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
+
+            <div class="select is-fullwidth "
+          [ngClass]="{
+            'is-danger': FormOperacion.get('proyecto_ingreso')?.errors,
+            'is-info': FormOperacion.get('proyecto_ingreso')?.errors === null
+          }"
+            >
+              <select formControlName="proyecto_ingreso" >
+                <option selected disabled value="">Seleccione el proyecto a ingresar</option>
+
+                  <option disabled *ngIf="proyectosEstado.loading"> Buscando informacion... </option>
+                  <option disabled *ngIf="proyectosEstado.success === 2"> Ha ocurrido un error intente nuevamente </option>
+                  <option *ngFor="let proyecto of proyectosEstado?.dataProjects?.data" [value]="proyecto.id"> {{proyecto.codigo}} --- {{proyecto.nombre}} </option>
+
+
+              </select>
+            </div>
+            <span class="icon is-small is-left has-text-link-dark"
+            [ngClass]="{
+              'has-text-danger': FormOperacion.get('proyecto_ingreso')?.errors,
+              'has-text-link-dark': FormOperacion.get('proyecto_ingreso')?.errors === null
+            }"
+            >
+              <i class="fas fa-id-card"></i>
+            </span>
+          </div>
+          <p
+              class="help"
+              [ngClass]="{
+                'is-danger': FormOperacion.get('proyecto_ingreso')?.errors,
+                'is-dark': FormOperacion.get('proyecto_ingreso')?.errors === null
+              }"
+            >
+              {{ mostrarErrores("proyecto_ingreso") }}
+            </p>
+        </div>
+      </div>
+    </ng-container>
+    </ng-container>
+
+    <div class="column is-12 has-text-centered">
+      <button type="button" (click)="guardarInformacion()" class="is-success button is-uppercase" [ngClass]="{'is-loading':operacion.loading}" [disabled]="FormOperacion.invalid || comprobarString() || operacion.loading"> Registrar operación </button>
+    </div>
+    </ng-container>
+  </div>
+
+
+
+</section>
+<footer class="modal-card-foot" style="overflow: auto;" >
+  <button class="button is-danger " type="button" (click)="cerrarDialog()">Cerrar</button>
+</footer>
+
+  </div>
+</div>

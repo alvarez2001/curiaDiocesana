@@ -67,14 +67,29 @@
                   <td > {{project.disponible | currency:'USD'}} </td>
                 </ng-container>
                 <td class="mb-0 is-centered py-3">
-                  <button
-                    class="button mb-0"
+
+                  <div class="field is-grouped">
+                    <p class="control">
+                      <button class="button is-warning is-light" type="button" (click)="AuditoriaProyecto(project.id)">
+                        Auditoria
+                      </button>
+                    </p>
+                    <p class="control">
+                      <button class="button is-warning is-light" type="button" (click)="ReporteProyectos(project.id)">
+                        <i class="fas fa-file-pdf"></i>
+                      </button>
+                    </p>
+                    <p class="control">
+                      <button
+                    class="button mb-0 is-info is-light"
                     type="button"
                     [disabled]="modal.loading"
                   (click)="mostrarInfo(project)"
                   >
                     <i class="fas fa-search-plus"></i>
                   </button>
+                    </p>
+                  </div>
                 </td>
               </tr>
             </ng-container>

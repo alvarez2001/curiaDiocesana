@@ -5,6 +5,7 @@ import { AgregarSolicitudComponent } from './agregar-solicitud/agregar-solicitud
 import { ListarSolicitudesComponent } from './listar-solicitudes/listar-solicitudes.component';
 import { CrearBancoComponent } from './crear-banco/crear-banco.component';
 import { ListarBancoComponent } from './listar-banco/listar-banco.component';
+import { ListarSolicitudesMiasComponent } from './listar-solicitudes-mias/listar-solicitudes-mias.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,12 @@ const routes: Routes = [
     component:AgregarSolicitudComponent
   },
   {
-    path:'listar-solicitud',
+    path:'listar/proyectos',
     component:ListarSolicitudesComponent
+  },
+  {
+    path:'listar/solicitud/:id',
+    component:ListarSolicitudesMiasComponent
   },
   {
     path:'bancos',

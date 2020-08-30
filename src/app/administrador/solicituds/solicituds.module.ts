@@ -23,21 +23,35 @@ import { ListarSolicitudRevisadasListoComponent } from './listar-solicitud-revis
 import { ListarSolicitudPorAutorizacionComponent } from './listar-solicitud-por-autorizacion/listar-solicitud-por-autorizacion.component';
 import { ListarSolicitudEjecutadasComponent } from './listar-solicitud-ejecutadas/listar-solicitud-ejecutadas.component';
 import { ListarSolicitudRechazadasComponent } from './listar-solicitud-rechazadas/listar-solicitud-rechazadas.component';
+import { ReporteListadoComponent } from './reporte-listado/reporte-listado.component';
+import { ReporteEgresosMensualesModalComponent } from './reporte-egresos-mensuales-modal/reporte-egresos-mensuales-modal.component';
+import { AgregarOperacionComponent } from './agregar-operacion/agregar-operacion.component';
+import { ProjectsEffects } from '../proyectos/ngrxStates/proyectos.effects';
+import { ProjectsPaginateOrProjectsAll } from '../proyectos/ngrxStates/proyectos.reducers';
+import { InfoEgresoDetalladoComponent } from './info-egreso-detallado/info-egreso-detallado.component';
+import { EgresosListadoComponent } from './egresos-listado/egresos-listado.component';
+import { IngresosListadoComponent } from './ingresos-listado/ingresos-listado.component';
 
 const ngrxImports = [
   StoreModule.forFeature(KeySolicitudsAdmin,{
     StateSolicitudsRealizadas:reducers.StateSolicitudsRealizadas,
     StateProcesoSolicitud:reducers.StateProcesoSolicitud,
     StateAsignarTasa:reducers.StateAsignarTasa,
-    StateGenerarCodigo:reducers.StateGenerarCodigo
+    StateGenerarCodigo:reducers.StateGenerarCodigo,
+    StateReportesPorDia:reducers.StateReportesPorDia,
+    projectsAll: ProjectsPaginateOrProjectsAll,
+    StateAgregarOperacion:reducers.StateAgregarOperacion,
+    StateInfoEgresoDetallado:reducers.StateInfoEgresoDetallado,
+    StateAnularEgreso:reducers.StateAnularEgreso
   }),
   EffectsModule.forFeature([
-    SolicitudsEffectsModule
+    SolicitudsEffectsModule,
+    ProjectsEffects
   ])
 ]
 
 @NgModule({
-  declarations: [ListarSolicitudAdminComponent, InfoSolicitudModelComponent, AsignarTasaModalComponent, IntroducirClaveSeguridadComponent, ListarSolicitudAdminRevisadasComponent, ListarSolicitudRevisadasListoComponent, ListarSolicitudPorAutorizacionComponent, ListarSolicitudEjecutadasComponent, ListarSolicitudRechazadasComponent],
+  declarations: [ListarSolicitudAdminComponent, InfoSolicitudModelComponent, AsignarTasaModalComponent, IntroducirClaveSeguridadComponent, ListarSolicitudAdminRevisadasComponent, ListarSolicitudRevisadasListoComponent, ListarSolicitudPorAutorizacionComponent, ListarSolicitudEjecutadasComponent, ListarSolicitudRechazadasComponent, ReporteListadoComponent, ReporteEgresosMensualesModalComponent, AgregarOperacionComponent, InfoEgresoDetalladoComponent, EgresosListadoComponent, IngresosListadoComponent],
   imports: [
     CommonModule,
     ...ngrxImports,
@@ -55,7 +69,10 @@ const ngrxImports = [
   entryComponents:[
     InfoSolicitudModelComponent,
     AsignarTasaModalComponent,
-    IntroducirClaveSeguridadComponent
+    IntroducirClaveSeguridadComponent,
+    ReporteEgresosMensualesModalComponent,
+    AgregarOperacionComponent,
+    InfoEgresoDetalladoComponent
   ]
 })
 export class SolicitudsModule { }

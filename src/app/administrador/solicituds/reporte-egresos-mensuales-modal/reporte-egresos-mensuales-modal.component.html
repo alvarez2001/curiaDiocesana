@@ -1,0 +1,63 @@
+<div class="modal animate__animated is-active" [ngClass]="{'animate__fadeInDown': active, 'animate__fadeOutUp':!active}"  >
+  <!-- <div class="modal-background"></div> -->
+  <div class="modal-card " style="width:320px;">
+
+
+<header class="modal-card-head">
+  <p class="modal-card-title"> Seleccione la fecha </p>
+  <button class="delete" aria-label="close" (click)="cerrarDialog()"></button>
+  </header>
+    <section class="modal-card-body">
+
+      <div class="columns is-multiline" [formGroup]="Form">
+        <div class="column is-12">
+          <div class="field">
+            <label class="label">Año</label>
+            <p class="control has-icons-left">
+              <input class="input is-info" placeholder="Año" formControlName="ano" (keypress)="comprobar($event)" type="text" >
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-date"></i>
+              </span>
+            </p>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': Form.get('ano')?.errors,
+              'is-dark': Form.get('ano')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("ano") }}
+          </p>
+          </div>
+
+          <div class="field">
+            <label class="label">Mes</label>
+            <p class="control has-icons-left">
+              <input class="input is-info" placeholder="Mes" formControlName="mes" min="0" max="31" type="number" >
+              <span class="icon is-small is-left has-text-link-dark">
+                <i class="fas fa-dollar-sign"></i>
+              </span>
+            </p>
+            <p
+            class="help"
+            [ngClass]="{
+              'is-danger': Form.get('mes')?.errors,
+              'is-dark': Form.get('mes')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("mes") }}
+          </p>
+          </div>
+        </div>
+
+      </div>
+
+
+    </section>
+  <footer class="modal-card-foot" style="overflow: auto;" >
+    <button class="button is-success" type="button" (click)="BuscarPorMes()" [disabled]="Form.invalid" >Buscar</button>
+    <button class="button is-danger" type="button" (click)="cerrarDialog()">Cerrar</button>
+  </footer>
+
+  </div>
+</div>

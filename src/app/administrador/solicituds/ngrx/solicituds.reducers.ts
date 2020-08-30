@@ -1,5 +1,5 @@
 import { createReducer, on, Action } from "@ngrx/store";
-import { SolicitudStateModel, AsignacionTasaState } from "../models/models-ngrx";
+import { SolicitudStateModel, AsignacionTasaState, DatosReportesDiaState } from "../models/models-ngrx";
 import * as actions from './solicituds.actions';
 import { BasicDatas } from '../../usuarios/models/usersInactive.models';
 
@@ -249,4 +249,164 @@ const _StateGenerarCodigo = createReducer(
 
 export function StateGenerarCodigo(state:BasicDatas, action:Action){
   return _StateGenerarCodigo(state,action)
+}
+
+
+
+const initialStateReportesPorDia:DatosReportesDiaState = {
+  success:3,
+  loading:false,
+  data:[]
+}
+
+const _StateReportesPorDia = createReducer(
+  initialStateReportesPorDia,
+  on(actions.CargarReportePorDia, (state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      data:[]
+    }
+  }),
+  on(actions.CargarReportePorDiaIngresos, (state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3,
+      data:[]
+    }
+  }),
+  on(actions.CorrectoReportePorDia, (state, {data})=>{
+    return {
+      ...state,
+      loading:false,
+      success:1,
+      data:data
+    }
+  }),
+  on(actions.FallidoReportePorDia, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2,
+      data:[]
+    }
+  }),
+  on(actions.ReiniciarReportePorDia, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3,
+      data:[]
+    }
+  })
+)
+
+export function StateReportesPorDia(state:DatosReportesDiaState,action:Action){
+  return _StateReportesPorDia(state,action)
+}
+
+
+
+const _StateAgregarOperacion = createReducer(
+  InitialStateGenerarCodigo,
+  on(actions.CargarRegistrarOperacion, (state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3
+    }
+  }),
+  on(actions.CorrectoRegistrarOperacion, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:1
+    }
+  }),
+  on(actions.FallidoRegistrarOperacion, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  }),
+  on(actions.ReiniciarRegistrarOperacion, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3
+    }
+  }),
+)
+
+export function StateAgregarOperacion(state:BasicDatas,action:Action){
+  return _StateAgregarOperacion(state,action)
+}
+
+
+const _StateInfoEgresoDetallado = createReducer(
+  InitialStateGenerarCodigo,
+  on(actions.CargarEgresoDetallado, (state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3
+    }
+  }),
+  on(actions.CorrectoEgresoDetallado,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:1
+    }
+  }),
+  on(actions.FallidoEgresoDetallado,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  })
+)
+
+export function StateInfoEgresoDetallado(state:BasicDatas,action:Action){
+  return _StateInfoEgresoDetallado(state,action);
+}
+
+const _StateAnularEgreso = createReducer(
+  InitialStateGenerarCodigo,
+  on(actions.CargarAnularEgreso,(state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3
+    }
+  }),
+  on(actions.CorrectoAnularEgreso,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:1
+    }
+  }),
+  on(actions.FallidoAnularEgreso,(state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  }),
+  on(actions.ReiniciarAnularEgreso, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3
+    }
+  })
+)
+
+export function StateAnularEgreso(state:BasicDatas,action:Action){
+  return _StateAnularEgreso(state,action);
 }

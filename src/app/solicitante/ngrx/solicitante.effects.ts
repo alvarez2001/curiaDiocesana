@@ -63,6 +63,21 @@ export class SolicitantesEffects {
     })
   ))
 
+  CargarProyectosSolicitudes = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarSolicitudesProyecto),
+    mergeMap(({idProyecto})=>this.solicitudSvc.BuscarSolicitudesProyecto(idProyecto).pipe(
+      map((value)=>actions.CorrectoSolicitudesProyecto({data:value})),
+      catchError(error => of(actions.FallidoSolicitudesProyecto({error:error})))
+    ))
+  ))
+
+  FallidoSolicitudesProyecto = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.FallidoSolicitudesProyecto),
+    mergeMap((error)=>of(this.sharedSvc.mostrarAlertError(error)))
+  ), {dispatch:false})
+
 
 
   constructor(private actions$:Actions, private solicitudSvc:SolicitanteServiceService, private sharedSvc:SharedService, private store:Store){}
