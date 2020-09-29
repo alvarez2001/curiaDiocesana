@@ -16,6 +16,19 @@ export class LogRegService {
     this.url = Global.url
    }
 
+   VerificarPermiso(permiso:string[]):boolean{
+    let valor:boolean = false;
+    const permisosUsuario:string[] = this.getPermisos();
+
+    permisosUsuario.forEach(element => {
+      if(permiso.includes(element)){
+        valor = true
+      }
+    })
+
+    return valor
+   }
+
 
    loguearse(data):Observable<any>{
      return this.http.post(`${this.url}login`,data);

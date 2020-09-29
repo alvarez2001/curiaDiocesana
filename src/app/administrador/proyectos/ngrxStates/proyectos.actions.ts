@@ -39,6 +39,11 @@ export const Failed_Users_Solicitantes = createAction(
 export const Load_Projects_AllPaginate = createAction(
   '[PROYECTOS MODULE] LOAD PROJECTS PAGINATE PAGINADOS'
 );
+export const Load_Projects_Search = createAction(
+  '[PROYECTOS MODULE] LOAD PROJECTS PAGINATE PAGINADOS SEARCH',
+  props<{valor:string}>()
+)
+
 export const Load_Projects_All = createAction(
   '[PROYECTOS MODULE] LOAD PROJECTS All SIN PAGINAR'
 );
@@ -159,46 +164,84 @@ export const Reiniciar_Modificar_Aprobado_Desde_ComisionProyecto = createAction(
 //registrar
 export const Cargar_Registro_Concepto = createAction(
   '[PROYECTOS MODULE] CARGAR REGISTRAR CONCEPTO MODULO ADMINISTRADOR',
-  props<{concepto:models.CrearNuevoConceptoInterface}>()
-)
+  props<{ concepto: models.CrearNuevoConceptoInterface }>()
+);
 export const Cargar_Eliminar_Concepto = createAction(
   '[PROYECTOS MODULE] CARGAR ELIMINAR CONCEPTO MODULO ADMINISTRADOR',
-  props<{idConcepto:number}>()
-)
+  props<{ idConcepto: number }>()
+);
 export const Correcto_Registro_Concepto = createAction(
   '[PROYECTOS MODULE] CORRECTO CONCEPTO MODULO ADMINISTRADOR',
-  props<{responseSv:string}>()
-)
+  props<{ responseSv: string }>()
+);
 export const Fallido_Registro_Concepto = createAction(
   '[PROYECTOS MODULE] FALLIDO CONCEPTO MODULO ADMINISTRADOR',
-  props<{error:HttpErrorResponse}>()
-)
-export const Reiniciar_Registro_Concepto = createAction('[PROYECTOS MODULE] REINICIAR CONCEPTO MODULO ADMINISTRADOR',)
-
+  props<{ error: HttpErrorResponse }>()
+);
+export const Reiniciar_Registro_Concepto = createAction(
+  '[PROYECTOS MODULE] REINICIAR CONCEPTO MODULO ADMINISTRADOR'
+);
 
 export const Cargar_Todos_Conceptos = createAction(
-  '[PROYECTOS MODULE] CARGAR LISTA CONCEPTOS MODULO ADMINISTRADOR',
-)
+  '[PROYECTOS MODULE] CARGAR LISTA CONCEPTOS MODULO ADMINISTRADOR'
+);
 export const Correcto_Todos_Conceptos = createAction(
   '[PROYECTOS MODULE] CORRECTO LISTA CONCEPTOS MODULO ADMINISTRADOR',
-  props<{data:models.CrearNuevoConceptoInterface[]}>()
-)
+  props<{ data: models.CrearNuevoConceptoInterface[] }>()
+);
 
 export const Fallido_Todos_Conceptos = createAction(
   '[PROYECTOS MODULE] FALLIDO LISTA CONCEPTOS MODULO ADMINISTRADOR',
-  props<{error:HttpErrorResponse}>()
-)
-
+  props<{ error: HttpErrorResponse }>()
+);
 
 //bancos
 
-export const Cargar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR REGISTRO BANCO', props<{data:models.CrearBancoModel}>())
-export const Cargar_Eliminar_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR ELIMINAR BANCO', props<{id:number}>())
-export const Correcto_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO REGISTRO O ELIMINAR BANCO',props<{correcto:string}>())
-export const Fallido_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO REGISTRO O ELIMINAR BANCO',props<{error:HttpErrorResponse}>())
-export const Reiniciar_Registro_Banco = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] REINICIAR REGISTRO O ELIMINAR BANCO')
+export const Cargar_Registro_Banco = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR REGISTRO BANCO',
+  props<{ data: models.CrearBancoModel }>()
+);
+export const Cargar_Eliminar_Banco = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR ELIMINAR BANCO',
+  props<{ id: number }>()
+);
+export const Correcto_Registro_Banco = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO REGISTRO O ELIMINAR BANCO',
+  props<{ correcto: string }>()
+);
+export const Fallido_Registro_Banco = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO REGISTRO O ELIMINAR BANCO',
+  props<{ error: HttpErrorResponse }>()
+);
+export const Reiniciar_Registro_Banco = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] REINICIAR REGISTRO O ELIMINAR BANCO'
+);
 
 //bancos all
-export const Cargar_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR TODOS LOS BANCOS')
-export const Correcto_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO TODOS LOS BANCOS', props<{bancos:models.bancosModel[]}>())
-export const Fallido_Todos_Los_Bancos = createAction('[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO TODOS LOS BANCOS', props<{error:HttpErrorResponse}>())
+export const Cargar_Todos_Los_Bancos = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] CARGAR TODOS LOS BANCOS'
+);
+export const Correcto_Todos_Los_Bancos = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] CORRECTO TODOS LOS BANCOS',
+  props<{ bancos: models.bancosModel[] }>()
+);
+export const Fallido_Todos_Los_Bancos = createAction(
+  '[PROYECTOS MODULE Y SOLICITANTES MODULE] FALLIDO TODOS LOS BANCOS',
+  props<{ error: HttpErrorResponse }>()
+);
+
+//egresos directos
+export const Cargar_Egreso_Directo_Proyecto = createAction(
+  '[PROYECTOS MODULE] CARGAR EGRESOS DIRECTO',
+  props<{id:number, egresoDatos}>()
+)
+
+export const Correcto_Egreso_Directo_Proyecto = createAction(
+  '[PROYECTOS MODULE] CORRECTO EGRESOS DIRECTO',
+  props<{correcto:string}>()
+)
+
+export const Fallido_Egreso_Directo_Proyecto = createAction(
+  '[PROYECTOS MODULE] FALIDO EGRESOS DIRECTO',
+  props<{error:HttpErrorResponse}>()
+)

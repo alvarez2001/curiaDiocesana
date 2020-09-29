@@ -135,7 +135,8 @@ export class AgregarOperacionComponent implements OnInit, OnDestroy {
       referenciaBancaria:['',[Validators.pattern('[0-9]+'), Validators.maxLength(15)]],
       banco:['',[Validators.required]],
       fecha:['',[Validators.required]],
-      proyecto_ingreso:['']
+      proyecto_ingreso:[''],
+      archivo:['',[Validators.required]]
     })
 
   }
@@ -146,6 +147,21 @@ export class AgregarOperacionComponent implements OnInit, OnDestroy {
   }
   cargarProyectos(){
     this.projectsSvc.loadProjectsAllSinPaginar();
+  }
+
+  cambiarDataArchivo(event){
+    const listFile = event.target.files;
+    const filePath = event.target.value;
+
+
+
+    var allowedExtensions = /(.pdf|.PDF)$/i;
+    if(!allowedExtensions.exec(filePath)){
+        alert('Solo se permiten archivos PDF');
+        this.FormOperacion.controls.archivo.setValue('');
+    }else{
+      this.FormOperacion.controls.archivo.setValue(listFile[0]);
+    }
   }
 
 }

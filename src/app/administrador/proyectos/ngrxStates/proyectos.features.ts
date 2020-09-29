@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { KeyProjectsFeature } from './proyectos.actions';
 import * as models from "../models/ngrxModelsProjects";
-import { AdminsStateModel } from '../../usuarios/models/usersInactive.models';
+import { AdminsStateModel, BasicDatas } from '../../usuarios/models/usersInactive.models';
 
 interface StoreModuleProject{
   registrarProyecto:models.RegisterProjectState,
@@ -16,7 +16,8 @@ interface StoreModuleProject{
   conceptoRegistrarEliminar:models.RegisterProjectState,
   conceptosTodos:models.ConceptosState,
   registrarEliminarBanco:models.RegisterProjectState,
-  todosLosBancos:models.BancosState
+  todosLosBancos:models.BancosState,
+  EgresoDirecto:BasicDatas
 }
 
 const featureSelectorProjects = createFeatureSelector<StoreModuleProject>(KeyProjectsFeature)
@@ -35,3 +36,4 @@ export const TomarConceptoRegistrarEliminar = createSelector(featureSelectorProj
 export const TomarConceptosTodos = createSelector(featureSelectorProjects, (state)=>state.conceptosTodos)
 export const TomarBancosEliminarRegistrar = createSelector(featureSelectorProjects, (state)=>state.registrarEliminarBanco)
 export const Todoslosbancos = createSelector(featureSelectorProjects,(state)=>state.todosLosBancos)
+export const EgresoDirecto = createSelector(featureSelectorProjects,(state)=>state.EgresoDirecto)

@@ -46,7 +46,7 @@ export interface ProjectModel {
   status:number;
   moneda:tipoMoneda;
   alias?:string | null ;
-  usuario?:number | null;
+  usuario?:any;
   usuario_id?:number | null;
 }
 
@@ -56,6 +56,11 @@ export interface ProjectModelComplete extends ProjectModel{
   disponible: string;
   created_at: Date;
   updated_at: Date;
+}
+
+interface usuarioM {
+    apellidos:string;
+    nombres:string;
 }
 
 export interface PaginateProjectsComplete extends PaginateMolde{

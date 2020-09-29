@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { RegisterProjectState } from '../models/ngrxModelsProjects';
 import { ProjectsService } from '../services/projects.service';
+import { LogRegService } from 'src/app/services/login/log-reg.service';
 
 @Component({
   selector: 'app-info-banco',
@@ -17,7 +18,7 @@ export class InfoBancoComponent implements OnInit, OnDestroy {
   active:boolean = true
   eliminarStateBancos$:Observable<RegisterProjectState>
   private subscription:Subscription = new Subscription()
-  constructor(private projectSvc:ProjectsService,public dialogRef: MatDialogRef<InfoBancoComponent>,@Inject(MAT_DIALOG_DATA) public data:bancosModel) { }
+  constructor(private projectSvc:ProjectsService,public dialogRef: MatDialogRef<InfoBancoComponent>,@Inject(MAT_DIALOG_DATA) public data:bancosModel, private LogRegSvc:LogRegService) { }
 
   ngOnInit(): void {
     this.projectSvc.ReiniciarRegistroEliminarBanco()
@@ -45,5 +46,9 @@ export class InfoBancoComponent implements OnInit, OnDestroy {
       this.projectSvc.cargarEliminarBanco(this.data.id)
     }
 
+  }
+
+  ValidarPermiso(permisos:string[]):boolean{
+    return this.LogRegSvc.VerificarPermiso(permisos)
   }
 }

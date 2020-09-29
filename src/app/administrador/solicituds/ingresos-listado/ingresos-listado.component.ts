@@ -25,7 +25,6 @@ export class IngresosListadoComponent implements OnInit {
   ngOnInit(): void {
     this.DatosReporteDia$ = this.solicitudNgrxSvc.SeleccionarStateReportesPorDia()
 
-    this.DatosReporteDia$.subscribe(console.log)
 
   }
 

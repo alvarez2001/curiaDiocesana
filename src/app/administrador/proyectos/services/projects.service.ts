@@ -7,7 +7,7 @@ import * as selectors from '../ngrxStates/proyectos.features';
 import { HttpClient } from '@angular/common/http';
 import { Global } from 'src/app/services/Global';
 import { Observable, of } from 'rxjs';
-import { UserModel, AdminsStateModel } from '../../usuarios/models/usersInactive.models';
+import { UserModel, AdminsStateModel, BasicDatas } from '../../usuarios/models/usersInactive.models';
 import { map } from 'rxjs/operators';
 import { DetalleProyectoModalComponent } from '../detalle-proyecto-modal/detalle-proyecto-modal.component';
 import { InfoBancoComponent } from "../info-banco/info-banco.component";
@@ -35,6 +35,9 @@ export class ProjectsService {
 
   proyectosPaginados():Observable<models.PaginateProjectsComplete>{
     return this.http.get<models.PaginateProjectsComplete>(`${this.url}proyectos/paginados`)
+  }
+  cargarProyectoBusquedaXnombre(valor:string):Observable<models.PaginateProjectsComplete>{
+    return this.http.get<models.PaginateProjectsComplete>(`${this.url}proyectos/busqueda/nombre/${valor}`);
   }
   PaginateProjects(url:string):Observable<models.PaginateProjectsComplete>{
     return this.http.get<models.PaginateProjectsComplete>(url)
@@ -203,8 +206,12 @@ export class ProjectsService {
   }
 
   //Projects
+
   loadProjectsAllPaginados(){
     this.store.dispatch(actions.Load_Projects_AllPaginate())
+  }
+  cargarProyectosXnombre(valor:string){
+    this.store.dispatch(actions.Load_Projects_Search({valor:valor}))
   }
   loadProjectsAllPaginatePage(url:string){
     this.store.dispatch(actions.LoadPaginate_Projects_AllPaginate({paginate:url}))
@@ -251,6 +258,22 @@ export class ProjectsService {
       data:data,
       disableClose:true
     });
+  }
+
+
+
+  /* egreso directo */
+
+  EgresoDirecto(idProyecto:number,data):Observable<any>{
+    return this.http.post(`${this.url}egreso/directo/proyecto/${idProyecto}`, data)
+  }
+
+  SeleccionarEgresoDirecto():Observable<BasicDatas>{
+    return this.store.select(selectors.EgresoDirecto);
+  }
+
+  CargarEgresoDirecto(id:number,data):void{
+    this.store.dispatch(actions.Cargar_Egreso_Directo_Proyecto({egresoDatos:data,id:id}))
   }
 
 

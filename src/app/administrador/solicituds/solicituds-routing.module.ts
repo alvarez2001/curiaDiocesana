@@ -8,6 +8,7 @@ import { ListarSolicitudPorAutorizacionComponent } from './listar-solicitud-por-
 import { ListarSolicitudEjecutadasComponent } from './listar-solicitud-ejecutadas/listar-solicitud-ejecutadas.component';
 import { ListarSolicitudRechazadasComponent } from './listar-solicitud-rechazadas/listar-solicitud-rechazadas.component';
 import { ReporteListadoComponent } from './reporte-listado/reporte-listado.component';
+import { PermitirSegunPermisoGuard } from 'src/app/guards/permitir-segun-permiso.guard';
 
 const routes: Routes = [
   {
@@ -16,27 +17,39 @@ const routes: Routes = [
   },
   {
     path:'listar/solicitud',
-    component:ListarSolicitudAdminComponent
+    component:ListarSolicitudAdminComponent,
+    data:{permiso:['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar/revision',
-    component:ListarSolicitudAdminRevisadasComponent
+    component:ListarSolicitudAdminRevisadasComponent,
+    data:{permiso:['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar/autorizacion',
-    component:ListarSolicitudRevisadasListoComponent
+    component:ListarSolicitudRevisadasListoComponent,
+    data:{permiso:['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar/ejecucion',
-    component:ListarSolicitudPorAutorizacionComponent
+    component:ListarSolicitudPorAutorizacionComponent,
+    data:{permiso:['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar/ejecutados',
-    component:ListarSolicitudEjecutadasComponent
+    component:ListarSolicitudEjecutadasComponent,
+    data:{permiso:['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar/rechazadas',
-    component:ListarSolicitudRechazadasComponent
+    component:ListarSolicitudRechazadasComponent,
+    data:{permiso:['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'reportes',
@@ -44,7 +57,9 @@ const routes: Routes = [
   },
   {
     path:'reportes/egresos',
-    component:ReporteListadoComponent
+    component:ReporteListadoComponent,
+    data:{permiso:['Solicitar reportes']},
+    canActivate:[PermitirSegunPermisoGuard]
   }
 ];
 

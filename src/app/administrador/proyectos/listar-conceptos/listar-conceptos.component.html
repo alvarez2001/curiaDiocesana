@@ -30,7 +30,7 @@
                 <th class="has-text-white" > N° </th>
                 <th class="has-text-white minw-250"> Descripción </th>
                 <th class="has-text-white"> Mostrar a solicitantes </th>
-                <th class="has-text-white">Acciones</th>
+                <th class="has-text-white" *ngIf="ValidarPermiso(['Eliminar concepto'])" >Acciones</th>
               </tr>
             </thead>
 
@@ -48,7 +48,7 @@
                 <td > {{i+1}} </td>
                 <td > {{concepto.descripcion}} </td>
                 <td> {{concepto.solicitud}} </td>
-                <td class="mb-0 is-centered py-3">
+                <td class="mb-0 is-centered py-3" *ngIf="ValidarPermiso(['Eliminar concepto'])">
                   <button
                     class="button is-danger mb-0"
                     [ngClass]="{

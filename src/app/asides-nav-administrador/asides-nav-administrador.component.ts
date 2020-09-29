@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LogRegService } from '../services/login/log-reg.service';
 
 @Component({
   selector: 'app-asides-nav-administrador',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsidesNavAdministradorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private LogRegSvc:LogRegService) { }
 
   ngOnInit(): void {
   }
-
+  ValidarPermiso(permisos:string[]):boolean{
+    return this.LogRegSvc.VerificarPermiso(permisos)
+  }
 }

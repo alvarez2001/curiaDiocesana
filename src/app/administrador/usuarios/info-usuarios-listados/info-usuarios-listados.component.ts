@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { loadActivatedUser, loadInactivatedUser, resetUsersActivatedOrDesactivated } from '../statesNgrx';
 import { UsersService } from 'src/app/services/usersAdmin/users.service';
 import { Observable } from 'rxjs';
+import { LogRegService } from 'src/app/services/login/log-reg.service';
 
 @Component({
   selector: 'app-info-usuarios-listados',
@@ -22,7 +23,7 @@ export class InfoUsuariosListadosComponent implements OnInit, OnDestroy {
 
   statusUserState:Observable<UserStatusModel>;
 
-  constructor( public dialogRef: MatDialogRef<InfoUsuariosListadosComponent>,@Inject(MAT_DIALOG_DATA) public data: UserModel, private fb:FormBuilder, private store:Store, private usersSvc:UsersService) {
+  constructor( public dialogRef: MatDialogRef<InfoUsuariosListadosComponent>,@Inject(MAT_DIALOG_DATA) public data: UserModel, private fb:FormBuilder, private store:Store, private usersSvc:UsersService, private LogRegSvc:LogRegService) {
     this.statusUserState = this.usersSvc.getUserStatusState();
   }
 
@@ -42,6 +43,10 @@ export class InfoUsuariosListadosComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.store.dispatch(resetUsersActivatedOrDesactivated())
+  }
+
+  ValidarPermiso(permisos:string[]):boolean{
+    return this.LogRegSvc.VerificarPermiso(permisos)
   }
 
   private tipoUsuario(){

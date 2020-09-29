@@ -34,6 +34,12 @@
                   Buscando la información...
                 </td>
               </tr>
+
+              <tr *ngIf="proyectos.success === 1 && proyectos.data.length === 0">
+                <td colspan="4">
+                  No posee proyectos activos
+                </td>
+              </tr>
               <tr *ngFor="let proyecto of proyectos.data">
                 <td> {{proyecto.id}} </td>
                 <td>{{proyecto.nombre}}</td>

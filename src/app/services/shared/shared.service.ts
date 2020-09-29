@@ -107,7 +107,7 @@ export class SharedService {
     }
 
     if(data?.status){
-      console.log(data)
+
       switch (data.status) {
         case 0:
           return this.ErrorAlertConexionFallida();
@@ -131,7 +131,7 @@ export class SharedService {
     })
   }
 
-  private alertError(error,msjErrorTitle:string){
+  alertError(error,msjErrorTitle:string){
     return Swal.fire({
       title: msjErrorTitle,
       html:error,

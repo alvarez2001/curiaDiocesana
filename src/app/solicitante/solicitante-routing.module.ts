@@ -10,7 +10,7 @@ import { ListarSolicitudesMiasComponent } from './listar-solicitudes-mias/listar
 const routes: Routes = [
   {
     path:'',
-    component:InicioSolicitanteComponent
+    redirectTo:'agregar-solicitud'
   },
   {
     path:'agregar-solicitud',

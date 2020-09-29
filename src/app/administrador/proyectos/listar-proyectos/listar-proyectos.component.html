@@ -8,6 +8,17 @@
 
     <div class="column is-12 is-clearfix " >
 
+      <div class="field has-addons is-pulled-left" [formGroup]="formBusqueda">
+        <div class="control">
+          <input class="input" type="text" placeholder="Busqueda" formControlName="busqueda">
+        </div>
+        <div class="control">
+          <button class="button is-info" [disabled]="formBusqueda.invalid" (click)="busquedaDeProyecto()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
       <div class="field has-addons is-pulled-right">
         <div class="control">
           <div class="select">

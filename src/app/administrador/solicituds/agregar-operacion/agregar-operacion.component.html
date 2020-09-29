@@ -254,7 +254,7 @@
       <div class="column is-12-mobile is-12-tablet is-12-desktop " *ngIf="referenciaBancaria === '002' || referenciaBancaria === '005'">
         <div class="field is-clearfix">
           <button type="button" class="button is-danger is-pulled-right mb-2" (click)="cargarProyectos()"[disabled]="proyectosEstado.loading" ><i class="fas fa-spinner"></i></button>
-          <label class="label">Proyecto a descontar</label>
+          <label class="label">Proyecto a reembolsar</label>
           <div class="control has-icons-left" [ngClass]="{'is-loading':operacion.loading}">
 
             <div class="select is-fullwidth "
@@ -295,6 +295,41 @@
       </div>
     </ng-container>
     </ng-container>
+
+
+    <div class="column is-12-mobile">
+      <div class="file has-name">
+        <label class="file-label">
+          <input class="file-input" type="file" (change)="cambiarDataArchivo($event)" >
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label">
+              Subir archivo...
+            </span>
+          </span>
+          <span class="file-name">
+            <span *ngIf="FormOperacion?.value?.archivo">
+              {{FormOperacion?.value?.archivo?.name}}
+            </span>
+            <span *ngIf="!FormOperacion?.value?.archivo">
+              Seleccione un archivo
+            </span>
+          </span>
+        </label>
+      </div>
+      <p
+            class="help"
+            [ngClass]="{
+              'is-danger': FormOperacion.get('archivo')?.errors,
+              'is-dark': FormOperacion.get('archivo')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("archivo") }}
+          </p>
+    </div>
+
 
     <div class="column is-12 has-text-centered">
       <button type="button" (click)="guardarInformacion()" class="is-success button is-uppercase" [ngClass]="{'is-loading':operacion.loading}" [disabled]="FormOperacion.invalid || comprobarString() || operacion.loading"> Registrar operación </button>

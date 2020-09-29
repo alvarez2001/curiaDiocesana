@@ -1,0 +1,82 @@
+<div class="columns is-multiline">
+  <div class="column pb-0 is-12 is-clearfix">
+
+
+    <div class="is-pulled-right">
+
+      <div class="field has-addons has-addons-centered">
+        <div class="control">
+          <input class="input" #fecha type="date" placeholder="aaaa-mm-dd">
+        </div>
+        <p class="control">
+          <button type="button" (click)="consultar(fecha.value)" class="button is-info">
+            <i class="fas fa-search"></i>
+          </button>
+        </p>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="column is-12   " >
+
+
+
+    <div class="table-container" style="font-size:12px;">
+      <table
+        class="table has-text-centered is-striped is-hoverable is-fullwidth"
+      >
+        <thead class="has-background-info">
+          <tr class="py-3">
+            <th class="has-text-white " > Egreso N° </th>
+            <th class="has-text-white minw-250" > Proyecto </th>
+            <th class="has-text-white">Usuario</th>
+            <th class="has-text-white"> Total Euro/Dolar </th>
+            <th class="has-text-white"> Tasa </th>
+            <th class="has-text-white"> Total Bs </th>
+            <th class="has-text-white"> Comisión </th>
+            <th class="has-text-white"> Referencia </th>
+            <th class="has-text-white minw-150"> Concepto solicitud </th>
+            <th class="has-text-white">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="(DatosReporteDia$ | async) as reporteDia">
+          <tr *ngIf="reporteDia.data.length === 0 && reporteDia.success === 1">
+            <td colspan="9"> No hay registro de egresos de ese dia</td>
+          </tr>
+          <tr *ngIf="reporteDia.success === 3 && reporteDia.loading">
+            <td colspan="9"> Buscando información... </td>
+          </tr>
+          <tr *ngIf="reporteDia.success === 2">
+            <td colspan="9"> <p class="has-text-danger"> Ha ocurrido un error, busque nuevamente la información</p> </td>
+          </tr>
+          <tr *ngIf="reporteDia.success === 3 && !reporteDia.loading">
+            <td colspan="9"> Seleccione una fecha </td>
+          </tr>
+
+            <tr *ngFor="let reporte of reporteDia.data">
+              <td> D-{{reporte?.id}} </td>
+              <td> {{reporte?.proyecto?.nombre}} </td>
+              <td> {{reporte?.fullname}} </td>
+              <td> <span *ngIf="reporte?.proyecto?.moneda === 'Dolar'"> {{reporte?.operacion?.total_euro |currency:'USD'}} </span>  <span *ngIf="reporte?.proyecto?.moneda === 'Euro'"> {{reporte?.operacion?.total_euro |currency:'EUR'}} </span> </td>
+              <td> {{reporte?.operacion?.tasa |currency:'Bs. ' }} </td>
+              <td> {{reporte?.operacion?.total_solicitud | currency :'Bs. '}} </td>
+              <td> {{reporte?.operacion?.comision | currency:'Bs. '}} </td>
+              <td> {{reporte?.operacion?.referencia }} </td>
+              <td> <span *ngIf="reporte?.operacion?.concepto"> {{reporte?.operacion?.concepto }} </span> <span *ngIf="!reporte?.operacion?.concepto"> NO POSEE </span> </td>
+              <td>
+                <button class="button is-info is-light" (click)="generarPdfIngreso(reporte?.id)" type="button"  >
+                  <i class="fas fa-file-pdf"></i>
+                </button>
+              </td>
+            </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

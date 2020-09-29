@@ -6,6 +6,7 @@ import { SolicitudsNgrxService } from '../services/solicituds-ngrx.service';
 import { Observable } from 'rxjs';
 import { BasicDatas } from '../../usuarios/models/usersInactive.models';
 import { Global } from 'src/app/services/Global';
+import { LogRegService } from 'src/app/services/login/log-reg.service';
 
 @Component({
   selector: 'app-info-egreso-detallado',
@@ -22,10 +23,15 @@ export class InfoEgresoDetalladoComponent implements OnInit, OnDestroy {
   constructor(
     private dialogRef: MatDialogRef<InfoEgresoDetalladoComponent>,
     @Inject(MAT_DIALOG_DATA) public data:EgresosIngresosModel,
-    private solicitudNgrxSvc:SolicitudsNgrxService
+    private solicitudNgrxSvc:SolicitudsNgrxService,
+    private LogRegSvc:LogRegService
   ) {
     this.url = Global.url
    }
+
+   ValidarPermiso(permisos:string[]):boolean{
+    return this.LogRegSvc.VerificarPermiso(permisos)
+  }
 
   ngOnInit(): void {
     this.stateAnularEgreso = this.solicitudNgrxSvc.SeleccionarStateAnularEgreso();

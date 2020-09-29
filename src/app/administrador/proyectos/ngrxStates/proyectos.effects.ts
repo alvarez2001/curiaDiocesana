@@ -7,6 +7,7 @@ import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { loadOn, loadOff } from 'src/app/actions/app-actions';
+import { Global } from 'src/app/services/Global';
 
 @Injectable()
 export class ProjectsEffects {
@@ -78,6 +79,23 @@ export class ProjectsEffects {
     )
   );
 
+  Load_Projects_AllPaginateSearch = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.Load_Projects_Search),
+      mergeMap(({valor}) =>
+        this.projectSvc.cargarProyectoBusquedaXnombre(valor).pipe(
+          map((value) =>
+            actions.Success_Projects_AllPaginate({ projects: value })
+          ),
+          catchError((error) =>
+            of(actions.Failed_Projects_AllPaginate({ FailedData: error }))
+          )
+        )
+      )
+    )
+  );
+
+  cargarProyectoBusquedaXnombre
   LoadPaginate_Projects_AllPaginate = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.LoadPaginate_Projects_AllPaginate),
@@ -441,6 +459,34 @@ export class ProjectsEffects {
     ofType(actions.Fallido_Todos_Los_Bancos),
     mergeMap(({error})=>of(this.sharedSvc.mostrarAlertError(error)))
   ),{dispatch:false})
+
+
+
+  CargarEgresoDirecto = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.Cargar_Egreso_Directo_Proyecto),
+    mergeMap(({egresoDatos,id})=>this.projectSvc.EgresoDirecto(id,egresoDatos).pipe(
+      map((value)=>{
+        window.open(`${Global.url}planilla/egreso/directo/${value.id}`)
+        return actions.Correcto_Egreso_Directo_Proyecto({correcto:value.mensaje})
+      }),
+      catchError(error => of(actions.Fallido_Egreso_Directo_Proyecto({error:error})))
+    ))
+  ))
+
+  CorrectoEgresoDirecto = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.Correcto_Egreso_Directo_Proyecto),
+    mergeMap(({correcto})=>of(this.sharedSvc.mostrarAlertSuccess(correcto)))
+  ),{dispatch:false})
+
+  FallidoEgresoDirecto = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.Fallido_Egreso_Directo_Proyecto),
+    mergeMap(({error})=>of(this.sharedSvc.mostrarAlertError(error)))
+  ),{dispatch:false})
+
+
   constructor(
     private actions$: Actions,
     private store: Store,

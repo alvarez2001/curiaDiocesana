@@ -48,7 +48,7 @@ export class SolicitantesEffects {
   this.actions$.pipe(
     ofType(actions.CorrectoGuardarSolicitud),
     mergeMap( ({correcto})=>{
-      this.sharedSvc.redirigirDondeQuiera('/solicitante')
+      this.sharedSvc.redirigirDondeQuiera('/solicitante/listar/proyectos')
       this.sharedSvc.mostrarAlertSuccess(correcto)
       return of(loadOff())
     })

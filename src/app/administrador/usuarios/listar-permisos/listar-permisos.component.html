@@ -14,7 +14,7 @@
       <thead class="has-background-info">
         <tr class="py-3">
           <th class="has-text-white minw-250">Nombre del permiso</th>
-          <th class="has-text-white">Acciones</th>
+          <th class="has-text-white" >Acciones</th>
         </tr>
       </thead>
 
@@ -27,7 +27,7 @@
             <p class="control" *ngIf="!comprobarIgualdad(permiso.name)">
               <button
               class="button mb-0 is-success"
-              [disabled]="addtrshPermisos.loading"
+              [disabled]="addtrshPermisos.loading || !ValidarPermiso(['Asignar permiso'])"
               type="button"
               (click)="agregarPermiso(permiso.name, idAdmin)"
             >
@@ -38,7 +38,7 @@
             <p class="control"  *ngIf="comprobarIgualdad(permiso.name)">
               <button
               class="button mb-0 is-danger"
-              [disabled]="addtrshPermisos.loading"
+              [disabled]="addtrshPermisos.loading || !ValidarPermiso(['Revocar permiso'])"
               type="button"
               (click)="eliminarPermiso(permiso.name, idAdmin)"
             >
@@ -58,3 +58,9 @@
 
 
 </div>
+
+
+
+<ng-template #noPosee>
+  <button class="button is-danger is-light" type="button">No tiene privilegios</button>
+</ng-template>

@@ -29,12 +29,20 @@ export interface BancoSolicitud {
 
 
 export interface EjecucionSolicitud {
-  referenciaBancaria?: number;
-  comision:number;
-  referencia:number | string;
+  referenciaBancaria?: string;
+  comision:string;
+  referencia:string | string;
   banco:string;
-  fecha:Date;
-  proyecto_ingreso?:number;
+  fecha:string;
+  proyecto_ingreso?:string;
+  archivo?:File;
+}
+
+export interface ModeloPersonalizada{
+  busqueda:string,
+  valor:string,
+  mes:string,
+  ano:string
 }
 
 
@@ -44,6 +52,7 @@ export interface EjecucionSolicitud {
 
 export interface EgresosIngresosModel {
   id:           number;
+  fullname:     string;
   operacion_id: number;
   proyecto_id:  number;
   solicitud_id: number | null;

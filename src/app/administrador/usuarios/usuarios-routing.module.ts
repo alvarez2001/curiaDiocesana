@@ -4,6 +4,7 @@ import { ListarActivosComponent } from "./listar-activos/listar-activos.componen
 import { CrearUsuarioComponent } from './crear-usuario/crear-usuario.component';
 import { ListarInactivosComponent } from "./listar-inactivos/listar-inactivos.component";
 import { AgregarPermisosComponent } from "./agregar-permisos/agregar-permisos.component";
+import { PermitirSegunPermisoGuard } from "src/app/guards/permitir-segun-permiso.guard";
 
 const routes: Routes = [
   {
@@ -12,19 +13,27 @@ const routes: Routes = [
   },
   {
     path:'crear-usuario',
-    component:CrearUsuarioComponent
+    component:CrearUsuarioComponent,
+    data:{permiso:['Nuevo usuario']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar-inactivos',
-    component:ListarInactivosComponent
+    component:ListarInactivosComponent,
+    data:{permiso:['Activar usuario', 'Desactivar usuario']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar-activos',
-    component:ListarActivosComponent
+    component:ListarActivosComponent,
+    data:{permiso:['Activar usuario', 'Desactivar usuario']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'control-permisos',
-    component:AgregarPermisosComponent
+    component:AgregarPermisosComponent,
+    data:{permiso:['Asignar permiso', 'Revocar permiso']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
 ];
 

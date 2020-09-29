@@ -11,6 +11,8 @@ import { CrearConceptoComponent } from "./crear-concepto/crear-concepto.componen
 import { ListarConceptosComponent } from "./listar-conceptos/listar-conceptos.component";
 import { CrearBancoComponent } from "./crear-banco/crear-banco.component";
 import { ListarBancosComponent } from "./listar-bancos/listar-bancos.component";
+import { PermitirSegunPermisoGuard } from 'src/app/guards/permitir-segun-permiso.guard';
+import { EgresoDirectosComponent } from './egreso-directos/egreso-directos.component';
 
 const routes: Routes = [
   {
@@ -19,35 +21,57 @@ const routes: Routes = [
   },
   {
     path:'crear-proyecto',
-    component:CrearProyectoComponent
+    component:CrearProyectoComponent,
+    data:{permiso:['Nuevo proyecto']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'modificar-proyecto/:id/informacion',
-    component:ModificarProyectoComponent
+    component:ModificarProyectoComponent,
+    data:{permiso:['Modificar proyecto']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'modificar-proyecto/:id/codigo',
-    component:ModificarProyectoCodigoComponent
+    component:ModificarProyectoCodigoComponent,
+    data:{permiso:['Modificar proyecto']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'modificar-proyecto/:id/usuario',
-    component:ModificarProyectoUsuarioComponent
+    component:ModificarProyectoUsuarioComponent,
+    data:{permiso:['Modificar proyecto']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'listar-proyectos',
-    component:ListarProyectosComponent
+    component:ListarProyectosComponent,
+    data:{permiso:['Ver proyectos']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'aumentar-proyecto/aprobado',
-    component:AumentarProyectoComponent
+    component:AumentarProyectoComponent,
+    data:{permiso:['Aumentar aprobado proyecto']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'aumentar-proyecto/aprobado-desde-comision',
-    component:UsarComisionProyectosComponent
+    component:UsarComisionProyectosComponent,
+    data:{permiso:['Aumentar aprobado proyecto']},
+    canActivate:[PermitirSegunPermisoGuard]
+  },
+  {
+    path:'egresos-directo',
+    component:EgresoDirectosComponent,
+    data:{permiso:['Egreso directo']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'conceptos/registrar',
-    component:CrearConceptoComponent
+    component:CrearConceptoComponent,
+    data:{permiso:['Nuevo concepto']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'conceptos/listar',
@@ -55,11 +79,13 @@ const routes: Routes = [
   },
   {
     path:'bancos/registrar',
-    component:CrearBancoComponent
+    component:CrearBancoComponent,
+    data:{permiso:['Nuevo banco']},
+    canActivate:[PermitirSegunPermisoGuard]
   },
   {
     path:'bancos/listar',
-    component:ListarBancosComponent
+    component:ListarBancosComponent,
   }
 ];
 

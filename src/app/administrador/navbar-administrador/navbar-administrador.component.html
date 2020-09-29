@@ -24,7 +24,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
-      <a class="navbar-item" [routerLink]="rutaEnvio">
+      <a class="navbar-item" [routerLink]="rutaEnvio" *ngIf="path === 'administrador'">
         Inicio
       </a>
 

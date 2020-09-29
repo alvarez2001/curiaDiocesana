@@ -20,7 +20,9 @@ import { registerUser, recoveryPassword, loginUser, detailUser, LogoutUser } fro
 import { LoginEffects } from './effects/login.effects';
 import { PrincipalInterceptor } from "./services/interceptores/principal.interceptor";
 import { AsidesNavAdministradorComponent } from './asides-nav-administrador/asides-nav-administrador.component';
-
+import { LogRegService } from './services/login/log-reg.service';
+import { PermitirIngresoUsuarioGuard } from "./guards/permitir-ingreso-usuario.guard";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -55,9 +57,11 @@ const ngrxImport = [
     AppRoutingModule,
     HttpClientModule,
     ...ngrxImport,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
+    LogRegService,
     { provide: HTTP_INTERCEPTORS, useClass: PrincipalInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

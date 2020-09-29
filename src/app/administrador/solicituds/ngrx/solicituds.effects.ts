@@ -10,6 +10,7 @@ import { loadOff, loadOn } from 'src/app/actions/app-actions';
 import { Store } from '@ngrx/store';
 import { SolicitudsNgrxService } from '../services/solicituds-ngrx.service';
 import { ModalesService } from '../services/modales.service';
+import { Global } from 'src/app/services/Global';
 
 @Injectable()
 export class SolicitudsEffectsModule {
@@ -221,18 +222,39 @@ export class SolicitudsEffectsModule {
     ))
   ))
 
+  CargarReportePorDiaEgresosDirecto = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarReportePorDiaEgresosDirecto),
+    mergeMap(({fecha})=>this.solicitudSvc.ListarReportesPorDiaEgresosDirecto({fecha:fecha}).pipe(
+      map(value => actions.CorrectoReportePorDia({data:value})),
+      catchError(error => of(actions.FallidoReportePorDia({error:error})))
+    ))
+  ))
+
   FallidoReporteListadoPorDia = createEffect(()=>
   this.actions$.pipe(
     ofType(actions.FallidoReportePorDia),
-    mergeMap(({error})=>of(this.sharedSvc.mostrarAlertError(error)))
+    mergeMap(({error})=>{
+
+      return of(this.sharedSvc.mostrarAlertError(error))
+    })
   ),{dispatch:false})
+
+  /* CargarBusquedaPersonalizadReporte = createEffect(()=>
+  this.actions$.pipe(
+    ofType(actions.CargarBusquedaPersonalizada),
+    mergeMap(({busqueda})=>)
+  ),{dispatch:false}) */
 
 
   CargarRegistrarOperacion = createEffect(()=>
   this.actions$.pipe(
     ofType(actions.CargarRegistrarOperacion),
     mergeMap(({data,idSolicitud})=>this.solicitudSvc.RegistrarOperacion(data,idSolicitud).pipe(
-      map(response => actions.CorrectoRegistrarOperacion({correcto:response})),
+      map(response => {
+        this.solicitudSvc.mostrarInfoEgreso(response.id)
+        return actions.CorrectoRegistrarOperacion({correcto:response.mensaje})
+      }),
       catchError(error => of(actions.FallidoRegistrarOperacion({error:error})))
     ))
   ))

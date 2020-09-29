@@ -9,47 +9,50 @@
 
     <aside class="menu">
 
-      <p class="menu-label">Modulo de solicitudes</p>
+      <ng-container *ngIf="ValidarPermiso(['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud', 'Solicitar reportes'])">
+        <p class="menu-label">Modulo de solicitudes</p>
       <ul class="menu-list">
         <li>
           <ul>
-            <li>
-              <a routerLink="/administrador/solicitudes/listar/solicitud" routerLinkActive="is-active">
-                <i class="fab fa-accusoft"></i>
-                Por asignación de tasa
-              </a>
-            </li>
-            <li>
-              <a routerLink="/administrador/solicitudes/listar/revision" routerLinkActive="is-active">
-                <i class="fas fa-eye"></i>
-                Por revisión
-              </a>
-            </li>
-            <li>
-              <a routerLink="/administrador/solicitudes/listar/autorizacion" routerLinkActive="is-active">
-                <i class="fas fa-clipboard-check"></i>
-                Por autorización
-              </a>
-            </li>
-            <li>
-              <a routerLink="/administrador/solicitudes/listar/ejecucion" routerLinkActive="is-active">
-                <i class="fas fa-file-import"></i>
-                Por ejecución
-              </a>
-            </li>
-            <li>
-              <a routerLink="/administrador/solicitudes/listar/ejecutados" routerLinkActive="is-active">
-                <i class="fas fa-check"></i>
-                Ejecutadas
-              </a>
-            </li>
-            <li>
-              <a routerLink="/administrador/solicitudes/listar/rechazadas" routerLinkActive="is-active">
-                <i class="fas fa-times"></i>
-                Rechazadas
-              </a>
-            </li>
-            <li>
+            <ng-container *ngIf="ValidarPermiso(['Asignar tasa','Rechazar solicitud', 'Revisar solicitud','Autorizar solicitud','Ejecutar solicitud'])">
+              <li >
+                <a routerLink="/administrador/solicitudes/listar/solicitud" routerLinkActive="is-active">
+                  <i class="fab fa-accusoft"></i>
+                  Por asignación de tasa
+                </a>
+              </li>
+              <li>
+                <a routerLink="/administrador/solicitudes/listar/revision" routerLinkActive="is-active">
+                  <i class="fas fa-eye"></i>
+                  Por revisión
+                </a>
+              </li>
+              <li>
+                <a routerLink="/administrador/solicitudes/listar/autorizacion" routerLinkActive="is-active">
+                  <i class="fas fa-clipboard-check"></i>
+                  Por autorización
+                </a>
+              </li>
+              <li>
+                <a routerLink="/administrador/solicitudes/listar/ejecucion" routerLinkActive="is-active">
+                  <i class="fas fa-file-import"></i>
+                  Por ejecución
+                </a>
+              </li>
+              <li>
+                <a routerLink="/administrador/solicitudes/listar/ejecutados" routerLinkActive="is-active">
+                  <i class="fas fa-check"></i>
+                  Ejecutadas
+                </a>
+              </li>
+              <li>
+                <a routerLink="/administrador/solicitudes/listar/rechazadas" routerLinkActive="is-active">
+                  <i class="fas fa-times"></i>
+                  Rechazadas
+                </a>
+              </li>
+            </ng-container>
+            <li *ngIf="ValidarPermiso(['Solicitar reportes'])">
               <a routerLink="/administrador/solicitudes/reportes/egresos" routerLinkActive="is-active">
                 <i class="fas fa-folder-open"></i>
                 Reportes
@@ -58,82 +61,99 @@
           </ul>
         </li>
       </ul>
+      </ng-container>
 
-      <p class="menu-label">
-        Modulo de usuario
-      </p>
+      <ng-container *ngIf="ValidarPermiso(['Activar usuario', 'Desactivar usuario', 'Nuevo usuario', 'Asignar permiso', 'Revocar permiso'])">
+        <p class="menu-label">
+          Modulo de usuario
+        </p>
+        <ul class="menu-list">
+          <li>
+            <ul>
+              <li *ngIf="ValidarPermiso(['Nuevo usuario'])">
+                <a [routerLink]="['/administrador/usuarios/crear-usuario']" routerLinkActive="is-active" >
+                  <i class="fas fa-user-plus "></i>
+                  Crear cuenta
+                </a>
+              </li>
+              <ng-container *ngIf="ValidarPermiso(['Activar usuario', 'Desactivar usuario'])">
+                <li>
+                  <a [routerLink]="['/administrador/usuarios/listar-inactivos']" routerLinkActive="is-active">
+                    <i class="fas fa-users"></i>
+                    Listar cuentas <small>( Inactivas )</small>
+                  </a>
+                </li>
+                <li>
+                  <a   [routerLink]="['/administrador/usuarios/listar-activos']" routerLinkActive="is-active">
+                    <i class="far fa-list-alt"></i>
+                    Listar cuentas <small>( Activas )</small>
+                  </a>
+                </li>
+              </ng-container>
+              <li *ngIf="ValidarPermiso(['Asignar permiso', 'Revocar permiso'])">
+                <a  [routerLink]="['/administrador/usuarios/control-permisos']" routerLinkActive="is-active">
+                  <i class="fas fa-plus-circle"></i>
+                  Control de permisos
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="ValidarPermiso(['Ver proyectos', 'Aumentar aprobado proyecto', 'Nuevo proyecto'])">
+        <p class="menu-label">Modulo de proyectos</p>
       <ul class="menu-list">
         <li>
           <ul>
-            <li>
-              <a [routerLink]="['/administrador/usuarios/crear-usuario']" routerLinkActive="is-active" >
-                <i class="fas fa-user-plus "></i>
-                Crear cuenta
-              </a>
-            </li>
-            <li>
-              <a [routerLink]="['/administrador/usuarios/listar-inactivos']" routerLinkActive="is-active">
-                <i class="fas fa-users"></i>
-                Listar cuentas <small>( Inactivas )</small>
-              </a>
-            </li>
-            <li>
-              <a   [routerLink]="['/administrador/usuarios/listar-activos']" routerLinkActive="is-active">
-                <i class="far fa-list-alt"></i>
-                Listar cuentas <small>( Activas )</small>
-              </a>
-            </li>
-            <li>
-              <a  [routerLink]="['/administrador/usuarios/control-permisos']" routerLinkActive="is-active">
-                <i class="fas fa-plus-circle"></i>
-                Control de permisos
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <p class="menu-label">Modulo de proyectos</p>
-      <ul class="menu-list">
-        <li>
-          <ul>
-            <li>
+            <li *ngIf="ValidarPermiso(['Nuevo proyecto'])">
               <a routerLink="/administrador/proyectos/crear-proyecto" routerLinkActive="is-active" >
                 <i class="fas fa-file"></i>
                 Crear proyecto
               </a>
             </li>
-            <li>
+            <li *ngIf="ValidarPermiso(['Ver proyectos'])">
               <a routerLink="/administrador/proyectos/listar-proyectos" routerLinkActive="is-active" >
                 <i class="fas fa-file"></i>
                 Listar proyectos
               </a>
             </li>
-            <li>
-              <a routerLink="/administrador/aumentar-proyecto/aprobado" routerLinkActive="is-active">
-                <i class="fas fa-euro-sign"></i>
-                Aumentar aprobado del proyecto
-              </a>
-            </li>
-            <li>
-              <a routerLink="/administrador/aumentar-proyecto/aprobado-desde-comision" routerLinkActive="is-active">
-                <i class="fas fa-dollar-sign"></i>
-                Aumentar aprobado desde el proyecto comisión
-              </a>
-            </li>
+            <ng-container *ngIf="ValidarPermiso(['Aumentar aprobado proyecto', 'Egreso directo'])">
+              <li *ngIf="ValidarPermiso(['Aumentar aprobado proyecto'])">
+                <a routerLink="/administrador/aumentar-proyecto/aprobado" routerLinkActive="is-active">
+                  <i class="fas fa-euro-sign"></i>
+                  Aumentar aprobado del proyecto
+                </a>
+              </li>
+              <li *ngIf="ValidarPermiso(['Aumentar aprobado proyecto'])">
+                <a routerLink="/administrador/aumentar-proyecto/aprobado-desde-comision" routerLinkActive="is-active">
+                  <i class="fas fa-dollar-sign"></i>
+                  Aumentar aprobado desde el proyecto comisión
+                </a>
+              </li>
+              <li *ngIf="ValidarPermiso(['Egreso directo'])">
+                <a routerLink="/administrador/egresos-directo" routerLinkActive="is-active">
+                  <i class="fas fa-euro-sign"></i>
+                  Egreso directo
+                </a>
+              </li>
+            </ng-container>
+
           </ul>
         </li>
       </ul>
-      <p class="menu-label">Modulo de concepto</p>
+      </ng-container>
+      <ng-container *ngIf="ValidarPermiso(['Nuevo concepto', 'Eliminar concepto'])">
+        <p class="menu-label">Modulo de concepto</p>
       <ul class="menu-list">
         <li>
           <ul>
-            <li>
+            <li *ngIf="ValidarPermiso(['Nuevo concepto'])">
               <a routerLink="/administrador/conceptos/registrar" routerLinkActive="is-active">
                 <i class="fas fa-plus"></i>
                 Agregar concepto
               </a>
             </li>
-            <li>
+            <li >
               <a routerLink="/administrador/conceptos/listar" routerLinkActive="is-active">
                 <i class="fas fa-plus"></i>
                 Listar conceptos
@@ -142,17 +162,19 @@
           </ul>
         </li>
       </ul>
-      <p class="menu-label">Modulo de bancos</p>
+      </ng-container>
+      <ng-container *ngIf="ValidarPermiso(['Nuevo banco','Eliminar banco'])">
+        <p class="menu-label">Modulo de bancos</p>
       <ul class="menu-list">
         <li>
           <ul>
-            <li>
+            <li *ngIf="ValidarPermiso(['Nuevo banco'])">
               <a routerLink="/administrador/bancos/registrar" routerLinkActive="is-active">
                 <i class="fas fa-university"></i>
                 Agregar banco
               </a>
             </li>
-            <li>
+            <li >
               <a routerLink="/administrador/bancos/listar" routerLinkActive="is-active">
                 <i class="fas fa-university"></i>
                 Listar bancos
@@ -161,6 +183,7 @@
           </ul>
         </li>
       </ul>
+      </ng-container>
     </aside>
   </div>
 

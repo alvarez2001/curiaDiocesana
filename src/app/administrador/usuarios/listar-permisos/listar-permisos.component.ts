@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy } from '@a
 import { UsersService } from 'src/app/services/usersAdmin/users.service';
 import { permisosStateModel, permisosModel, PermisoAsignarRevocar, PermisosRevocarAsignarState } from '../models/usersInactive.models';
 import { Observable } from 'rxjs';
+import { LogRegService } from 'src/app/services/login/log-reg.service';
 
 @Component({
   selector: 'app-listar-permisos',
@@ -17,9 +18,13 @@ export class ListarPermisosComponent  {
 
   addTrashPermisos:Observable<PermisosRevocarAsignarState>;
 
-  constructor(private UsersSvc:UsersService) {
+  constructor(private UsersSvc:UsersService, private LogRegSvc:LogRegService) {
     this.addTrashPermisos = this.UsersSvc.getAddOrTrashPermisoUser()
    }
+
+   ValidarPermiso(permisos:string[]):boolean{
+    return this.LogRegSvc.VerificarPermiso(permisos)
+  }
 
   comprobarIgualdad(permisoBuscado:string):boolean{
     const permisos = this.permisosUser.permisos;

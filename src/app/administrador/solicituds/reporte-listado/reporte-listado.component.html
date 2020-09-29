@@ -1,32 +1,42 @@
-<div class="columns is-multiline ">
-  <div class="column is-12">
-    <h1 class="has-text-centered title is-uppercase">Reportes {{formSelect.get('selectTipo').value}}</h1>
-  </div>
-
-  <div class="column is-12 is-6-tablet is-4-desktop margin-auto">
-    <div class="field has-addons">
-      <div class="control is-expanded" [formGroup]="formSelect">
-        <div class="select is-fullwidth">
-          <select  formControlName="selectTipo">
-            <option disabled selected value=""> Seleccione el tipo de reporte </option>
-            <option value="Egresos">Egresos</option>
-            <option value="Ingresos">Ingresos</option>
-          </select>
-        </div>
-      </div>
+<div class="columns is-multiline">
+    <div class="column is-12">
+        <h1 class="has-text-centered title is-uppercase">
+            Reportes {{ formSelect.get("selectTipo").value }}
+        </h1>
     </div>
-  </div>
 
-  <div class="column is-12" *ngIf="comprobar('Egresos')">
-    <app-egresos-listado></app-egresos-listado>
-  </div>
+    <div class="column is-12 is-6-tablet is-4-desktop margin-auto">
+        <div class="field has-addons">
+            <div class="control is-expanded" [formGroup]="formSelect">
+                <div class="select is-fullwidth">
+                    <select formControlName="selectTipo">
+            <option disabled selected value="">
+              Seleccione el tipo de reporte
+            </option>
+            <option value="Egresos">Egresos</option>
+            <option value="Egresos directos">Egresos directos</option>
+            <option value="Ingresos">Ingresos</option>
+            <option value="Busqueda personalizada">
+              Busqueda personalizada
+            </option>
+          </select>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="column is-12" *ngIf="comprobar('Ingresos')">
-    <app-ingresos-listado></app-ingresos-listado>
-  </div>
+    <div class="column is-12" *ngIf="comprobar('Egresos')">
+        <app-egresos-listado></app-egresos-listado>
+    </div>
 
+    <div class="column is-12" *ngIf="comprobar('Ingresos')">
+        <app-ingresos-listado></app-ingresos-listado>
+    </div>
 
-
+    <div class="column is-12" *ngIf="comprobar('Egresos directos')">
+        <app-egreso-directo-reporte></app-egreso-directo-reporte>
+    </div>
+    <div class="column is-12" *ngIf="comprobar('Busqueda personalizada')">
+        <app-busqueda-personalizada></app-busqueda-personalizada>
+    </div>
 </div>
-
-

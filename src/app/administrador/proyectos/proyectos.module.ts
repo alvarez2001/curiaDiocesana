@@ -30,6 +30,8 @@ import { CrearBancoComponent } from './crear-banco/crear-banco.component';
 import { ListarBancosComponent } from './listar-bancos/listar-bancos.component';
 import { InfoBancoComponent } from './info-banco/info-banco.component';
 import { SharedModule } from "../../modules/shared/shared.module";
+import { EgresoDirectosComponent } from './egreso-directos/egreso-directos.component';
+import { EgresoRegComponent } from './egreso-directos/egreso-reg/egreso-reg.component';
 
 const ngrxImports = [
   StoreModule.forFeature(KeyProjectsFeature, {
@@ -46,7 +48,8 @@ const ngrxImports = [
     conceptoRegistrarEliminar: reducers.registroConceptoAdmin,
     conceptosTodos: reducers.ListadoConceptosAdmin,
     registrarEliminarBanco:reducers.RegistroEliminarBanco,
-    todosLosBancos:reducers.TodosLosBancos
+    todosLosBancos:reducers.TodosLosBancos,
+    EgresoDirecto:reducers.EgresoDirecto
   }),
   EffectsModule.forFeature([ProjectsEffects]),
 ];
@@ -71,6 +74,8 @@ const ngrxImports = [
     CrearBancoComponent,
     ListarBancosComponent,
     InfoBancoComponent,
+    EgresoDirectosComponent,
+    EgresoRegComponent,
   ],
   imports: [
     CommonModule,

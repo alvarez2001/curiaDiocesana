@@ -70,6 +70,9 @@
                     *ngIf="proyectosSolicitante.success === 1"
                     >Seleccione un proyecto</option
                   >
+                  <option value="null" disabled selected *ngIf="proyectosSolicitante.success === 1 && proyectosSolicitante.data.length === 0">
+                    No posee proyectos activos
+                  </option>
                   <option
                     disabled
                     selected
@@ -273,7 +276,7 @@
                     readonly
                     type="text"
                     formControlName="cantidad"
-                    placeholder="Responsable de la solicitud"
+                    placeholder="Cantidad"
                   />
                   <span class="icon is-small is-left has-text-link-dark"
 
@@ -295,7 +298,7 @@
                     (keypress)="comprobar($event)"
                     readonly
                     formControlName="precio"
-                    placeholder="Concepto de la solicitud"
+                    placeholder="Precio"
                   />
                   <span class="icon is-small is-left has-text-link-dark"
 
@@ -314,7 +317,7 @@
                     type="text"
                     readonly
                     formControlName="descripcion"
-                    placeholder="Concepto de la solicitud"
+                    placeholder="Descripción"
                   />
                   <span class="icon is-small is-left has-text-link-dark"
                   >
@@ -350,7 +353,7 @@
                 }"
                 type="text"
                 formControlName="cantidad"
-                placeholder="Responsable de la solicitud"
+                placeholder="Cantidad"
               />
               <span class="icon is-small is-left "
               [ngClass]="{
@@ -386,7 +389,7 @@
                   'is-success': formElement.get('precio')?.errors === null
                 }"
                 formControlName="precio"
-                placeholder="Concepto de la solicitud"
+                placeholder="Precio"
               />
               <span class="icon is-small is-left "
               [ngClass]="{
@@ -419,7 +422,7 @@
                   'is-success': formElement.get('descripcion')?.errors === null
                 }"
                 formControlName="descripcion"
-                placeholder="Concepto de la solicitud"
+                placeholder="Descripción"
               />
               <span class="icon is-small is-left "
               [ngClass]="{
@@ -655,7 +658,7 @@
                         readonly
                         type="text"
                         formControlName="cantidad"
-                        placeholder="Responsable de la solicitud"
+                        placeholder="Cantidad"
                       />
                       <span class="icon is-small is-left has-text-link-dark"
 
@@ -679,7 +682,7 @@
 
                         readonly
                         formControlName="precio"
-                        placeholder="Concepto de la solicitud"
+                        placeholder="Precio"
                       />
                       <span class="icon is-small is-left has-text-link-dark"
 
@@ -699,7 +702,7 @@
                         type="text"
                         readonly
                         formControlName="descripcion"
-                        placeholder="Concepto de la solicitud"
+                        placeholder="Descripción"
                       />
                       <span class="icon is-small is-left has-text-link-dark"
                       >

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Global } from 'src/app/services/Global';
-import { SolicitudModel, EgresosIngresosModel, EjecucionSolicitud } from "../models/solicitud-i";
+import { SolicitudModel, EgresosIngresosModel, EjecucionSolicitud, ModeloPersonalizada } from "../models/solicitud-i";
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoSolicitudModelComponent } from '../info-solicitud-model/info-solicitud-model.component';
@@ -68,9 +68,27 @@ export class SolicitudsService {
   ListarReportesPorDiaIngresos(data:{fecha:string}):Observable<EgresosIngresosModel[]>{
     return this.http.post<EgresosIngresosModel[]>(`${this.url}reporte/listado/dia/ingreso`,data);
   }
+  ListarReportesPorDiaEgresosDirecto(data:{fecha:string}):Observable<EgresosIngresosModel[]>{
+    return this.http.post<EgresosIngresosModel[]>(`${this.url}reporte/listado/dia/egresoDirecto`, data);
+  }
+  BusquedaPersonalizadaAPI(data:ModeloPersonalizada){
+    window.open(`${this.url}reporte/personalizado/${data.valor}/${data.busqueda}/${data.ano}-${data.mes}`, 'Busqueda personalizada')
+  }
 
-  RegistrarOperacion(data:EjecucionSolicitud, idSolicitud:number):Observable<string>{
-    return this.http.post<string>(`${this.url}operacion/add/solicitud/${idSolicitud}`, data)
+  RegistrarOperacion(data:EjecucionSolicitud, idSolicitud:number):Observable<{id:number,mensaje:string}>{
+
+    let formdata = new FormData();
+    formdata.append('archivo', data.archivo);
+    formdata.append('banco',data.banco);
+    formdata.append('comision', data.comision);
+    formdata.append('fecha',data.fecha);
+    formdata.append('referencia',data.referencia);
+    if(data?.proyecto_ingreso){
+      formdata.append('proyecto_ingreso',data.proyecto_ingreso)
+    }
+
+
+    return this.http.post<{id:number,mensaje:string}>(`${this.url}operacion/add/solicitud/${idSolicitud}`, formdata)
   }
 
   buscarEgresoPorId(idEgreso:number):Observable<EgresosIngresosModel>{
@@ -87,6 +105,9 @@ export class SolicitudsService {
 
   mostrarInfoEgreso(idEgreso:number){
     window.open(`${this.url}planilla/egreso/${idEgreso}`, 'Detalle del egreso')
+  }
+  mostrarInfoEgresoDirecto(idEgreso:number){
+    window.open(`${this.url}planilla/egreso/directo/${idEgreso}`, 'Detalle del egreso')
   }
 
 

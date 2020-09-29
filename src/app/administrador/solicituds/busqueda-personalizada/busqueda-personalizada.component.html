@@ -1,0 +1,121 @@
+<div class="columns is-multiline">
+  <ng-container [formGroup]="formBusqueda">
+    <div class="column is-4-desktop is-4-tablet">
+      <div class="field">
+        <label class="label">Tipo de busqueda</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select formControlName="busqueda">
+              <option selected disabled value="" >Tipo de busqueda</option>
+              <option value="referencia">Referencia</option>
+              <option value="concepto">Concepto</option>
+            </select>
+          </div>
+        </div>
+        <p
+        *ngIf="formBusqueda.get('busqueda')?.errors !== null"
+          class="help"
+          [ngClass]="{
+            'is-danger': formBusqueda.get('busqueda')?.errors
+          }"
+        >
+          {{ mostrarErrores("busqueda") }}
+        </p>
+      </div>
+    </div>
+    <div class="column is-4-desktop is-4-tablet">
+      <div class="field">
+        <label class="label">Mes</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select formControlName="mes">
+              <option selected disabled value="">Mes de busqueda</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
+        </div>
+        <p
+        *ngIf="formBusqueda.get('mes')?.errors !== null"
+          class="help"
+          [ngClass]="{
+            'is-danger': formBusqueda.get('mes')?.errors
+          }"
+        >
+          {{ mostrarErrores("mes") }}
+        </p>
+      </div>
+    </div>
+    <div class="column is-4-desktop is-4-tablet">
+      <div class="field">
+        <label class="label">Año</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select formControlName="ano">
+              <option selected disabled value="">Año de busqueda</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+              <option value="2021">2021</option>
+              <option value="2022">2022</option>
+            </select>
+          </div>
+        </div>
+        <p
+        *ngIf="formBusqueda.get('ano')?.errors !== null"
+          class="help"
+          [ngClass]="{
+            'is-danger': formBusqueda.get('ano')?.errors
+          }"
+        >
+          {{ mostrarErrores("ano") }}
+        </p>
+      </div>
+    </div>
+
+    <div class="column is-12">
+      <!-- <div class="field has-addons">
+        <label class="label">Valor de busqueda</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Valor de busqueda" formControlName="valor" />
+        </div>
+        <div class="control">
+          <a class="button is-info">
+            Search
+          </a>
+        </div>
+
+      </div> -->
+      <div class="field has-addons">
+
+        <div class="control is-expanded">
+          <input class="input" type="text" placeholder="Valor de busqueda" formControlName="valor" />
+          <p
+            *ngIf="formBusqueda.get('valor')?.errors !== null"
+          class="help"
+          [ngClass]="{
+            'is-danger': formBusqueda.get('valor')?.errors
+          }"
+        >
+          {{ mostrarErrores("valor") }}
+        </p>
+        </div>
+        <div class="control">
+          <button class="button is-info" [disabled]="formBusqueda.invalid" (click)="buscarData()">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

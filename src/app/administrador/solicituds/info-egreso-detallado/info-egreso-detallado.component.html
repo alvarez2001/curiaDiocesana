@@ -143,7 +143,7 @@
 
 </section>
 <footer class="modal-card-foot" style="overflow: auto;" *ngIf="(stateAnularEgreso |async) as StateAnular">
-  <button class="button is-warning " type="button" [ngClass]="{'is-loading':StateAnular.loading}" (click)="anularEgreso(data.id)" [disabled]="StateAnular.loading" *ngIf="devolverValor(data?.operacion?.status) !== 0">Anular</button>
+  <button class="button is-warning " type="button" [ngClass]="{'is-loading':StateAnular.loading}" (click)="anularEgreso(data.id)" [disabled]="StateAnular.loading" *ngIf="devolverValor(data?.operacion?.status) !== 0 && ValidarPermiso(['Anular egreso'])">Anular</button>
   <button type="button" class="button is-info" (click)="descargarPdfEgreso(data.id)">Descargar PDF</button>
   <button class="button is-danger " type="button" (click)="cerrarDialog()">Cerrar</button>
 </footer>

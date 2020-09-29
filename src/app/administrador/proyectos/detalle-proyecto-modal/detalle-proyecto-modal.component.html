@@ -94,7 +94,7 @@
         </p>
       </div>
 
-      <div class="field  is-6-tablet  column">
+      <div class="field  is-12-tablet is-6-desktop  column">
         <label class="label">Usuario responsable del proyecto</label>
         <p class="control has-icons-left">
           <input class="input" readonly type="text" placeholder="Usuario responsable" formControlName="usuario_id">
@@ -114,9 +114,9 @@
 </section>
 <footer class="modal-card-foot" style="overflow: auto;" >
 
-  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'informacion']" (click)="cerrarDialog()">Modificar Proyecto</a>
-  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'codigo']" (click)="cerrarDialog()">Modificar Código</a>
-  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'usuario']" (click)="cerrarDialog()">Modificar Usuario</a>
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'informacion']" (click)="cerrarDialog()" *ngIf="ValidarPermiso(['Modificar proyecto'])">Modificar Proyecto</a>
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'codigo']" (click)="cerrarDialog()" *ngIf="ValidarPermiso(['Modificar proyecto'])">Modificar Código</a>
+  <a class="button is-warning" [routerLink]="['administrador','proyectos','modificar-proyecto',formDetalleModal.get('id').value,'usuario']" (click)="cerrarDialog()" *ngIf="ValidarPermiso(['Modificar proyecto'])">Modificar Usuario</a>
   <button class="button is-danger" (click)="cerrarDialog()">Cerrar</button>
 </footer>
 

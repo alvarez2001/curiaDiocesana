@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PaginateProjectsState, ProyectoEspecificoState } from '../models/ngrxModelsProjects';
 import { ProjectModelComplete } from "../models/project.models";
 import { Global } from 'src/app/services/Global';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,7 +16,12 @@ export class ListarProyectosComponent implements OnInit {
 
   ProjectsPaginate$:Observable<PaginateProjectsState>
   ModalProyecto$:Observable<ProyectoEspecificoState>;
-  constructor(private ProjectsSvc:ProjectsService) { }
+  formBusqueda:FormGroup;
+  constructor(private ProjectsSvc:ProjectsService, private fb:FormBuilder) {
+    this.formBusqueda = this.fb.group({
+      busqueda:['',[Validators.required]]
+    })
+  }
 
   ngOnInit(): void {
     this.cargarProyectos();
@@ -49,6 +55,10 @@ export class ListarProyectosComponent implements OnInit {
 
   ReporteProyectos(id:number){
     window.open(`${Global.url}reporte/proyecto/${id}`, `Reporte del proyecto ${id}`)
+  }
+
+  busquedaDeProyecto(){
+    this.ProjectsSvc.cargarProyectosXnombre(this.formBusqueda.value.busqueda)
   }
 
   AuditoriaProyecto(id:number){

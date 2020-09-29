@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { HttpErrorResponse } from '@angular/common/http';
-import { SolicitudModel, EgresosIngresosModel, EjecucionSolicitud } from "../models/solicitud-i";
+import { SolicitudModel, EgresosIngresosModel, EjecucionSolicitud, ModeloPersonalizada } from "../models/solicitud-i";
 
 export const KeySolicitudsAdmin = '[MODULO SOLICITUDS ADMIN]'
 
@@ -43,6 +43,9 @@ export const ReiniciarProcesoSolicitud = createAction('[MODULO SOLICITUDES ADMIN
 
 export const CargarReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] CARGAR REPORTES POR DIA EGRESOS', props<{fecha:string}>())
 export const CargarReportePorDiaIngresos = createAction('[MODULO SOLICITUDES ADMIN] CARGAR REPORTES POR DIA INGRESOS', props<{fecha:string}>())
+export const CargarReportePorDiaEgresosDirecto = createAction('[MODULO SOLICITUDES ADMIN] CARGAR REPORTES POR DIA EGRESOS DIRECTOS', props<{fecha:string}>())
+/* export const CargarBusquedaPersonalizada = createAction('[Modulo solicitudes admin] Cargar busqueda personalizada reporte', props<{busqueda:ModeloPersonalizada}>()) */
+
 export const CorrectoReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO REPORTES POR DIA', props<{data:EgresosIngresosModel[]}>())
 export const FallidoReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO REPORTES POR DIA', props<{error:HttpErrorResponse}>())
 export const ReiniciarReportePorDia = createAction('[MODULO SOLICITUDES ADMIN] REINICIAR REPORTES POR DIA')
@@ -61,4 +64,7 @@ export const CargarAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] CARGA
 export const CorrectoAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] CORRECTO ANULAR EGRESO', props<{correcto:string}>())
 export const FallidoAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] FALLIDO ANULAR EGRESO', props<{error:HttpErrorResponse}>())
 export const ReiniciarAnularEgreso = createAction('[MODULO SOLICITUDES ADMIN] REINICIAR ANULAR EGRESO')
+
+
+
 

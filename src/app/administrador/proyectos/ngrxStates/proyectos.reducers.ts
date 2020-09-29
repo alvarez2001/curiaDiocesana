@@ -1,7 +1,7 @@
 import { on, createReducer, Action } from '@ngrx/store';
 import * as modelsNgrx from '../models/ngrxModelsProjects';
 import * as actions from './proyectos.actions';
-import { AdminsStateModel } from '../../usuarios/models/usersInactive.models';
+import { AdminsStateModel, BasicDatas } from '../../usuarios/models/usersInactive.models';
 
 const initialProject: modelsNgrx.RegisterProjectState = {
   loading: false,
@@ -98,6 +98,14 @@ const initialStateProjectsPaginate: modelsNgrx.PaginateProjectsState = {
 const _ProjectsPaginateOrProjectsAll = createReducer(
   initialStateProjectsPaginate,
   on(actions.Load_Projects_AllPaginate, (state) => {
+    return {
+      ...state,
+      loading: true,
+      success: 3,
+      dataProjects: null,
+    };
+  }),
+  on(actions.Load_Projects_Search, (state) => {
     return {
       ...state,
       loading: true,
@@ -582,4 +590,39 @@ const _TodosLosBancos = createReducer(
 
 export function TodosLosBancos(state:modelsNgrx.BancosState, action:Action){
   return _TodosLosBancos(state,action)
+}
+
+
+const initialEgresoDirectos:BasicDatas = {
+  loading:false,
+  success:3
+}
+
+const _EgresoDirecto = createReducer(
+  initialEgresoDirectos,
+  on(actions.Cargar_Egreso_Directo_Proyecto, (state)=>{
+    return {
+      ...state,
+      loading:true,
+      success:3
+    }
+  }),
+  on(actions.Correcto_Egreso_Directo_Proyecto, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:1
+    }
+  }),
+  on(actions.Fallido_Egreso_Directo_Proyecto, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:2
+    }
+  })
+)
+
+export function EgresoDirecto(state:BasicDatas, action:Action){
+  return _EgresoDirecto(state,action);
 }

@@ -3,7 +3,6 @@ import { UsersService } from 'src/app/services/usersAdmin/users.service';
 import { Observable } from 'rxjs';
 import { AdminsStateModel, permisosStateModel } from '../models/usersInactive.models';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-declare let $:any;
 
 @Component({
   selector: 'app-agregar-permisos',
@@ -32,6 +31,8 @@ export class AgregarPermisosComponent implements OnInit {
 
     this.selectAdmin.get('select').valueChanges.subscribe(res => this.UsersSvc.searchListPermisosUser(parseInt(res)))
   }
+
+
 
 
   cargarInfo(){

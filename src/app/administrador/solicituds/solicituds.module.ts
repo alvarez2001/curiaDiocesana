@@ -31,6 +31,8 @@ import { ProjectsPaginateOrProjectsAll } from '../proyectos/ngrxStates/proyectos
 import { InfoEgresoDetalladoComponent } from './info-egreso-detallado/info-egreso-detallado.component';
 import { EgresosListadoComponent } from './egresos-listado/egresos-listado.component';
 import { IngresosListadoComponent } from './ingresos-listado/ingresos-listado.component';
+import { EgresoDirectoReporteComponent } from './egreso-directo-reporte/egreso-directo-reporte.component';
+import { BusquedaPersonalizadaComponent } from './busqueda-personalizada/busqueda-personalizada.component';
 
 const ngrxImports = [
   StoreModule.forFeature(KeySolicitudsAdmin,{
@@ -51,7 +53,7 @@ const ngrxImports = [
 ]
 
 @NgModule({
-  declarations: [ListarSolicitudAdminComponent, InfoSolicitudModelComponent, AsignarTasaModalComponent, IntroducirClaveSeguridadComponent, ListarSolicitudAdminRevisadasComponent, ListarSolicitudRevisadasListoComponent, ListarSolicitudPorAutorizacionComponent, ListarSolicitudEjecutadasComponent, ListarSolicitudRechazadasComponent, ReporteListadoComponent, ReporteEgresosMensualesModalComponent, AgregarOperacionComponent, InfoEgresoDetalladoComponent, EgresosListadoComponent, IngresosListadoComponent],
+  declarations: [ListarSolicitudAdminComponent, InfoSolicitudModelComponent, AsignarTasaModalComponent, IntroducirClaveSeguridadComponent, ListarSolicitudAdminRevisadasComponent, ListarSolicitudRevisadasListoComponent, ListarSolicitudPorAutorizacionComponent, ListarSolicitudEjecutadasComponent, ListarSolicitudRechazadasComponent, ReporteListadoComponent, ReporteEgresosMensualesModalComponent, AgregarOperacionComponent, InfoEgresoDetalladoComponent, EgresosListadoComponent, IngresosListadoComponent, EgresoDirectoReporteComponent, BusquedaPersonalizadaComponent],
   imports: [
     CommonModule,
     ...ngrxImports,

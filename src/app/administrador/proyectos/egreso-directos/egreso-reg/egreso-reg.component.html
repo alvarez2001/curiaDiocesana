@@ -1,0 +1,306 @@
+<div class="is-divider" data-content="Egreso directo"></div>
+
+
+<form method="POST" [formGroup]="formularioAprobado" (ngSubmit)="guardarInformacionEgreso()">
+
+  <ng-container *ngIf="(proyectoAprobado$ | async) as aprobadoProyecto">
+    <fieldset [disabled]="aprobadoProyecto.loading">
+      <legend class="subtitle "> Egreso directo </legend>
+      <div class="columns is-multiline">
+        <div class="column is-12-mobile  "
+    [ngClass]="{'is-6-tablet is-6-desktop':formularioAprobado.get('referencia').value !== 'otros',
+     'is-12-tablet is-4-desktop':formularioAprobado.get('referencia').value === 'otros'}"
+    >
+      <div class="field">
+        <label class="label">Comisión bancaria</label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('comision')?.errors,
+            'is-info': formularioAprobado.get('comision')?.errors === null
+          }"
+          placeholder="Comisión bancaria" appSeparadorMiles formControlName="comision" (keypress)="comprobar($event)" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('comision')?.errors,
+            'has-text-link-dark': formularioAprobado.get('comision')?.errors === null
+          }">
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('comision')?.errors,
+              'is-dark': formularioAprobado.get('comision')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("comision") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop "
+    [ngClass]="{'is-6-tablet is-6-desktop':formularioAprobado.get('referencia').value !== 'otros',
+     'is-6-tablet is-4-desktop':formularioAprobado.get('referencia').value === 'otros'}"
+    >
+      <div class="field">
+        <label class="label">Referencia</label>
+        <div class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+
+          <div class="select is-fullwidth "
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('referencia')?.errors,
+            'is-info': formularioAprobado.get('referencia')?.errors === null
+          }"
+            >
+              <select formControlName="referencia" >
+                <option selected disabled value="">Seleccione la referencia</option>
+                <option *ngFor="let refe of referencias" [value]="refe.value"> {{refe.mask}} </option>
+              </select>
+            </div>
+
+
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('referencia')?.errors,
+            'has-text-link-dark': formularioAprobado.get('referencia')?.errors === null
+          }">
+          <i class="fas fa-credit-card"></i>
+          </span>
+        </div>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('referencia')?.errors,
+              'is-dark': formularioAprobado.get('referencia')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("referencia") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-6-desktop "
+    [ngClass]="{'is-6-tablet is-6-desktop':formularioAprobado.get('referencia').value !== 'otros',
+     'is-6-tablet is-4-desktop':formularioAprobado.get('referencia').value === 'otros'}"
+      *ngIf="formularioAprobado.get('referencia').value === 'otros'">
+      <div class="field">
+        <label class="label">Referencia bancaria </label>
+        <div class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+          <input class="input is-info"
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('referenciaBancaria')?.errors,
+            'is-info': formularioAprobado.get('referenciaBancaria')?.errors === null
+          }"
+          formControlName="referenciaBancaria" placeholder="Ingrese la referencia bancaria" (keypress)="comprobar($event)" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('referenciaBancaria')?.errors,
+            'has-text-link-dark': formularioAprobado.get('referenciaBancaria')?.errors === null
+          }">
+          <i class="fas fa-credit-card"></i>
+          </span>
+        </div>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('referenciaBancaria')?.errors,
+              'is-dark': formularioAprobado.get('referenciaBancaria')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("referenciaBancaria") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-4-desktop ">
+      <div class="field">
+        <label class="label">Tasa </label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('tasa')?.errors,
+            'is-info': formularioAprobado.get('tasa')?.errors === null
+          }"
+          (keypress)="comprobar($event)" appSeparadorMiles placeholder="Tasa" formControlName="tasa" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('tasa')?.errors,
+            'has-text-link-dark': formularioAprobado.get('tasa')?.errors === null
+          }"
+          >
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('tasa')?.errors,
+              'is-dark': formularioAprobado.get('tasa')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("tasa") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-6-tablet is-4-desktop ">
+      <div class="field">
+        <label class="label">Total </label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('total')?.errors,
+            'is-info': formularioAprobado.get('total')?.errors === null
+          }"
+          (keypress)="comprobar($event)" appSeparadorMiles placeholder="total" formControlName="total" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('total')?.errors,
+            'has-text-link-dark': formularioAprobado.get('total')?.errors === null
+          }"
+          >
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('total')?.errors,
+              'is-dark': formularioAprobado.get('total')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("total") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-12-tablet is-4-desktop ">
+      <div class="field">
+        <label class="label">Fecha bancaria</label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('fecha_bancaria')?.errors,
+            'is-info': formularioAprobado.get('fecha_bancaria')?.errors === null
+          }"
+          (keypress)="comprobar($event)" placeholder="AAAA/MM/DD" formControlName="fecha_bancaria" type="date" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('fecha_bancaria')?.errors,
+            'has-text-link-dark': formularioAprobado.get('fecha_bancaria')?.errors === null
+          }"
+          >
+            <i class="fas fa-calendar-day"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('fecha_bancaria')?.errors,
+              'is-dark': formularioAprobado.get('fecha_bancaria')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("fecha_bancaria") }}
+          </p>
+      </div>
+    </div>
+
+    <div class="column is-12-mobile is-12-tablet is-12-desktop ">
+      <div class="field">
+        <label class="label">Concepto</label>
+        <p class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+          <input class="input is-info"
+
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('concepto')?.errors,
+            'is-info': formularioAprobado.get('concepto')?.errors === null
+          }"
+           placeholder="Concepto del egreso" formControlName="concepto" type="text" >
+          <span class="icon is-small is-left "
+          [ngClass]="{
+            'has-text-danger': formularioAprobado.get('concepto')?.errors,
+            'has-text-link-dark': formularioAprobado.get('concepto')?.errors === null
+          }"
+          >
+            <i class="fas fa-file-signature"></i>
+          </span>
+        </p>
+        <p
+            class="help"
+            [ngClass]="{
+              'is-danger': formularioAprobado.get('concepto')?.errors,
+              'is-dark': formularioAprobado.get('concepto')?.errors === null
+            }"
+          >
+            {{ mostrarErrores("concepto") }}
+          </p>
+      </div>
+    </div>
+
+    <ng-container *ngIf="(formularioAprobado.get('referencia').valueChanges |async) as referenciaBancaria">
+      <ng-container *ngIf="(projectsStateAll |async) as proyectosEstado">
+      <div class="column is-12-mobile is-12-tablet is-12-desktop " *ngIf="referenciaBancaria === '002' || referenciaBancaria === '005'">
+        <div class="field is-clearfix">
+          <label class="label">Proyecto a reembolsar</label>
+          <div class="control has-icons-left" [ngClass]="{'is-loading':aprobadoProyecto.loading}">
+
+            <div class="select is-fullwidth "
+          [ngClass]="{
+            'is-danger': formularioAprobado.get('proyecto_ingreso')?.errors,
+            'is-info': formularioAprobado.get('proyecto_ingreso')?.errors === null
+          }"
+            >
+              <select formControlName="proyecto_ingreso" >
+                <option selected disabled value="">Seleccione el proyecto a ingresar</option>
+
+                  <option disabled *ngIf="proyectosEstado.loading"> Buscando informacion... </option>
+                  <option disabled *ngIf="proyectosEstado.success === 2"> Ha ocurrido un error intente nuevamente </option>
+                  <option *ngFor="let proyecto of proyectosEstado?.dataProjects?.data" [value]="proyecto.id"> {{proyecto.codigo}} --- {{proyecto.nombre}} </option>
+
+
+              </select>
+            </div>
+            <span class="icon is-small is-left has-text-link-dark"
+            [ngClass]="{
+              'has-text-danger': formularioAprobado.get('proyecto_ingreso')?.errors,
+              'has-text-link-dark': formularioAprobado.get('proyecto_ingreso')?.errors === null
+            }"
+            >
+              <i class="fas fa-id-card"></i>
+            </span>
+          </div>
+          <p
+              class="help"
+              [ngClass]="{
+                'is-danger': formularioAprobado.get('proyecto_ingreso')?.errors,
+                'is-dark': formularioAprobado.get('proyecto_ingreso')?.errors === null
+              }"
+            >
+              {{ mostrarErrores("proyecto_ingreso") }}
+            </p>
+        </div>
+      </div>
+    </ng-container>
+    </ng-container>
+
+
+
+        <div class="field has-text-centered column is-12">
+          <button type="submit" class="is-info button is-uppercase" [ngClass]="{'is-loading':aprobadoProyecto.loading}" [disabled]="formularioAprobado.invalid || aprobadoProyecto.loading || comprobarString()">Egreso directo</button>
+        </div>
+
+
+      </div>
+
+
+
+    </fieldset>
+  </ng-container>
+
+</form>

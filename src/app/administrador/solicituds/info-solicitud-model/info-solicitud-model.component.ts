@@ -9,6 +9,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AsignacionTasaState } from '../models/models-ngrx';
 import { BasicDatas } from '../../usuarios/models/usersInactive.models';
 import { Global } from 'src/app/services/Global';
+import { LogRegService } from 'src/app/services/login/log-reg.service';
 
 @Component({
   selector: 'app-info-solicitud-model',
@@ -30,11 +31,16 @@ export class InfoSolicitudModelComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<InfoSolicitudModelComponent>,
     @Inject(MAT_DIALOG_DATA) private dataFuera:{tipoSolicitud:number, solicitud:SolicitudModel},
     private modalesSvc:ModalesService,
-    private solicitudNgrx:SolicitudsNgrxService
+    private solicitudNgrx:SolicitudsNgrxService,
+    private LogRegSvc:LogRegService
     ) {
       this.url = Global.url
       this.tipo = this.dataFuera.tipoSolicitud;
       this.data = this.dataFuera.solicitud;
+    }
+
+    ValidarPermiso(permisos:string[]):boolean{
+      return this.LogRegSvc.VerificarPermiso(permisos)
     }
 
   ngOnInit(): void {

@@ -81,7 +81,7 @@
 
 </section>
 <footer class="modal-card-foot" style="overflow: auto;"  *ngIf="(eliminarStateBancos$ | async) as deleteBanco">
-  <button class="button is-warning" type="button" (click)="eliminarBanco()" [disabled]="deleteBanco.loading" [ngClass]="{'is-loading':deleteBanco.loading}"> Eliminar banco </button>
+  <button class="button is-warning" type="button" (click)="eliminarBanco()" [disabled]="deleteBanco.loading" [ngClass]="{'is-loading':deleteBanco.loading}" *ngIf="ValidarPermiso(['Eliminar banco'])"> Eliminar banco </button>
   <button class="button is-danger" type="button" (click)="cerrarDialog()" [disabled]="deleteBanco.loading" [ngClass]="{'is-loading':deleteBanco.loading}">Cerrar</button>
 </footer>
 

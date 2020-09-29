@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { SolicitudStateModel, AsignacionTasaState, DatosReportesDiaState } from '../models/models-ngrx';
 import * as actions from '../ngrx/solicituds.actions';
 import { BasicDatas } from '../../usuarios/models/usersInactive.models';
-import { EjecucionSolicitud } from '../models/solicitud-i';
+import { EjecucionSolicitud, ModeloPersonalizada } from '../models/solicitud-i';
 
 
 @Injectable({
@@ -91,6 +91,12 @@ export class SolicitudsNgrxService {
   DispatchCargarReportesPorDiaIngresos(data:string){
     this.store.dispatch(actions.CargarReportePorDiaIngresos({fecha:data}))
   }
+  DispatchCargarEgresosDirectosReporte(data:string){
+    this.store.dispatch(actions.CargarReportePorDiaEgresosDirecto({fecha:data}))
+  }
+  /* DipatchBusquedaPersonalizada(data:ModeloPersonalizada){
+    this.store.dispatch(actions.CargarBusquedaPersonalizada({busqueda:data}))
+  } */
   ReiniciarReportePorDia(){
     this.store.dispatch(actions.ReiniciarReportePorDia())
   }
@@ -127,5 +133,6 @@ export class SolicitudsNgrxService {
   DispatchReiniciarAnularEgreso(){
     this.store.dispatch(actions.ReiniciarAnularEgreso())
   }
+
 
 }

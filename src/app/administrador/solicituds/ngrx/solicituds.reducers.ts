@@ -277,6 +277,22 @@ const _StateReportesPorDia = createReducer(
       data:[]
     }
   }),
+  on(actions.CargarReportePorDiaEgresosDirecto, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3,
+      data:[]
+    }
+  }),
+  /* on(actions.CargarBusquedaPersonalizada, (state)=>{
+    return {
+      ...state,
+      loading:false,
+      success:3,
+      data:[]
+    }
+  }), */
   on(actions.CorrectoReportePorDia, (state, {data})=>{
     return {
       ...state,

@@ -47,8 +47,8 @@
             >
               <select formControlName="usuario">
                 <option selected disabled value="null">Seleccione el usuario con acceso al proyecto</option>
-                <option *ngIf="usuariosSolicitantes.success === 3">Cargando usuarios...</option>
-                <option *ngIf="usuariosSolicitantes.success === 2"> Cargue nuevamente los usuarios </option>
+                <option *ngIf="usuariosSolicitantes.success === 3" disabled>Cargando usuarios...</option>
+                <option *ngIf="usuariosSolicitantes.success === 2" disabled> Cargue nuevamente los usuarios </option>
                 <option *ngFor="let user of usuariosSolicitantes.dataAdmin" [value]="user.id">{{ user.apellidos + ', '+ user.nombres | titlecase }} -- {{user.nacionalidad+user.cedula}}</option>
               </select>
             </div>

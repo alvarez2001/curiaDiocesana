@@ -1,48 +1,64 @@
-<div class="container">
-  <div class="columns is-mobile is-multiline has-text-centered margin-auto">
+<div class="container  box my-5 pb-5">
+  <div class="columns  minw-80vh margin-auto  is-mobile is-multiline has-text-centered margin-auto">
 
-    <div class="column is-12 my-3">
+    <div class="column is-12 mt-4">
       <h1 class="subtitle has-text-centered is-size-3">
         Bienvenido(a): {{retornarNombre() | titlecase}}
       </h1>
     </div>
 
-    <div class="column is-3-desktop  is-4-tablet is-mobile">
-      <div class="card bg-azul box-shadow-Propio" [routerLink]="['usuarios']" >
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img
-            class="my-1"
-              src="./assets/iconosDescargados/iconoUser.svg"
-              alt="Placeholder image"
-            />
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="">
-            <p class="title is-5 has-text-centered has-text-white is-uppercase"> Usuarios </p>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="column is-12 ">
 
-    <div class="column is-3-desktop  is-4-tablet is-mobile">
-      <div class="card bg-verde box-shadow-Propio" [routerLink]="['proyectos']">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img
-            class="my-1"
-              src="./assets/iconosDescargados/iconoProyectos.svg"
-              alt="Placeholder image"
-            />
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="">
-            <p class="title is-5 has-text-centered has-text-white is-uppercase"> Proyectos </p>
+      <div class="tile is-ancestor">
+        <div class="tile is-vertical is-12">
+
+          <div class="tile">
+
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-info is-light shadowDegradadoPropio" routerLink="/administrador/solicitudes/listar/solicitud">
+                <figure class="image is-4by3">
+                  <img src="assets/iconosDescargados/libreta.jpg">
+                </figure>
+                <!-- <p class="title mt-2">68</p> -->
+                <p class="subtitle">Asignación de tasa</p>
+
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-info is-light shadowDegradadoPropio " routerLink="/administrador/solicitudes/listar/revision">
+                <figure class="image is-4by3">
+                  <img src="assets/iconosDescargados/revision.jpg">
+                </figure>
+                <!-- <p class="title mt-2">68</p> -->
+                <p class="subtitle">Revisión</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-info is-light shadowDegradadoPropio " routerLink="/administrador/solicitudes/listar/autorizacion">
+                <figure class="image is-4by3">
+                  <img src="assets/iconosDescargados/autorizacion.jpg">
+                </figure>
+                <!-- <p class="title mt-2">68</p> -->
+                <p class="subtitle">Autorización</p>
+              </article>
+            </div>
+            <div class="tile is-parent">
+              <article class="tile is-child notification is-info is-light shadowDegradadoPropio " routerLink="/administrador/solicitudes/listar/ejecucion">
+                <figure class="image is-4by3">
+                  <img src="assets/iconosDescargados/ejecucion.jpg">
+                </figure>
+                <!-- <p class="title mt-2">68</p> -->
+                <p class="subtitle">Ejecución</p>
+              </article>
+            </div>
+
           </div>
+
         </div>
+
       </div>
+
+
     </div>
 
 

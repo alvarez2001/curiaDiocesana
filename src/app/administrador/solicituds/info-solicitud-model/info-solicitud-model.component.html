@@ -192,15 +192,15 @@
 <footer class="modal-card-foot" style="overflow: auto;" >
 
   <ng-container *ngIf="(StateProceso$ | async ) as procesos">
-    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="revisarSolicitud(data.id)" *ngIf="tipo === 5">Revisar</button>
-    <button class="button is-success  " type="button" [disabled]="procesos.loading" (click)="autorizarSolicitud(data.id)" *ngIf="tipo === 1">Autorizar</button>
-    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="asignarTasa()" *ngIf="tipo === 0">Asignar Tasa</button>
-    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="ejecutarOperacion()" *ngIf="tipo === 2">Ejecutar operación</button>
+    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="revisarSolicitud(data.id)" *ngIf="tipo === 5 && ValidarPermiso(['Revisar solicitud'])">Revisar</button>
+    <button class="button is-success  " type="button" [disabled]="procesos.loading" (click)="autorizarSolicitud(data.id)" *ngIf="tipo === 1 && ValidarPermiso(['Autorizar solicitud'])">Autorizar</button>
+    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="asignarTasa()" *ngIf="tipo === 0 && ValidarPermiso(['Asignar tasa'])">Asignar Tasa</button>
+    <button class="button is-success " type="button" [disabled]="procesos.loading" (click)="ejecutarOperacion()" *ngIf="tipo === 2 && ValidarPermiso(['Ejecutar solicitud'])">Ejecutar operación</button>
 
   <button class="button is-info" type="button" (click)="PdfSolicitud(data.id)">
     Descargar PDF
   </button>
-    <button class="button is-warning " type="button" [disabled]="procesos.loading" (click)="rechazarSolicitud(data.id)" *ngIf="tipo !== 4 && tipo !== 3">Rechazar</button>
+    <button class="button is-warning " type="button" [disabled]="procesos.loading" (click)="rechazarSolicitud(data.id)" *ngIf="tipo !== 4 && tipo !== 3 && ValidarPermiso(['Rechazar solicitud'])">Rechazar</button>
   </ng-container>
 
   <button class="button is-danger " type="button" (click)="cerrarDialog()">Cerrar</button>
