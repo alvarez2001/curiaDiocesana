@@ -23,6 +23,7 @@ import { AsidesNavAdministradorComponent } from './asides-nav-administrador/asid
 import { LogRegService } from './services/login/log-reg.service';
 import { PermitirIngresoUsuarioGuard } from "./guards/permitir-ingreso-usuario.guard";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
@@ -62,7 +63,8 @@ const ngrxImport = [
   ],
   providers: [
     LogRegService,
-    { provide: HTTP_INTERCEPTORS, useClass: PrincipalInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: PrincipalInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
